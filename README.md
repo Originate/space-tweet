@@ -32,3 +32,8 @@
   ```
   bin/start [--port <port>]
   ```
+
+
+## Development
+
+See your [developer documentation](CONTRIBUTING.md)
