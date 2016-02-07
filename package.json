@@ -1,5 +1,5 @@
 {
-  "name": "exosphere-sdk-poc-users-service",
+  "name": "exosphere-users-service",
   "version": "0.0.1",
   "description": "Stores user account data",
   "main": "app.ls",
