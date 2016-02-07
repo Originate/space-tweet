@@ -1,6 +1,7 @@
-# Users Service
+# Users Service [![Circle CI](https://circleci.com/gh/Originate/exosphere-users-service.svg?style=shield&circle-token=b8da91b53c5b269eeb2460e344f521461ffe9895)](https://circleci.com/gh/Originate/exosphere-users-service)
+> An Exosphere service for storing user data
 
-This service stores user account data like names, emails, etc.
+
 
 
 ## Installation
