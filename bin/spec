@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ "$#" != "1" ]; then
+  NODE_ENV='test' cucumber-js --tags ~@todo "$@"
+else
+  NODE_ENV='test' DEBUG='*,-express:*,-body-parser:*,-finalhandler,-rails-delegate,-text-stream-search' cucumber-js --tags ~@todo "$@"
+fi
+
