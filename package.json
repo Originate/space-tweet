@@ -1,7 +1,7 @@
 {
   "name": "exosphere-users-service",
   "version": "0.0.1",
-  "description": "Stores user account data",
+  "description": "An ExoSphere service that stores user accounts",
   "main": "app.ls",
   "scripts": {
     "test": "cucumber-js"
