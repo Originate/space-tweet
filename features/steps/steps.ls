@@ -6,7 +6,6 @@ require! {
   'jsdiff-console'
   'livescript'
   'nitroglycerin' : N
-  'observable-process' : ObservableProcess
   'portfinder'
   'record-http' : HttpRecorder
   'request'
