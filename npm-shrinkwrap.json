@@ -346,17 +346,12 @@
       "resolved": "https://registry.npmjs.org/exorelay/-/exorelay-0.8.0.tgz"
     },
     "exoservice": {
-      "version": "0.7.1",
-      "from": "exoservice@>=0.7.1 <0.8.0",
+      "version": "0.8.0",
+      "from": "exoservice@0.8.0",
       "dependencies": {
-        "exocomm-mock": {
-          "version": "0.3.3",
-          "from": "exocomm-mock@>=0.3.2 <0.4.0"
-        },
-        "portfinder": {
-          "version": "1.0.0",
-          "from": "portfinder@>=1.0.0 <2.0.0",
-          "resolved": "https://registry.npmjs.org/portfinder/-/portfinder-1.0.0.tgz"
+        "exorelay": {
+          "version": "0.9.0",
+          "from": "exorelay@>=0.9.0 <0.10.0"
         }
       }
     },
