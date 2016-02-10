@@ -29,8 +29,8 @@ module.exports = ->
       ..base-port = 4000
       ..get-port N (@service-port) ~>
         @exocomm.register-service name: 'users', port: @service-port
-        @process = new ExoService exocomm-port: @exocomm.port
-          ..listen port: @service-port
+        @process = new ExoService exocomm-port: @exocomm.port, exorelay-port: @service-port
+          ..listen!
           ..on 'online', -> done!
 
 
