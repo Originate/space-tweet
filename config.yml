@@ -1,0 +1,12 @@
+name: Exosphere users service
+description: Manages user accounts in Exosphere applications
+
+start-command: bin/start --port {{exorelay-port}} --exocomm-port {{exocomm-port}}
+
+messages:
+  receives:
+    - users.create
+    - users.list
+  sends:
+    - users.created
+    - users.listed
