@@ -6,7 +6,7 @@ require! {
   'jsdiff-console'
   'livescript'
   'nitroglycerin' : N
-  'portfinder'
+  'port-reservation'
   'record-http' : HttpRecorder
   'request'
   '../support/remove-ids' : {remove-ids}
@@ -17,16 +17,14 @@ require! {
 module.exports = ->
 
   @Given /^an ExoComm server$/, (done) ->
-    portfinder
-      ..base-port = 4100
+    port-reservation
       ..get-port N (@exocomm-port) ~>
         @exocomm = new ExoCommMock
           ..listen @exocomm-port, done
 
 
   @Given /^an instance of this service$/, (done) ->
-    portfinder
-      ..base-port = 4000
+    port-reservation
       ..get-port N (@service-port) ~>
         @exocomm.register-service name: 'users', port: @service-port
         @process = new ExoService exocomm-port: @exocomm.port, exorelay-port: @service-port
