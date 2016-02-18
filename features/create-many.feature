@@ -2,10 +2,10 @@ Feature: Creating multiple users
 
   As an ExoService application
   I want to be able to create multiple user accounts in one transaction
-  So that I don't have to send and receive so many commands and remain performant.
+  So that I don't have to send and receive so many messages and remain performant.
 
   Rules:
-  - send the command "users.create-many" to create several user accounts at once
+  - send the message "users.create-many" to create several user accounts at once
   - payload is an array of user data
   - when successful, the service replies with "users.created"
     and the newly created account
@@ -19,7 +19,7 @@ Feature: Creating multiple users
 
 
   Scenario: creating a valid user account
-    When sending the command "users.create" with the payload:
+    When sending the message "users.create" with the payload:
       """
       name: 'Jean-Luc Picard'
       """
@@ -34,7 +34,7 @@ Feature: Creating multiple users
 
 
   Scenario: trying to create a user account with an empty name
-    When sending the command "users.create" with the payload:
+    When sending the message "users.create" with the payload:
       """
       name: ''
       """

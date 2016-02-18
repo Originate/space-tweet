@@ -14,7 +14,7 @@ Feature: Creating users
 
 
   Scenario: creating a valid user account
-    When sending the command "users.create" with the payload:
+    When sending the message "users.create" with the payload:
       """
       name: 'Jean-Luc Picard'
       """
@@ -29,7 +29,7 @@ Feature: Creating users
 
 
   Scenario: trying to create a user account with an empty name
-    When sending the command "users.create" with the payload:
+    When sending the message "users.create" with the payload:
       """
       name: ''
       """

@@ -10,7 +10,7 @@ Feature: Listing all users
 
 
   Scenario: no users exist in the database
-    When sending the command "users.list"
+    When sending the message "users.list"
     Then the service replies with "users.listed" and the payload:
       """
       count: 0
@@ -23,7 +23,7 @@ Feature: Listing all users
       | NAME            |
       | Jean-Luc Picard |
       | Will Riker      |
-    When sending the command "users.list"
+    When sending the message "users.list"
     Then the service replies with "users.listed" and the payload:
       """
       count: 2
