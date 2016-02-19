@@ -27,7 +27,7 @@ module.exports = ->
     port-reservation
       ..get-port N (@service-port) ~>
         @exocomm.register-service name: 'users', port: @service-port
-        @process = new ExoService exocomm-port: @exocomm.port, exorelay-port: @service-port
+        @process = new ExoService service-name: 'users', exocomm-port: @exocomm.port, exorelay-port: @service-port
           ..listen!
           ..on 'online', -> done!
 
