@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
+set -e
 
-ncu -a
+ncu --upgradeAll
+rm -rf node_modules
+rm npm-shrinkwrap.json
+npm i
+npm shrinkwrap --dev
