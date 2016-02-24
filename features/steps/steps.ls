@@ -46,7 +46,10 @@ module.exports = ->
 
 
   @When /^sending the message "([^"]*)" with the payload:$/, (message, payload) ->
-    eval livescript.compile "payload-json = {\n#{payload}\n}", bare: true, header: no
+    if payload[0] is '['
+      eval livescript.compile "payload-json = #{payload}", bare: true, header: no
+    else
+      eval livescript.compile "payload-json = {\n#{payload}\n}", bare: true, header: no
     @exocomm
       ..send-message service: 'users', name: message, payload: payload-json
 
@@ -69,7 +72,7 @@ module.exports = ->
 
 
   @Then /^the service replies with "([^"]*)" and the payload:$/, (message, payload, done) ->
+    eval livescript.compile "expected-payload = {\n#{payload}\n}", bare: yes, header: no
     @exocomm.wait-until-receive ~>
       actual-payload = @exocomm.received-messages![0].payload
-      eval livescript.compile "expected-payload = {\n#{payload}\n}", bare: yes, header: no
       jsdiff-console remove-ids(actual-payload), remove-ids(expected-payload), done

@@ -18,19 +18,22 @@ Feature: Creating multiple users
     And an instance of this service
 
 
-  Scenario: creating a valid user account
-    When sending the message "users.create" with the payload:
+  Scenario: creating valid user accounts
+    When sending the message "users.create-many" with the payload:
       """
-      name: 'Jean-Luc Picard'
+      [
+        * name: 'Jean-Luc Picard'
+        * name: 'William Riker'
+      ]
       """
-    Then the service replies with "users.created" and the payload:
+    Then the service replies with "users.created-many" and the payload:
       """
-      id: /\d+/
-      name: 'Jean-Luc Picard'
+      count: 2
       """
     And the service contains the user accounts:
       | NAME            |
       | Jean-Luc Picard |
+      | William Riker   |
 
 
   Scenario: trying to create a user account with an empty name
