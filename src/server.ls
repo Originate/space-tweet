@@ -21,9 +21,7 @@ module.exports =
     | not user-data.name  =>  return reply 'users.not-created', error: 'Name cannot be blank'
     collection.insert-one user-data, (err, result) ->
       | err  =>  return reply 'users.not-created', error: err
-      user = result.ops[0]
-      user.id = user._id ; delete user._id
-      reply 'users.created', user
+      reply 'users.created', mongo-to-id(result.ops[0])
 
 
   'users.create-many': (users, {reply}) ->
@@ -34,6 +32,16 @@ module.exports =
 
   'users.list': (_, {reply}) ->
     collection.find({}).to-array N (users) ->
-      for user in users
-        user.id = user._id ; delete user._id
+      mongo-to-ids users
       reply 'users.listed', count: users.length, users: users
+
+
+
+function mongo-to-id entry
+  entry.id = entry._id ; delete entry._id
+  entry
+
+
+function mongo-to-ids entries
+  for entry in entries
+    mongo-to-id entry
