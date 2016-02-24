@@ -35,7 +35,7 @@ module.exports =
   'users.list': (_, {reply}) ->
     collection.find({}).to-array N (users) ->
       mongo-to-ids users
-      reply 'users.listed', count: users.length, users: users
+      reply 'users.listed', {count: users.length, users}
 
 
 
@@ -48,7 +48,8 @@ function any-empty-names users
 
 
 function mongo-to-id entry
-  entry.id = entry._id ; delete entry._id
+  entry.id = entry._id
+  delete entry._id
   entry
 
 
