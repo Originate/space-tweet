@@ -37,9 +37,12 @@ Feature: Creating multiple users
 
 
   Scenario: trying to create a user account with an empty name
-    When sending the message "users.create" with the payload:
+    When sending the message "users.create-many" with the payload:
       """
-      name: ''
+      [
+        * name: 'Jean-Luc Picard'
+        * name: ''
+      ]
       """
     Then the service replies with "users.not-created" and the payload:
       """

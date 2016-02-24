@@ -1,6 +1,7 @@
 require! {
   'mongodb' : {MongoClient}
   'nitroglycerin' : N
+  'prelude-ls' : {any}
 }
 debug = require('debug')('users-service')
 env = require('get-env')('test')
@@ -18,13 +19,14 @@ module.exports =
 
 
   'users.create': (user-data, {reply}) ->
-    | not user-data.name  =>  return reply 'users.not-created', error: 'Name cannot be blank'
+    | empty-name user-data  =>  return reply 'users.not-created', error: 'Name cannot be blank'
     collection.insert-one user-data, (err, result) ->
       | err  =>  return reply 'users.not-created', error: err
       reply 'users.created', mongo-to-id(result.ops[0])
 
 
   'users.create-many': (users, {reply}) ->
+    | any-empty-names users  =>  return reply 'users.not-created', error: 'Name cannot be blank'
     collection.insert users, (err, result) ->
       | err  =>  return reply 'users.not-created-many', error: err
       reply 'users.created-many', count: result.inserted-count
@@ -35,6 +37,14 @@ module.exports =
       mongo-to-ids users
       reply 'users.listed', count: users.length, users: users
 
+
+
+function empty-name user
+  user.name.length is 0
+
+
+function any-empty-names users
+  any empty-name, users
 
 
 function mongo-to-id entry
