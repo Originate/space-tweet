@@ -15,7 +15,8 @@
 ## Testing
 
 ```
-$ bin/spec
+$ spec
+$ lint
 ```
 
 
