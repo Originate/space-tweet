@@ -1,6 +1,6 @@
 require! {
-  '../support/dim-console'
   'chai' : {expect}
+  'dim-console'
   'exocomm-mock' : ExoCommMock
   'exoservice' : ExoService
   'jsdiff-console'
