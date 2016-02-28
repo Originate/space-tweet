@@ -15,20 +15,19 @@
 ## Testing
 
 ```
-bin/spec
+$ bin/spec
 ```
 
 
-## Update
+## Update dependencies
 
 ```
-david
+$ update
 ```
 
 
 ## Deploy a new version
 
 ```
-npm version <patch|minor|major>
-npm publish
+$ publish <patch|minor|major>
 ```
