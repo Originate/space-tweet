@@ -25,6 +25,9 @@
     "request": "2.69.0",
     "wait": "0.1.0"
   },
+  "engines": {
+    "npm": ">= 3.0.0"
+  },
   "files": [
     "config.yml",
     "dist",
