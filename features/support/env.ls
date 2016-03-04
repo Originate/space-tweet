@@ -23,7 +23,7 @@ module.exports = ->
       done!
 
   @After ->
-    @exocomm?.close!
+    @exocom?.close!
     @process?.close!
 
 

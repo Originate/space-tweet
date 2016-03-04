@@ -30,7 +30,7 @@
 * start the service
 
   ```
-  bin/start --exorelay-port 3000 --exocomm-port 3100
+  bin/start --exorelay-port 3000 --exocom-port 3100
   ```
 
 
