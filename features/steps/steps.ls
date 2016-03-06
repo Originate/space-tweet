@@ -9,7 +9,6 @@ require! {
   'port-reservation'
   'record-http' : HttpRecorder
   'request'
-  '../support/remove-ids' : {remove-ids}
   'wait' : {wait-until}
 }
 
@@ -76,7 +75,7 @@ module.exports = ->
     @exocom
       ..send-message service: 'users', name: 'users.list'
       ..wait-until-receive ~>
-        actual-users = remove-ids @exocom.received-messages![0].payload.users
+        actual-users = @remove-ids @exocom.received-messages![0].payload.users
         expected-users = [{[key.to-lower-case!, value] for key, value of user} for user in table.hashes!]
         jsdiff-console actual-users, expected-users, done
 
@@ -85,4 +84,4 @@ module.exports = ->
     eval livescript.compile "expected-payload = {\n#{payload}\n}", bare: yes, header: no
     @exocom.wait-until-receive ~>
       actual-payload = @exocom.received-messages![0].payload
-      jsdiff-console remove-ids(actual-payload), remove-ids(expected-payload), done
+      jsdiff-console @remove-ids(actual-payload), @remove-ids(expected-payload), done
