@@ -3,8 +3,8 @@ set -e
 
 if [ "$#" == "0" ]; then
   bin/lint
-  NODE_ENV='test' cucumber-js --tags ~@todo
+  cucumber-js --tags ~@todo
 else
-  NODE_ENV='test' DEBUG='*,-express:*,-body-parser:*,-finalhandler,-rails-delegate,-text-stream-search' cucumber-js --tags ~@todo "$@"
+  DEBUG='*,-express:*,-body-parser:*,-finalhandler,-rails-delegate,-text-stream-search' cucumber-js --tags ~@todo "$@"
 fi
 

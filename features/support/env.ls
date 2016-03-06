@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test'
 require! {
   'mongodb' : {MongoClient}
   'nitroglycerin' : N
