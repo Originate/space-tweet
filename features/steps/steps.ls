@@ -54,6 +54,7 @@ module.exports = ->
       ..send-message service: 'users', name: message, payload: payload-json
 
 
+
   @Then /^the service contains no users$/, (done) ->
     @exocom
       ..send-message service: 'users', name: 'users.list'
