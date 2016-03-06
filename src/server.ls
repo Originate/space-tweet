@@ -49,12 +49,14 @@ module.exports =
 
 
 
+function any-empty-names users
+  any empty-name, users
+
+
 function empty-name user
   user.name.length is 0
 
 
-function any-empty-names users
-  any empty-name, users
 
 
 function mongo-to-id entry
