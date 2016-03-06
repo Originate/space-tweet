@@ -40,8 +40,7 @@ module.exports = ->
 
 
   @When /^sending the message "([^"]*)"$/, (message) ->
-    @exocom
-      ..send-message service: 'users', name: message
+    @exocom.send-message service: 'users', name: message
 
 
   @When /^sending the message "([^"]*)" with the payload:$/, (message, payload, done) ->
