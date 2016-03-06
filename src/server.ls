@@ -18,6 +18,13 @@ module.exports =
       done!
 
 
+  'user.get-details': (query, {reply}) ->
+    collection.find(query).to-array N (users) ->
+      user = users[0]
+      mongo-to-id user
+      reply 'user.details', user
+
+
   'users.create': (user-data, {reply}) ->
     | empty-name user-data  =>  return reply 'users.not-created', error: 'Name cannot be blank'
     collection.insert-one user-data, (err, result) ->

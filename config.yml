@@ -11,6 +11,8 @@ messages:
   receives:
     - users.create
     - users.list
+    - user.get-details
   sends:
     - users.created
     - users.listed
+    - user.details
