@@ -19,7 +19,11 @@ module.exports =
 
 
   'user.get-details': (query, {reply}) ->
-    collection.find(id-to-mongo query).to-array N (users) ->
+    try
+      mongo-query = id-to-mongo query
+    catch
+      reply 'user.not-found', query
+    collection.find(mongo-query).to-array N (users) ->
       switch users.length
         | 0  =>  reply 'user.not-found', query
         | _  =>
