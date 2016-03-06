@@ -54,6 +54,15 @@ module.exports = ->
       ..send-message service: 'users', name: message, payload: payload-json
 
 
+  @When /^sending the message "([^"]*)" with the id of (.+)$/, (message, user-name, done) ->
+    @exocom
+      ..send-message service: 'users', name: 'user.get-details', payload: {name: user-name}
+      ..wait-until-receive ~>
+        id = @exocom.received-messages![0].payload.id
+        @exocom.send-message service: 'users', name: 'user.get-details', payload: {id}
+        done!
+
+
 
   @Then /^the service contains no users$/, (done) ->
     @exocom

@@ -13,6 +13,15 @@ Feature: Get details for a user
       | William Riker   |
 
 
+  Scenario: locating existing user by id
+    When sending the message "user.get-details" with the id of Jean-Luc Picard
+    Then the service replies with "user.details" and the payload:
+      """
+      id: /.+/
+      name: 'Jean-Luc Picard'
+      """
+
+
   Scenario: locating existing user by name
     When sending the message "user.get-details" with the payload:
       """

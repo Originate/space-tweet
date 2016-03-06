@@ -1,5 +1,5 @@
 require! {
-  'mongodb' : {MongoClient}
+  'mongodb' : {MongoClient, ObjectID}
   'nitroglycerin' : N
   'prelude-ls' : {any}
 }
@@ -58,9 +58,9 @@ function empty-name user
 
 
 function id-to-mongo query
-  result = ^^query
+  result = {[k,v] for k,v of query}
   if result.id
-    result._id = result.id
+    result._id = new ObjectID result.id
     delete result.id
   result
 
