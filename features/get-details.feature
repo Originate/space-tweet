@@ -13,7 +13,7 @@ Feature: Get details for a user
       | William Riker   |
 
 
-  Scenario: requesting details for an existing user
+  Scenario: locating existing user by name
     When sending the message "user.get-details" with the payload:
       """
       name: 'Jean-Luc Picard'
@@ -25,7 +25,18 @@ Feature: Get details for a user
       """
 
 
-  Scenario: requesting details for a non-existing user
+  Scenario: locating non-existing user by id
+    When sending the message "user.get-details" with the payload:
+      """
+      id: 'zonk'
+      """
+    Then the service replies with "user.not-found" and the payload:
+      """
+      id: 'zonk'
+      """
+
+
+  Scenario: locating non-existing user by name
     When sending the message "user.get-details" with the payload:
       """
       name: 'zonk'

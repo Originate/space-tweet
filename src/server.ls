@@ -19,7 +19,7 @@ module.exports =
 
 
   'user.get-details': (query, {reply}) ->
-    collection.find(query).to-array N (users) ->
+    collection.find(id-to-mongo query).to-array N (users) ->
       switch users.length
         | 0  =>  reply 'user.not-found', query
         | _  =>
@@ -57,6 +57,12 @@ function empty-name user
   user.name.length is 0
 
 
+function id-to-mongo query
+  result = ^^query
+  if result.id
+    result._id = result.id
+    delete result.id
+  result
 
 
 function mongo-to-id entry
