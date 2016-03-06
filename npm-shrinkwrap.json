@@ -156,6 +156,11 @@
         }
       }
     },
+    "coffee-script": {
+      "version": "1.10.0",
+      "from": "coffee-script@>=1.0.1",
+      "resolved": "https://registry.npmjs.org/coffee-script/-/coffee-script-1.10.0.tgz"
+    },
     "color-convert": {
       "version": "1.0.0",
       "from": "color-convert@>=1.0.0 <2.0.0",
@@ -328,6 +333,11 @@
       "version": "0.1.1",
       "from": "ecc-jsbn@>=0.0.1 <1.0.0",
       "resolved": "https://registry.npmjs.org/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz"
+    },
+    "eco": {
+      "version": "1.0.3",
+      "from": "eco@*",
+      "resolved": "https://registry.npmjs.org/eco/-/eco-1.0.3.tgz"
     },
     "ee-first": {
       "version": "1.1.1",
@@ -3582,6 +3592,11 @@
       "version": "3.0.1",
       "from": "strip-ansi@>=3.0.0 <4.0.0",
       "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz"
+    },
+    "strscan": {
+      "version": "1.0.1",
+      "from": "strscan@>=1.0.1",
+      "resolved": "https://registry.npmjs.org/strscan/-/strscan-1.0.1.tgz"
     },
     "supports-color": {
       "version": "2.0.0",

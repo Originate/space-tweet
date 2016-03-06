@@ -14,7 +14,10 @@ Feature: Get details for a user
 
 
   Scenario: locating existing user by id
-    When sending the message "user.get-details" with the id of Jean-Luc Picard
+    When sending the message "user.get-details" with the payload:
+      """
+      id: '<%= @id_of 'Jean-Luc Picard' %>'
+      """
     Then the service replies with "user.details" and the payload:
       """
       id: /.+/

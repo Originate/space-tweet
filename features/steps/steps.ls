@@ -44,22 +44,14 @@ module.exports = ->
       ..send-message service: 'users', name: message
 
 
-  @When /^sending the message "([^"]*)" with the payload:$/, (message, payload) ->
-    if payload[0] is '['
-      eval livescript.compile "payload-json = #{payload}", bare: true, header: no
-    else
-      eval livescript.compile "payload-json = {\n#{payload}\n}", bare: true, header: no
-    @exocom
-      ..send-message service: 'users', name: message, payload: payload-json
-
-
-  @When /^sending the message "([^"]*)" with the id of (.+)$/, (message, user-name, done) ->
-    @exocom
-      ..send-message service: 'users', name: 'user.get-details', payload: {name: user-name}
-      ..wait-until-receive ~>
-        id = @exocom.received-messages![0].payload.id
-        @exocom.send-message service: 'users', name: 'user.get-details', payload: {id}
-        done!
+  @When /^sending the message "([^"]*)" with the payload:$/, (message, payload, done) ->
+    @fill-in-user-ids payload, (filled-payload) ~>
+      if filled-payload[0] is '['   # payload is an array
+        eval livescript.compile "payload-json = #{filled-payload}", bare: true, header: no
+      else                          # payload is a hash
+        eval livescript.compile "payload-json = {\n#{filled-payload}\n}", bare: true, header: no
+      @exocom.send-message service: 'users', name: message, payload: payload-json
+      done!
 
 
 
