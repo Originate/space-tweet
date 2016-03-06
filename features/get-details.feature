@@ -23,3 +23,14 @@ Feature: Get details for a user
       id: /.+/
       name: 'Jean-Luc Picard'
       """
+
+
+  Scenario: requesting details for a non-existing user
+    When sending the message "user.get-details" with the payload:
+      """
+      name: 'zonk'
+      """
+    Then the service replies with "user.not-found" and the payload:
+      """
+      name: 'zonk'
+      """

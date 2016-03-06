@@ -20,9 +20,12 @@ module.exports =
 
   'user.get-details': (query, {reply}) ->
     collection.find(query).to-array N (users) ->
-      user = users[0]
-      mongo-to-id user
-      reply 'user.details', user
+      switch users.length
+        | 0  =>  reply 'user.not-found', query
+        | _  =>
+            user = users[0]
+            mongo-to-id user
+            reply 'user.details', user
 
 
   'users.create': (user-data, {reply}) ->
