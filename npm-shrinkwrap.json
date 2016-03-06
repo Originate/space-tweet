@@ -336,7 +336,7 @@
     },
     "eco": {
       "version": "1.0.3",
-      "from": "eco@*",
+      "from": "eco@1.0.3",
       "resolved": "https://registry.npmjs.org/eco/-/eco-1.0.3.tgz"
     },
     "ee-first": {
