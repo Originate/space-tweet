@@ -52,6 +52,21 @@ module.exports =
               reply 'user.updated', user
 
 
+  'user.delete': (query, {reply}) ->
+    try
+      id = new ObjectID query.id
+    catch
+      return reply 'user.not-found', id: query.id
+    collection.find(_id: id).to-array N (users) ->
+      | users.length is 0  =>  return reply 'user.not-found', query
+      user = users[0]
+      mongo-to-id user
+      collection.delete-one _id: id, N (result) ->
+        switch result.deleted-count
+          | 0  =>  reply 'user.not-found', query
+          | _  =>  reply 'user.deleted', user
+
+
   'users.create': (user-data, {reply}) ->
     | empty-name user-data  =>  return reply 'users.not-created', error: 'Name cannot be blank'
     collection.insert-one user-data, (err, result) ->

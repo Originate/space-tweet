@@ -13,9 +13,11 @@ messages:
     - users.list
     - user.get-details
     - user.update
+    - user.delete
   sends:
     - users.created
     - users.listed
     - user.details
     - user.not-found
     - user.updated
+    - user.deleted
