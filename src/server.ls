@@ -1,9 +1,9 @@
 require! {
+  'chalk' : {bold}
   'mongodb' : {MongoClient, ObjectID}
   'nitroglycerin' : N
   'prelude-ls' : {any}
 }
-debug = require('debug')('users-service')
 env = require('get-env')('test')
 
 
@@ -12,9 +12,10 @@ collection = null
 module.exports =
 
   before-all: (done) ->
-    MongoClient.connect "mongodb://localhost:27017/space-tweet-users-#{env}", N (mongo-db) ->
+    mongo-db-name = "space-tweet-users-#{env}"
+    MongoClient.connect "mongodb://localhost:27017/#{mongo-db-name}", N (mongo-db) ->
       collection := mongo-db.collection 'users'
-      debug 'MongoDB connected'
+      console.log "MongoDB #{bold mongo-db-name} connected"
       done!
 
 
@@ -22,13 +23,17 @@ module.exports =
     try
       mongo-query = id-to-mongo query
     catch
-      reply 'user.not-found', query
+      console.log "the given query (#{query}) contains an invalid id"
+      return reply 'user.not-found', query
     collection.find(mongo-query).to-array N (users) ->
       switch users.length
-        | 0  =>  reply 'user.not-found', query
+        | 0  =>
+            console.log "user #{bold mongo-query} not found"
+            reply 'user.not-found', query
         | _  =>
             user = users[0]
             mongo-to-id user
+            console.log "reading user #{bold mongo-query}"
             reply 'user.details', user
 
 
@@ -36,7 +41,7 @@ module.exports =
     try
       id = new ObjectID user-data.id
     catch
-      console.log "user '#{user-data.id}' not found"
+      console.log "the given query (#{user-data}) contains an invalid id"
       return reply 'user.not-found', id: user-data.id
     delete user-data.id
     collection.update-one {_id: id}, {$set: user-data}, N (result) ->
@@ -48,7 +53,7 @@ module.exports =
             collection.find(_id: id).to-array N (users) ->
               user = users[0]
               mongo-to-id user
-              console.log "updated user '#{user.name}' (#{user.id})"
+              console.log "updating user '#{user.name}' (#{user.id})"
               reply 'user.updated', user
 
 
@@ -56,21 +61,31 @@ module.exports =
     try
       id = new ObjectID query.id
     catch
+      console.log "the given query (#{query}) contains an invalid id"
       return reply 'user.not-found', id: query.id
     collection.find(_id: id).to-array N (users) ->
-      | users.length is 0  =>  return reply 'user.not-found', query
+      | users.length is 0  =>
+          console.log "user '#{id}' not deleted because it doesn't exist"
+          return reply 'user.not-found', query
       user = users[0]
       mongo-to-id user
       collection.delete-one _id: id, N (result) ->
-        switch result.deleted-count
-          | 0  =>  reply 'user.not-found', query
-          | _  =>  reply 'user.deleted', user
+        if result.deleted-count is 0
+          console.log "user '#{id}' not deleted because it doesn't exist"
+          return reply 'user.not-found', query
+        console.log "deleting user '#{user.name}' (#{user.id})"
+        reply 'user.deleted', user
 
 
   'users.create': (user-data, {reply}) ->
-    | empty-name user-data  =>  return reply 'users.not-created', error: 'Name cannot be blank'
+    | empty-name user-data  =>
+        console.log 'Cannot create user: Name cannot be blank'
+        return reply 'users.not-created', error: 'Name cannot be blank'
     collection.insert-one user-data, (err, result) ->
-      | err  =>  return reply 'users.not-created', error: err
+      if err
+        console.log "Error creating user: #{err}"
+        return reply 'users.not-created', error: err
+      console.log "creating user #{bold user-data.name}"
       reply 'users.created', mongo-to-id(result.ops[0])
 
 
@@ -84,6 +99,7 @@ module.exports =
   'users.list': (_, {reply}) ->
     collection.find({}).to-array N (users) ->
       mongo-to-ids users
+      console.log "listing users: #{users.length} found"
       reply 'users.listed', {count: users.length, users}
 
 
