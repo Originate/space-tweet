@@ -1,8 +1,8 @@
 require! {
-  'chalk' : {bold}
   'mongodb' : {MongoClient, ObjectID}
   'nitroglycerin' : N
   'prelude-ls' : {any}
+  'util'
 }
 env = require('get-env')('test')
 
@@ -15,7 +15,7 @@ module.exports =
     mongo-db-name = "space-tweet-users-#{env}"
     MongoClient.connect "mongodb://localhost:27017/#{mongo-db-name}", N (mongo-db) ->
       collection := mongo-db.collection 'users'
-      console.log "MongoDB #{bold mongo-db-name} connected"
+      console.log "MongoDB '#{mongo-db-name}' connected"
       done!
 
 
@@ -28,12 +28,12 @@ module.exports =
     collection.find(mongo-query).to-array N (users) ->
       switch users.length
         | 0  =>
-            console.log "user #{bold mongo-query} not found"
+            console.log "user '#{mongo-query}' not found"
             reply 'user.not-found', query
         | _  =>
             user = users[0]
             mongo-to-id user
-            console.log "reading user #{bold mongo-query}"
+            console.log "reading user '#{user.name}' (#{user.id})"
             reply 'user.details', user
 
 
@@ -85,7 +85,7 @@ module.exports =
       if err
         console.log "Error creating user: #{err}"
         return reply 'users.not-created', error: err
-      console.log "creating user #{bold user-data.name}"
+      console.log "creating user '#{user-data.name}'"
       reply 'users.created', mongo-to-id(result.ops[0])
 
 
