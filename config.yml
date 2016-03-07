@@ -12,7 +12,10 @@ messages:
     - users.create
     - users.list
     - user.get-details
+    - user.update
   sends:
     - users.created
     - users.listed
     - user.details
+    - user.not-found
+    - user.updated

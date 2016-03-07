@@ -23,7 +23,7 @@ Feature: Creating users
       id: /\d+/
       name: 'Jean-Luc Picard'
       """
-    And the service contains the user accounts:
+    And the service now contains the users:
       | NAME            |
       | Jean-Luc Picard |
 

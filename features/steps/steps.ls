@@ -62,7 +62,7 @@ module.exports = ->
         done!
 
 
-  @Then /^the service contains the user accounts:$/, (table, done) ->
+  @Then /^the service now contains the users:$/, (table, done) ->
     @exocom
       ..send-message service: 'users', name: 'users.list'
       ..wait-until-receive ~>

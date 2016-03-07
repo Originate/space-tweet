@@ -30,7 +30,7 @@ Feature: Creating multiple users
       """
       count: 2
       """
-    And the service contains the user accounts:
+    And the service now contains the users:
       | NAME            |
       | Jean-Luc Picard |
       | William Riker   |
