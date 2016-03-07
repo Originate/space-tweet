@@ -28,3 +28,19 @@ Feature: Updating a user
       | NAME          |
       | Cptn. Picard  |
       | William Riker |
+
+
+  Scenario: trying to update a non-existing user
+    When sending the message "user.update" with the payload:
+      """
+      id: 'zonk'
+      name: 'Cptn. Zonk'
+      """
+    Then the service replies with "user.not-found" and the payload:
+      """
+      id: 'zonk'
+      """
+    And the service now contains the users:
+      | NAME            |
+      | Jean-Luc Picard |
+      | William Riker   |

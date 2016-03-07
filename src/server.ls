@@ -33,10 +33,13 @@ module.exports =
 
 
   'user.update': (user-data, {reply}) ->
-    id = new ObjectID user-data.id
+    try
+      id = new ObjectID user-data.id
+    catch
+      return reply 'user.not-found', id: user-data.id
     delete user-data.id
     collection.update-one {_id: id}, {$set: user-data}, N (result) ->
-      | result.modified-count is 0  =>  return reply 'user.not-updated'
+      | result.modified-count is 0  =>  return reply 'user.not-found'
       collection.find(_id: id).to-array N (users) ->
         user = users[0]
         mongo-to-id user
