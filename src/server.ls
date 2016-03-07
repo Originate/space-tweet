@@ -36,14 +36,20 @@ module.exports =
     try
       id = new ObjectID user-data.id
     catch
+      console.log "user '#{user-data.id}' not found"
       return reply 'user.not-found', id: user-data.id
     delete user-data.id
     collection.update-one {_id: id}, {$set: user-data}, N (result) ->
-      | result.modified-count is 0  =>  return reply 'user.not-found'
-      collection.find(_id: id).to-array N (users) ->
-        user = users[0]
-        mongo-to-id user
-        reply 'user.updated', user
+      switch result.modified-count
+        | 0  =>
+            console.log "user '#{id}' not updated because it doesn't exist"
+            return reply 'user.not-found'
+        | _  =>
+            collection.find(_id: id).to-array N (users) ->
+              user = users[0]
+              mongo-to-id user
+              console.log "updated user '#{user.name}' (#{user.id})"
+              reply 'user.updated', user
 
 
   'users.create': (user-data, {reply}) ->
