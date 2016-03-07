@@ -13,7 +13,7 @@ Feature: Get details for a user
       | William Riker   |
 
 
-  Scenario: locating existing user by id
+  Scenario: locating an existing user by id
     When sending the message "user.get-details" with the payload:
       """
       id: '<%= @id_of 'Jean-Luc Picard' %>'
@@ -25,7 +25,7 @@ Feature: Get details for a user
       """
 
 
-  Scenario: locating existing user by name
+  Scenario: locating an existing user by name
     When sending the message "user.get-details" with the payload:
       """
       name: 'Jean-Luc Picard'
@@ -37,7 +37,7 @@ Feature: Get details for a user
       """
 
 
-  Scenario: locating non-existing user by id
+  Scenario: locating a non-existing user by id
     When sending the message "user.get-details" with the payload:
       """
       id: 'zonk'
@@ -48,7 +48,7 @@ Feature: Get details for a user
       """
 
 
-  Scenario: locating non-existing user by name
+  Scenario: locating a non-existing user by name
     When sending the message "user.get-details" with the payload:
       """
       name: 'zonk'
