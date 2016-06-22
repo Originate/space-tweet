@@ -38,7 +38,6 @@
   "main": "app.ls",
   "private": true,
   "scripts": {
-    "prepublish": "bin/build",
     "start": "exo-js",
     "test": "bin/spec"
   }
