@@ -6,6 +6,12 @@
 
 ## Installation
 
+* install ZeroMQ
+
+  ```
+  brew install zeromq
+  ```
+
 * install MongoDB
 
   ```

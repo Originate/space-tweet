@@ -11,7 +11,8 @@ executedModules:
     root: 'bin/*'
 
 ignoreErrors:
-  missing: []
+  missing:
+    - node-uuid
   shouldBeDependency: []
   shouldBeDevDependency: []
   unused:

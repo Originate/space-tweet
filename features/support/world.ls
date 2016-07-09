@@ -11,9 +11,9 @@ World = !->
     eco.render template, id_of: (user) -> needed-ids.push user
     return done template if needed-ids.length is 0
     @exocom
-      ..send-message service: 'users', name: 'user.get-details', payload: {name: needed-ids[0]}
-      ..wait-until-receive ~>
-        id = @exocom.received-messages![0].payload.id
+      ..send service: 'users', name: 'user.get-details', payload: {name: needed-ids[0]}
+      ..on-receive ~>
+        id = @exocom.received-messages[0].payload.id
         done eco.render(template, id_of: (user) -> id)
 
 

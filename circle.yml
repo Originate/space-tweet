@@ -1,16 +1,20 @@
 machine:
   node:
-    version: 5.5.0
+    version: 6.1.0
+
+
+dependencies:
+  pre:
+    - bin/install-zeromq-circleci
 
 
 test:
 
   pre:
-    - node_modules/o-tools-livescript/bin/build
     - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
 
   override:
-    - bin/lint
+    - node_modules/o-tools/bin/lint
     - cucumber-js --format json:$CIRCLE_TEST_REPORTS/cucumber/tests.cucumber --format pretty
 
 
