@@ -1,4 +1,9 @@
-# Users Service [![Circle CI](https://circleci.com/gh/Originate/exosphere-users-service.svg?style=shield&circle-token=b8da91b53c5b269eeb2460e344f521461ffe9895)](https://circleci.com/gh/Originate/exosphere-users-service)
+# Users Service 
+
+[![Circle CI](https://circleci.com/gh/Originate/exosphere-users-service.svg?style=shield&circle-token=b8da91b53c5b269eeb2460e344f521461ffe9895)](https://circleci.com/gh/Originate/exosphere-users-service)
+[![Dependency Status](https://david-dm.org/originate/exosphere-users-service.svg)](https://david-dm.org/originate/exosphere-users-service)
+[![devDependency Status](https://david-dm.org/originate/exosphere-users-service/dev-status.svg)](https://david-dm.org/originate/exosphere-users-service#info=devDependencies)
+
 > An Exosphere service for storing user data
 
 
