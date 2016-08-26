@@ -10,4 +10,4 @@ services:
   users:
     location: ../exosphere-users-service
   tweets:
-    location: ../exosphere-mongodb-service
+    location: ../exosphere-tweets-service

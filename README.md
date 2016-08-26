@@ -43,11 +43,11 @@ installed.
 * set up all the services in this application:
 
   ```
-  exo-install
+  exo setup
   ```
 
 * start this application
 
   ```
-  exo-run
+  exo run
   ```
