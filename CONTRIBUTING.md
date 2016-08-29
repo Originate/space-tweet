@@ -14,10 +14,9 @@
 
 ## Testing
 
-```
-$ spec
-$ lint
-```
+- don't run `build`, i.e. there should be no `dist` directory
+- run all tests: `spec`
+- run linter only: `lint`
 
 
 ## Update dependencies
