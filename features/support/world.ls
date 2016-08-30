@@ -11,7 +11,7 @@ World = !->
     eco.render template, id_of: (entry) -> needed-ids.push entry
     return done template if needed-ids.length is 0
     @exocom
-      ..send service: 'tweets', name: 'mongo.get-details', payload: {content: needed-ids[0]}
+      ..send service: 'tweets', name: 'tweets.get-details', payload: {content: needed-ids[0]}
       ..on-receive ~>
         id = @exocom.received-messages[0].payload.id
         done eco.render(template, id_of: (entry) -> id)

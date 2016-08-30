@@ -1,7 +1,7 @@
 Feature: Deleting an entry
 
   Rules:
-  - when receiving "mongo.delete", removes the entry with the given id and returns "mongo.deleted"
+  - when receiving "tweets.delete", removes the entry with the given id and returns "tweets.deleted"
 
 
   Background:
@@ -15,11 +15,11 @@ Feature: Deleting an entry
 
 
   Scenario: deleting an existing entry
-    When sending the message "mongo.delete" with the payload:
+    When sending the message "tweets.delete" with the payload:
       """
       id: '<%= @id_of 'Tuesday' %>'
       """
-    Then the service replies with "mongo.deleted" and the payload:
+    Then the service replies with "tweets.deleted" and the payload:
       """
       id: /.+/
       content: 'Tuesday'
@@ -32,11 +32,11 @@ Feature: Deleting an entry
 
 
   Scenario: trying to delete a non-existing entry
-    When sending the message "mongo.delete" with the payload:
+    When sending the message "tweets.delete" with the payload:
       """
       id: 'zonk'
       """
-    Then the service replies with "mongo.not-found" and the payload:
+    Then the service replies with "tweets.not-found" and the payload:
       """
       id: 'zonk'
       """

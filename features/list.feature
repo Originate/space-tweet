@@ -14,11 +14,11 @@ Feature: Listing all entries
 
 
   Scenario: no entries exist in the database
-    When sending the message "mongo.list" with the payload:
+    When sending the message "tweets.list" with the payload:
       """
       owner_id: 1
       """
-    Then the service replies with "mongo.listed" and the payload:
+    Then the service replies with "tweets.listed" and the payload:
       """
       count: 0
       entries: []
@@ -31,11 +31,11 @@ Feature: Listing all entries
       | 1        | Hello world!            |
       | 1        | Hello again!            |
       | 2        | Entry from another user |
-    When sending the message "mongo.list" with the payload:
+    When sending the message "tweets.list" with the payload:
       """
       owner_id: 1
       """
-    Then the service replies with "mongo.listed" and the payload:
+    Then the service replies with "tweets.listed" and the payload:
       """
       count: 2
       entries: [
@@ -55,8 +55,8 @@ Feature: Listing all entries
       | 1        | Hello world!            |
       | 1        | Hello again!            |
       | 2        | Entry from another user |
-    When sending the message "mongo.list"
-    Then the service replies with "mongo.listed" and the payload:
+    When sending the message "tweets.list"
+    Then the service replies with "tweets.listed" and the payload:
       """
       count: 3
       entries: [
