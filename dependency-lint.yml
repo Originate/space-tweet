@@ -15,7 +15,8 @@ executedModules:
 ignoreErrors:
   missing: []
   shouldBeDependency: []
-  shouldBeDevDependency: []
+  shouldBeDevDependency:
+    - exoservice
   unused:
     - cucumber-snippets-livescript
 

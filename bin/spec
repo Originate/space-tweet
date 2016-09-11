@@ -7,4 +7,3 @@ if [ "$#" == "0" ]; then
 else
   DEBUG='*,-express:*,-body-parser:*,-finalhandler,-rails-delegate,-text-stream-search' cucumber-js --tags ~@todo "$@"
 fi
-
