@@ -8,7 +8,7 @@ require! {
   'nitroglycerin' : N
   'port-reservation'
   'request'
-  'wait' : {wait-until}
+  'wait' : {wait-until, wait}
 }
 
 
@@ -23,12 +23,11 @@ module.exports = ->
 
 
   @Given /^an instance of this service$/, (done) ->
-    port-reservation
-      ..get-port N (@service-port) ~>
-        @exocom.register-service name: 'users', port: @service-port
-        @process = new ExoService service-name: 'users', exocom-port: @exocom.pull-socket-port, exorelay-port: @service-port
-          ..listen!
-          ..on 'online', -> done!
+    @process = new ExoService exocom-host: 'localhost', service-name: 'users', exocom-port: @exocom-port
+      #TODO: Change listen to connect when exoservice update is released
+      ..listen!
+      #TODO: Use MockExoCom.wait-for-service once it is implemented
+      ..on 'online', ->  wait 10, done # Wait for ExoCom to register the service
 
 
   @Given /^the service contains the users:$/, (table, done) ->

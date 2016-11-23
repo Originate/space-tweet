@@ -1,9 +1,10 @@
-name: Exosphere users service
+title: Exosphere users service
 description: Manages user accounts in Exosphere applications
+author: originate
 
 setup: npm install
 startup:
-  command: node_modules/.bin/exo-js
+  command: node_modules/exoservice/bin/exo-js
   online-text: online at port
 
 
@@ -21,3 +22,8 @@ messages:
     - user.not-found
     - user.updated
     - user.deleted
+
+
+docker:
+  link:
+    - 'mongo'

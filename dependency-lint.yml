@@ -13,8 +13,10 @@ executedModules:
 ignoreErrors:
   missing:
     - node-uuid
-  shouldBeDependency: []
-  shouldBeDevDependency: []
+  shouldBeDependency:
+    - o-tools-livescript
+  shouldBeDevDependency:
+    - exoservice
   unused:
     - cucumber-snippets-livescript
     - o-tools-livescript
