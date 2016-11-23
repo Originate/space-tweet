@@ -1,9 +1,10 @@
-name: Exosphere Mongo service
+title: Exosphere tweets service
 description: Generic MongoDB storage service
+author: originate
 
 setup: npm install
 startup:
-  command: node_modules/.bin/exo-js
+  command: node_modules/exoservice/bin/exo-js
   online-text: online at port
 
 
@@ -21,3 +22,8 @@ messages:
     - tweets.not-found
     - tweets.updated
     - tweets.deleted
+
+
+docker:
+  link:
+    - 'mongo'

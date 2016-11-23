@@ -9,7 +9,7 @@ require! {
   'port-reservation'
   'record-http' : HttpRecorder
   'request'
-  'wait' : {wait-until}
+  'wait' : {wait-until, wait}
 }
 
 
@@ -24,12 +24,11 @@ module.exports = ->
 
 
   @Given /^an instance of this service$/, (done) ->
-    port-reservation
-      ..get-port N (@service-port) ~>
-        @exocom.register-service name: 'tweets', port: @service-port
-        @process = new ExoService service-name: 'tweets', exocom-port: @exocom.pull-socket-port, exorelay-port: @service-port
-          ..listen!
-          ..on 'online', -> done!
+    @process = new ExoService exocom-host: 'localhost', service-name: 'tweets', exocom-port: @exocom-port
+      #TODO: Change listen to connect when updated exoservice is published
+      ..listen!
+      #TODO: Use MockExoCom.wait-for-service when it is published
+      ..on 'online', -> wait 10, done # Wait for ExoCom to register the service
 
 
   @Given /^the service contains the entries:$/, (table, done) ->

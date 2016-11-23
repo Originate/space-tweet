@@ -13,7 +13,8 @@ module.exports =
 
   before-all: (done) ->
     mongo-db-name = "exosphere-mongo-service-#{env}"
-    MongoClient.connect "mongodb://localhost:27017/#{mongo-db-name}", N (mongo-db) ->
+    mongo-address = if env is \test then \localhost else \mongo
+    MongoClient.connect "mongodb://#{mongo-address}:27017/#{mongo-db-name}", N (mongo-db) ->
       collection := mongo-db.collection 'tweets'
       console.log "MongoDB '#{mongo-db-name}' connected"
       done!
