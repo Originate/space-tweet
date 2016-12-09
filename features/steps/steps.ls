@@ -5,8 +5,10 @@ require! {
   'exoservice' : ExoService
   'jsdiff-console'
   'livescript'
+  'lowercase-keys'
   'nitroglycerin' : N
   'port-reservation'
+  'prelude-ls' : {map}
   'request'
   'wait' : {wait-until, wait}
 }
@@ -31,7 +33,7 @@ module.exports = ->
 
 
   @Given /^the service contains the users:$/, (table, done) ->
-    users = [{[key.to-lower-case!, value] for key, value of record} for record in table.hashes!]
+    users = table.hashes! |> map lowercase-keys
     @exocom
       ..send service: 'users', name: 'users.create-many', payload: users
       ..on-receive done
@@ -66,7 +68,7 @@ module.exports = ->
       ..send service: 'users', name: 'users.list'
       ..on-receive ~>
         actual-users = @remove-ids @exocom.received-messages[0].payload.users
-        expected-users = [{[key.to-lower-case!, value] for key, value of user} for user in table.hashes!]
+        expected-users = table.hashes! |> map lowercase-keys
         jsdiff-console actual-users, expected-users, done
 
 
