@@ -27,10 +27,8 @@ module.exports = ->
 
   @Given /^an instance of this service$/, (done) ->
     @process = new ExoService exocom-host: 'localhost', service-name: 'tweets', exocom-port: @exocom-port
-      #TODO: Change listen to connect when updated exoservice is published
-      ..listen!
-      #TODO: Use MockExoCom.wait-for-service when it is published
-      ..on 'online', -> wait 10, done # Wait for ExoCom to register the service
+      ..connect!
+    wait-until (~> @exocom.knows-service 'tweets'), 10, done
 
 
   @Given /^the service contains the entries:$/, (table, done) ->
