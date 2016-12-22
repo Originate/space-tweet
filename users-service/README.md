@@ -8,11 +8,10 @@
 
 > An Exosphere service for storing user data
 
-* install ZeroMQ
 
-  ```
-  brew install zeromq
-  ```
+
+
+## Installation
 
 * install MongoDB
 
