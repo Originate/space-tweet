@@ -6,6 +6,7 @@ setup: npm install
 startup:
   command: node_modules/exoservice/bin/exo-js
   online-text: online at port
+tests: node_modules/.bin/cucumber-js
 
 
 messages:
@@ -23,7 +24,5 @@ messages:
     - tweets.updated
     - tweets.deleted
 
-
-docker:
-  link:
-    - 'mongo'
+dependencies:
+  - 'mongo'
