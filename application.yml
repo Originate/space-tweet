@@ -1,0 +1,34 @@
+name: SpaceTweet
+description: an example for an ExoSphere application
+version: 0.0.1
+
+environments:
+  local:
+  production:
+    domain: megabyt.es
+    providers:
+      aws:
+        region: us-west-2
+        public-cluster-size: t2.medium
+        private-cluster-size: t2.nano
+        remote-state-store: terraform.state.prod
+  staging:
+    url: dev.megabyt.es
+    provider: aws
+    region: us-west-2
+
+services:
+  public:
+    web:
+      namespace:
+      location: ./web-server
+      docker_image: originate/space-tweet-web-server
+  private:
+    users:
+      namespace:
+      location: ./users-service
+      docker_image: originate/exosphere-users-service
+    tweets:
+      namespace:
+      location: ./tweets-service
+      docker_image: originate/exosphere-tweets-service
