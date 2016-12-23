@@ -1,9 +1,10 @@
-name: SpaceTweet web server
+title: SpaceTweet web server
 description: Serves the web UI of SpaceTweet
+author: originate
 
 setup: npm install
 startup:
-  command: node_modules/.bin/lsc app --name {{name}} --exorelay-port {{exorelay-port}} --exocom-port {{exocom-port}}
+  command: node_modules/.bin/lsc app
   online-text: all systems go
 
 
@@ -27,3 +28,8 @@ messages:
     - tweets.listed
     - tweets.created
     - tweets.deleted
+
+
+docker:
+  publish:
+    - '3000:3000'
