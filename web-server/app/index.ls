@@ -12,12 +12,12 @@ require! {
 
 
 start-exorelay = (done) ->
-  global.exorelay = new ExoRelay service-name: process.env.SERVICE_NAME, exocom-port: process.env.EXOCOM_PORT
+  global.exorelay = new ExoRelay service-name: process.env.SERVICE_NAME, exocom-port: process.env.EXOCOM_PORT, exocom-host: process.env.EXOCOM_HOST
+    ..connect!
     ..on 'error', (err) -> console.log red err
-    ..on 'online', (port) ->
-      console.log "#{green 'ExoRelay'} online at port #{cyan port}"
+    ..on 'online', ->
+      console.log "#{green 'ExoRelay'} online"
       done!
-    ..listen process.env.EXORELAY_PORT
 
 
 start-web-server = (done) ->
