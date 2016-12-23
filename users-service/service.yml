@@ -26,4 +26,7 @@ messages:
 
 
 dependencies:
-  - 'mongo'
+  mongo:
+    prod: 'ds143588.mlab.com:43588'
+    dev: 'mongo:27017'
+    test: 'localhost:27017'
