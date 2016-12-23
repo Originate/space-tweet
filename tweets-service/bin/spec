@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-docker run -dit -p 27017:27017 --name=test-mongo mongo
 if [ "$#" == "0" ]; then
   node_modules/o-tools/bin/lint
   cucumber-js --tags ~@todo
