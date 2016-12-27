@@ -33,4 +33,3 @@ module.exports = ->
       db.collection('users')?.drop!
       db.close!
       done!
-

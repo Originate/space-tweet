@@ -2,6 +2,7 @@ require! {
   'mongodb' : {MongoClient, ObjectID}
   'nitroglycerin' : N
   'prelude-ls' : {any}
+  'require-yaml'
   'util'
 }
 env = require('get-env')('test')
@@ -12,11 +13,9 @@ collection = null
 module.exports =
 
   before-all: (done) ->
-    mongo-db-name = "space-tweet-users-#{env}"
-    mongo-address = if env is \test then \localhost else process.env.MONGO
-    MongoClient.connect "mongodb://#{mongo-address}:27017/#{mongo-db-name}", N (mongo-db) ->
+    MongoClient.connect get-mongo-address!, N (mongo-db) ->
       collection := mongo-db.collection 'users'
-      console.log "MongoDB '#{mongo-db-name}' connected"
+      console.log "MongoDB #{mongo-db.database-name} connected"
       done!
 
 
@@ -130,3 +129,18 @@ function mongo-to-id entry
 function mongo-to-ids entries
   for entry in entries
     mongo-to-id entry
+
+
+function get-mongo-config
+  require('../service.yml').dependencies.mongo
+
+
+function get-mongo-address
+  mongo-config = get-mongo-config!
+  switch env
+    | \test => "mongodb://localhost:27017/space-tweet-users-test"
+    | \dev  => "mongodb://#{process.env.MONGO}/space-tweet-users-dev"
+    | \prod =>
+      process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
+      process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
+      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config.prod}/space-tweet-users-prod"
