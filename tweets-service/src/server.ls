@@ -13,17 +13,7 @@ collection = null
 module.exports =
 
   before-all: (done) ->
-    mongo-config = get-mongo-config!
-    mongo-address = switch env
-      | \test => "mongodb://#{mongo-config.test}/space-tweet-db-test"
-      | \dev  => "mongodb://#{mongo-config.dev}/space-tweet-db-dev"
-      | \prod =>
-        process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
-        process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
-        "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config.prod}/space-tweet-db-prod"
-
-
-    MongoClient.connect mongo-address, N (mongo-db) ->
+    MongoClient.connect get-mongo-address!, N (mongo-db) ->
       collection := mongo-db.collection 'tweets'
       console.log "MongoDB '#{mongo-db.database-name}' connected"
       done!
@@ -145,3 +135,14 @@ function mongo-to-ids entries
 
 function get-mongo-config
   require('../service.yml').dependencies.mongo
+
+
+function get-mongo-address
+  mongo-config = get-mongo-config!
+  switch env
+    | \test => "mongodb://localhost:27017/space-tweet-tweets-test"
+    | \dev  => "mongodb://#{process.env.MONGO}/space-tweet-tweets-dev"
+    | \prod =>
+      process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
+      process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
+      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config.prod}/space-tweet-tweets-prod"
