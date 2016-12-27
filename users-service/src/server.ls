@@ -138,7 +138,7 @@ function get-mongo-config
 function get-mongo-address
   mongo-config = get-mongo-config!
   switch env
-    | \test => "mongodb://#{mongo-config.test}/space-tweet-users-test"
+    | \test => "mongodb://localhost:27017/space-tweet-users-test"
     | \dev  => "mongodb://#{process.env.MONGO}/space-tweet-users-dev"
     | \prod =>
       process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"

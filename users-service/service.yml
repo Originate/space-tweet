@@ -28,4 +28,3 @@ messages:
 dependencies:
   mongo:
     prod: 'ds143588.mlab.com:43588'
-    test: 'localhost:27017'
