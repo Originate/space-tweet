@@ -8,7 +8,7 @@ require! {
 db = null
 get-db = (done) ->
   return done db if db
-  MongoClient.connect "mongodb://localhost:27017/space-tweet-db-test", N (mongo-db) ->
+  MongoClient.connect "mongodb://localhost:27017/space-tweet-users-test", N (mongo-db) ->
     db := mongo-db
     done db
 
@@ -33,4 +33,3 @@ module.exports = ->
       db.collection('users')?.drop!
       db.close!
       done!
-
