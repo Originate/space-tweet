@@ -27,3 +27,10 @@ messages:
 dependencies:
   mongo:
     prod: 'ds143608.mlab.com:43608'
+
+
+production:
+  aws-task-definition:
+    cpu: 100
+    memory: 500
+    essential: true
