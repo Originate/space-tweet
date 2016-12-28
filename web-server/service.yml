@@ -33,3 +33,12 @@ messages:
 docker:
   publish:
     - '3000:3000'
+
+
+production:
+  url: megabyt.es
+  aws:
+    cpu: 100
+    memory: 500
+    essential: true
+    public-port: 3000
