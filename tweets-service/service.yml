@@ -26,4 +26,4 @@ messages:
 
 dependencies:
   mongo:
-    prod: 'ds143588.mlab.com:43588'
+    prod: 'ds143608.mlab.com:43608'
