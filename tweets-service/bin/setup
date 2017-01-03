@@ -24,8 +24,7 @@ else
 fi
 echo
 
-rm -rf node_modules
-npm i --depth 0
+yarn
 
 echo
 echo Mongo service successfully installed.
