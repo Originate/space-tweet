@@ -5,7 +5,7 @@
   "dependencies": {
     "exoservice": "0.18.7",
     "get-env": "0.5.10",
-    "mongodb": "2.2.19",
+    "mongodb": "2.2.22",
     "nitroglycerin": "1.1.2",
     "prelude-ls": "1.1.2",
     "require-yaml": "0.0.1"
@@ -18,11 +18,10 @@
     "dependency-lint": "4.3.1",
     "dim-console": "0.4.4",
     "eco": "1.0.3",
-    "exocom-mock": "0.9.4",
+    "exocom-mock": "0.10.0",
     "jsdiff-console": "2.2.1",
     "livescript": "1.5.0",
     "lowercase-keys": "1.0.0",
-    "node-uuid": "1.4.7",
     "o-tools": "0.7.0",
     "o-tools-livescript": "1.2.3",
     "port-reservation": "0.3.2",
