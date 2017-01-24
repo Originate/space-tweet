@@ -2,7 +2,7 @@ title: SpaceTweet web server
 description: Serves the web UI of SpaceTweet
 author: originate
 
-setup: npm install
+setup: yarn
 startup:
   command: node_modules/.bin/lsc app
   online-text: all systems go
