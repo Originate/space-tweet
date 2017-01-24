@@ -25,9 +25,10 @@ module.exports = ->
 
 
   @Given /^an instance of this service$/, (done) ->
-    @process = new ExoService exocom-host: 'localhost', service-name: 'users', exocom-port: @exocom-port
+    @process = new ExoService exocom-host: 'localhost', role: 'users', exocom-port: @exocom-port
       ..connect!
     wait-until (~> @exocom.knows-service 'users'), 10, done
+
 
   @Given /^the service contains the users:$/, (table, done) ->
     users = table.hashes! |> map lowercase-keys
