@@ -23,16 +23,13 @@ environments:
 
 services:
   public:
-    web:
-      namespace:
+    space-tweet-web-service:
       location: ./web-server
-      docker_image: originate/space-tweet-web-server
+      docker_image: originate/space-tweet-web-service
   private:
-    users:
-      namespace:
+    exosphere-users-service:
       location: ./users-service
       docker_image: originate/exosphere-users-service
-    tweets:
-      namespace:
+    exosphere-tweets-service:
       location: ./tweets-service
       docker_image: originate/exosphere-tweets-service
