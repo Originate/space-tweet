@@ -26,7 +26,7 @@ module.exports = ->
 
 
   @Given /^an instance of this service$/, (done) ->
-    @process = new ExoService exocom-host: 'localhost', service-name: 'tweets', exocom-port: @exocom-port
+    @process = new ExoService exocom-host: 'localhost', role: 'tweets', exocom-port: @exocom-port
       ..connect!
     wait-until (~> @exocom.knows-service 'tweets'), 10, done
 
