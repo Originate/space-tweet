@@ -9,7 +9,7 @@ bus:
 environments:
   local:
   production:
-    domain: megabyt.es
+    domain: exosphere-staging.originate.com
     providers:
       aws:
         region: us-west-2
