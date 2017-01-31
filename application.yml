@@ -9,7 +9,7 @@ bus:
 environments:
   local:
   production:
-    domain: exosphere-staging.originate.com
+    domain: spacetweet.originate.com
     providers:
       aws:
         region: us-west-2
