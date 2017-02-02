@@ -23,6 +23,7 @@ messages:
     - tweets.not-found
     - tweets.updated
     - tweets.deleted
+    - tweets.not-created
 
 dependencies:
   mongo:
