@@ -23,6 +23,7 @@ messages:
     - user.not-found
     - user.updated
     - user.deleted
+    - users.not-created
 
 
 dependencies:
