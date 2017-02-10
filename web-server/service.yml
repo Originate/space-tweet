@@ -36,7 +36,7 @@ docker:
 
 
 production:
-  url: megabyt.es
+  url: spacetweet.originate.com
   aws:
     cpu: 100
     memory: 500

@@ -4,12 +4,12 @@ version: 0.0.1
 
 bus:
   type: exocom
-  version: 0.16.3
+  version: 0.21.3
 
 environments:
   local:
   production:
-    domain: megabyt.es
+    domain: spacetweet.originate.com
     providers:
       aws:
         region: us-west-2
