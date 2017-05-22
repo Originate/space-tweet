@@ -1,0 +1,52 @@
+version: '3'
+services:
+  space-tweet-web-service:
+    build: ./web-server
+    image: originate/space-tweet-web-service
+    command: node_modules/.bin/lsc app
+    ports:
+      - '3000:3000'
+    links:
+      - exocom:exocom
+    environment:
+      ROLE: space-tweet-web-service
+      EXOCOM_PORT: 8000
+      EXOCOM_HOST: exocom
+  exosphere-users-service:
+    build: ./users-service
+    image: originate/exosphere-users-service
+    command: node_modules/exoservice/bin/exo-js
+    links:
+      - mongo3.4.0:mongo
+    environment:
+      ROLE: exosphere-users-service
+      EXOCOM_PORT: 8000
+      EXOCOM_HOST: exocom
+      MONGO: mongo
+  exosphere-tweets-service:
+    build: ./tweets-service
+    image: originate/exosphere-tweets-service
+    command: node_modules/exoservice/bin/exo-js
+    links:
+      - mongo3.4.0:mongo
+    environment:
+      ROLE: exosphere-tweets-service
+      EXOCOM_PORT: 8000
+      EXOCOM_HOST: exocom
+      MONGO: mongo
+  exocom:
+    image: originate/exocom:local
+    command: bin/exocom
+    ports:
+      - '8000:8000'
+    environment:
+      PORT: 8000
+      ROLE: exocom
+      SERVICE_ROUTES: '[{role:space-tweet-web-service,receives:[user.details,user.not-found,user.updated,user.deleted,users.listed,users.created,tweets.listed,tweets.created,tweets.deleted],sends:[user.get-details,user.delete,user.update,users.list,users.create,tweets.list,tweets.create,tweets.delete]},{role:exosphere-users-service,receives:[users.create,users.list,user.get-details,user.update,user.delete],sends:[users.created,users.listed,user.details,user.not-found,user.updated,user.deleted,users.not-created]},{role:exosphere-tweets-service,receives:[tweets.create,tweets.list,tweets.get-details,tweets.update,tweets.delete],sends:[tweets.created,tweets.listed,tweets.details,tweets.not-found,tweets.updated,tweets.deleted,tweets.not-created]}]'
+  mongo3.4.0:
+    image: mongo:3.4.0
+    ports:
+      - '27017:27017'
+    volumes:
+      - '/Users/hugoho/.exosphere/SpaceTweet/mongo/data:/data/db'
+
