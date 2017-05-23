@@ -5,16 +5,16 @@ block content
 
   form(action="/users" method="post")
 
-    table
+    table.new-user
       tr
-        th name
+        th Name
         td
-          input(name="name")
+          input(type="text" name="name")
 
       tr
-        th password
+        th Password
         td
-          input(name="password")
+          input(type="text"  name="password")
 
       tr
         th

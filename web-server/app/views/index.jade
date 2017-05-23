@@ -2,25 +2,19 @@ extends layout
 
 block content
 
-  h2 the latest tweets (#{count})
+  h2 There are (#{count}) tweets to read
 
-  table
-    each tweet in tweets
-      tr
-        td= tweet.content
-        td= tweet.owner_id
-        td
-          form(action="/tweets/#{tweet.id}?_method=DELETE" method="POST")
-            input(type="submit" value="del")
+  each tweet in tweets
+    div.tweet
+      form.delete-tweet(action="/tweets/#{tweet.id}?_method=DELETE" method="POST")
+        input(type="submit" value="x")
+      p.user #{tweet.owner_id} wrote
+      p= tweet.content
+
 
   h3 tweet something!
-  form(action="/tweets" method="post")
+  form.add-tweet(action="/tweets" method="post")
 
-    label content
     input(name="content")
 
     input(type="submit" value="tweet")
-
-
-  h2 Users
-  a(href="users") user manager
