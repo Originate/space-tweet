@@ -1,6 +1,67 @@
 body
+  margin: 0
   padding: 50px
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+  background-color: #f9f9f9
+
+div.header
+  border-bottom: 3px solid #0084b4
+  padding-bottom: 5px
+
+  span
+    font-size: 30px
+
+  a
+    margin-left: 50px
 
 a
   color: #00B7FF
+
+.tweet
+  width: 500px
+  background-color: white
+  border: 1px solid #e1e1e1
+  padding: 15px
+  margin-bottom: 10px
+  position: relative
+
+  form.delete-tweet
+    position: absolute
+    right: 0px
+    top: 0px
+
+    input
+      border: none
+      background-color: transparent
+      font-size: 15px
+
+  p
+    margin: 0
+
+    &.user
+      font-weight: bold
+
+table.users
+  margin-bottom: 20px
+  background-color: white
+  padding: 10px
+  border: 1px solid #e1e1e1
+  border-collapse: separate
+  border-spacing: 10px
+
+  th
+    text-align: left
+
+table.user
+  th
+    text-align: right
+  td
+    padding-left: 15px
+
+table.new-user
+  th
+    text-align: left
+  input[type="text"]
+    height: 30px
+    width: 200px
+    font-size: 20px

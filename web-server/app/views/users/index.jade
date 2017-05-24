@@ -3,10 +3,11 @@ extends ../layout
 block content
   h2 #{count} Users
 
-  table
-    tr
+  table.users
+    thead
       th NAME
       th PASSWORD
+      th
       th
     each user in users
       tr
@@ -15,8 +16,9 @@ block content
         td= user.password
         td
           a(href="users/#{user.id}/edit") edit
+        td
           form(action="/users/#{user.id}?_method=DELETE" method="POST")
-            input(type="submit" value="del")
+            input(type="submit" value="x")
 
 
 
