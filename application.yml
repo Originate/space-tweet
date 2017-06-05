@@ -30,6 +30,3 @@ services:
     exosphere-users-service:
       location: ./users-service
       docker_image: originate/exosphere-users-service
-    exosphere-tweets-service:
-      location: ./tweets-service
-      docker_image: originate/exosphere-tweets-service
