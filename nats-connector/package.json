@@ -1,0 +1,13 @@
+{
+  "name": "nats-connector",
+  "version": "0.0.1",
+  "dependencies": {
+    "nats": "^0.7.20"
+  },
+  "devDependencies": {
+    "livescript": "^1.5.0"
+  },
+  "scripts": {
+    "build": "lsc -c index.ls && cp index.js ../tweets-service/nats-connector.js && cp index.js ../users-service/nats-connector.js && cp index.js ../web-server/nats-connector.js"
+  }
+}

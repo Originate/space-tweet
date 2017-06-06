@@ -4,8 +4,8 @@ author: originate
 
 setup: yarn
 startup:
-  command: node_modules/exoservice/bin/exo-js
-  online-text: online at port
+  command: lsc src/cli.ls
+  online-text: connected to nats
 tests: node_modules/.bin/cucumber-js
 
 
