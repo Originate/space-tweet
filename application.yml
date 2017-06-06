@@ -3,8 +3,8 @@ description: an example for an ExoSphere application
 version: 0.0.1
 
 dependencies:
-  - type: exocom
-    version: 0.21.8
+  - type: nats
+    version: 0.9.6
 
 environments:
   local:

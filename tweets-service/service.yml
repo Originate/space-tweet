@@ -4,7 +4,7 @@ author: originate
 
 setup: yarn
 startup:
-  command: lsc src/cli.ls
+  command: node_modules/.bin/lsc src/cli.ls
   online-text: connected to nats
 tests: node_modules/.bin/cucumber-js
 

@@ -1178,6 +1178,12 @@ mute-stream@0.0.6, mute-stream@~0.0.4:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.6.tgz#48962b19e169fd1dfc240b3f1e7317627bbc47db"
 
+nats@^0.7.20:
+  version "0.7.20"
+  resolved "https://registry.yarnpkg.com/nats/-/nats-0.7.20.tgz#f951d815e2dddce65cd0dda5fb0124ebc0936dd9"
+  dependencies:
+    nuid ">=0.6.8"
+
 next-tick@~0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-0.2.2.tgz#75da4a927ee5887e39065880065b7336413b310d"
@@ -1364,6 +1370,10 @@ npmlog@~4.0.0:
     console-control-strings "~1.1.0"
     gauge "~2.7.1"
     set-blocking "~2.0.0"
+
+nuid@>=0.6.8:
+  version "0.6.14"
+  resolved "https://registry.yarnpkg.com/nuid/-/nuid-0.6.14.tgz#a225c8b720e46c563ad8d13641368669f6c25b48"
 
 number-is-nan@^1.0.0:
   version "1.0.1"

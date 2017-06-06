@@ -2073,6 +2073,12 @@ nan@^2.3.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.5.0.tgz#aa8f1e34531d807e9e27755b234b4a6ec0c152a8"
 
+nats@^0.7.20:
+  version "0.7.20"
+  resolved "https://registry.yarnpkg.com/nats/-/nats-0.7.20.tgz#f951d815e2dddce65cd0dda5fb0124ebc0936dd9"
+  dependencies:
+    nuid ">=0.6.8"
+
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
@@ -2322,6 +2328,10 @@ npmlog@^4.0.1, npmlog@~4.0.0:
     console-control-strings "~1.1.0"
     gauge "~2.7.1"
     set-blocking "~2.0.0"
+
+nuid@>=0.6.8:
+  version "0.6.14"
+  resolved "https://registry.yarnpkg.com/nuid/-/nuid-0.6.14.tgz#a225c8b720e46c563ad8d13641368669f6c25b48"
 
 num2fraction@^1.2.2:
   version "1.2.2"
