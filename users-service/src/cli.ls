@@ -5,5 +5,5 @@ require! {
 
 natsConnector = new NatsConnector()
 server.before-all ->
-  delete subscribeMapping.before-all
+  delete server.before-all
   natsConnector.subscribeMapping server
