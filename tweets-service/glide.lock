@@ -1,0 +1,27 @@
+hash: 02242825ec1a21d7131a5c19da55a34037c3253978a79dc20809a477fe536355
+updated: 2017-06-05T14:43:29.644075152-07:00
+imports:
+- name: github.com/Originate/exocom
+  version: d24bf79bd1d6f75357437d89ad7fb96c83562ea8
+  subpackages:
+  - go/exocom-mock
+  - go/exorelay
+  - go/exoservice
+  - go/structs
+  - go/utils
+- name: github.com/satori/go.uuid
+  version: 5bf94b69c6b68ee1b541973bb8e1144db23a194b
+- name: golang.org/x/net
+  version: 55a3084c9119aeb9ba2437d595b0a7e9cb635da9
+  subpackages:
+  - websocket
+- name: gopkg.in/mgo.v2
+  version: 3f83fa5005286a7fe593b055f0d7771a7dce4655
+testImports:
+- name: github.com/DATA-DOG/godog
+  version: 92fbee719c9593813b24a6ef042bcad40324ede4
+  subpackages:
+  - colors
+  - gherkin
+- name: gopkg.in/yaml.v2
+  version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b

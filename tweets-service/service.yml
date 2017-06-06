@@ -1,0 +1,29 @@
+type: exosphere-tweets-service
+description:
+author:
+
+setup: glide install
+startup:
+  command: go run server.go
+  online-text: online at port
+tests: go test
+
+messages:
+  receives:
+    - tweets.create
+    - tweets.create-many
+    - tweets.delete
+    - tweets.get-details
+    - tweets.list
+    - tweets.update
+  sends:
+    - tweets.created
+    - tweets.deleted
+    - tweets.details
+    - tweets.listed
+    - tweets.not-created
+    - tweets.not-created-many
+    - tweets.not-found
+    - tweets.updated
+
+dependencies:

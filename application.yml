@@ -27,6 +27,8 @@ services:
       location: ./web-server
       docker_image: originate/space-tweet-web-service
   private:
+    exosphere-tweets-service:
+      location: ./tweets-service
     exosphere-users-service:
       location: ./users-service
       docker_image: originate/exosphere-users-service
