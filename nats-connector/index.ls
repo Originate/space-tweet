@@ -5,7 +5,7 @@ require! {
 class NatsConnector
 
   constructor: ->
-    @nats = NATS.connect "nats://#{process.env.NATS_IO_HOST}:#{process.env.NATS_IO_PORT}"
+    @nats = NATS.connect "nats://#{process.env.NATS_HOST}:4222"
     console.log "connected to nats"
 
   subscribeMapping: (messageCallbackMapping) ->

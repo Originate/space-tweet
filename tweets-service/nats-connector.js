@@ -6,7 +6,7 @@
     NatsConnector.displayName = 'NatsConnector';
     var prototype = NatsConnector.prototype, constructor = NatsConnector;
     NatsConnector.prototype.constructor = function(){
-      this.nats = NATS.connect("nats://" + process.env.NATS_IO_HOST + ":" + process.env.NATS_IO_PORT);
+      this.nats = NATS.connect("nats://" + process.env.NATS_HOST + ":4222");
       return console.log("connected to nats");
     };
     NatsConnector.prototype.subscribeMapping = function(messageCallbackMapping){
