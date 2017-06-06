@@ -16,7 +16,7 @@
         var name, callback;
         name = arg$[0], callback = arg$[1];
         return this$.nats.subscribe(name, function(request, replyTo){
-          return callbak(request.payload, {
+          return callback(request.payload, {
             reply: function(payload){
               return this$.nats.publish(replyTo, payload);
             }
@@ -27,7 +27,9 @@
       messageCallbackMapping));
     };
     NatsConnector.prototype.send = function(name, data, callback){
-      return this.nats.requestOne(name, data, function(response){
+      return this.nats.request(name, data, {
+        max: 1
+      }, function(response){
         return callback(response.payload);
       });
     };

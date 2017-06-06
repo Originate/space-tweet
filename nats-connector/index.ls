@@ -12,10 +12,10 @@ class NatsConnector
   subscribeMapping: (messageCallbackMapping) ->
     messageCallbackMapping |> obj-to-pairs |> each ([name, callback]) ~>
       @nats.subscribe name, (request, replyTo) ~>
-        callbak request.payload, reply: (payload) ~> @nats.publish replyTo, payload
+        callback request.payload, reply: (payload) ~> @nats.publish replyTo, payload
 
   send: (name, data, callback) ->
-    @nats.requestOne name, data, (response) ->
+    @nats.request name, data, {max: 1}, (response) ->
       callback response.payload
 
 
