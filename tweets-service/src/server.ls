@@ -24,15 +24,15 @@ module.exports =
       mongo-query = id-to-mongo query
     catch
       console.log "the given query (#{query}) contains an invalid id"
-      return reply 'tweets.not-found', query
+      return reply {error: 'invalid-id'}
     collection.find(mongo-query).to-array N (entries) ->
       if entries.length is 0
         console.log "entry '#{util.inspect mongo-query}' not found"
-        return reply 'tweets.not-found', query
+        return reply {error: 'not-found'}
       entry = entries[0]
       mongo-to-id entry
       console.log "reading entry '#{entry.content}' (#{entry.id})"
-      reply 'tweets.details', entry
+      reply {entry}
 
 
   'tweets.update': (entry-data, {reply}) ->
@@ -40,19 +40,19 @@ module.exports =
       id = new ObjectID entry-data.id
     catch
       console.log "the given query (#{entry-data}) contains an invalid id"
-      return reply 'tweets.not-found', id: entry-data.id
+      return reply error: 'invalid-id'
     delete entry-data.id
     collection.update-one {_id: id}, {$set: entry-data}, N (result) ->
       switch result.modified-count
         | 0  =>
             console.log "entry '#{id}' not updated because it doesn't exist"
-            return reply 'tweets.not-found'
+            return reply error: 'not-found'
         | _  =>
             collection.find(_id: id).to-array N (entries) ->
               entry = entries[0]
               mongo-to-id entry
               console.log "updating entry '#{entry.content}' (#{entry.id})"
-              reply 'tweets.updated', entry
+              reply {entry}
 
 
   'tweets.delete': (query, {reply}) ->
@@ -60,38 +60,38 @@ module.exports =
       id = new ObjectID query.id
     catch
       console.log "the given query (#{util.inspect query}) contains an invalid id"
-      return reply 'tweets.not-found', id: query.id
+      return reply error: 'invalid-id'
     collection.find(_id: id).to-array N (entries) ->
       if entries.length is 0
         console.log "entry '#{id}' not deleted because it doesn't exist"
-        return reply 'tweets.not-found', query
+        return reply error: 'not-found'
       entry = entries[0]
       mongo-to-id entry
       collection.delete-one _id: id, N (result) ->
         if result.deleted-count is 0
           console.log "entry '#{id}' not deleted because it doesn't exist"
-          return reply 'tweets.not-found', query
+          return reply error: 'not found'
         console.log "deleting entry '#{entry.content}' (#{entry.id})"
-        reply 'tweets.deleted', entry
+        reply {entry}
 
 
   'tweets.create': (entry-data, {reply}) ->
     | empty-content entry-data  =>
         console.log 'Cannot create entry: Content cannot be blank'
-        return reply 'tweets.not-created', error: 'Content cannot be blank'
+        return reply error: 'Content cannot be blank'
     collection.insert-one entry-data, (err, result) ->
       if err
         console.log "Error creating entry: #{err}"
-        return reply 'tweets.not-created', error: err
+        return reply error: err
       console.log "creating entries"
-      reply 'tweets.created', mongo-to-id(result.ops[0])
+      reply id: mongo-to-id(result.ops[0])
 
 
   'tweets.create-many': (entries, {reply}) ->
-    | any-empty-contents entries  =>  return reply 'tweets.not-created', error: 'Content cannot be blank'
+    | any-empty-contents entries  =>  return error: 'Content cannot be blank'
     collection.insert entries, (err, result) ->
-      | err  =>  return reply 'tweets.not-created-many', error: err
-      reply 'tweets.created-many', count: result.inserted-count
+      | err  =>  return reply error: err
+      reply count: result.inserted-count
 
 
   'tweets.list': (query, {reply}) ->
@@ -102,7 +102,7 @@ module.exports =
     collection.find(mongo-query).to-array N (entries) ->
       mongo-to-ids entries
       console.log "listing entries: #{entries.length} found"
-      reply 'tweets.listed', {count: entries.length, entries}
+      reply {count: entries.length, entries}
 
 
 

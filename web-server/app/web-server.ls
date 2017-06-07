@@ -15,7 +15,7 @@ require! {
 
 class WebServer extends EventEmitter
 
-  ->
+  (dependencies) ->
     @app = express!
       ..use methodOverride '_method'
 
@@ -30,7 +30,7 @@ class WebServer extends EventEmitter
       ..use bodyParser.urlencoded extended: false
       ..use cookieParser!
 
-      ..use exprestive dependencies: global.exorelay
+      ..use exprestive {dependencies}
 
       ..use (req, res, next) ->   # route not found
         err = new Error 'Not Found'

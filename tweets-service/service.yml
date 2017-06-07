@@ -4,8 +4,8 @@ author: originate
 
 setup: yarn
 startup:
-  command: node_modules/exoservice/bin/exo-js
-  online-text: online at port
+  command: node_modules/.bin/lsc src/cli.ls
+  online-text: connected to nats
 tests: node_modules/.bin/cucumber-js
 
 
@@ -27,10 +27,13 @@ messages:
 
 dependencies:
   mongo:
-    version: '3.4.0'
-    docker_flags:
-      volume: '-v {{EXO_DATA_PATH}}:/data/db'
-      online_text: 'waiting for connections'
+    dev:
+      image: 'mongo'
+      version: '3.4.0'
+      volumes:
+        - '{{EXO_DATA_PATH}}:/data/db'
+      ports:
+        - '27017:27017'
     prod: 'ds143608.mlab.com:43608'
 
 

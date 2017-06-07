@@ -8,20 +8,13 @@ require! {
   'nitroglycerin' : N
   '../package.json' : {name, version}
   './web-server' : WebServer
+  '../nats-connector': NatsConnector
 }
 
 
-start-exorelay = (done) ->
-  global.exorelay = new ExoRelay role: process.env.ROLE, exocom-port: process.env.EXOCOM_PORT, exocom-host: process.env.EXOCOM_HOST
-    ..connect!
-    ..on 'error', (err) -> console.log red err
-    ..on 'online', ->
-      console.log "#{green 'ExoRelay'} online"
-      done!
-
-
 start-web-server = (done) ->
-  web-server = new WebServer
+  natsConnector = new NatsConnector()
+  web-server = new WebServer {send: natsConnector.send.bind(natsConnector)}
     ..on 'error', (err) -> console.log red err
     ..on 'listening', ->
       console.log "#{green 'HTML server'} online at port #{cyan web-server.port!}"
@@ -29,6 +22,5 @@ start-web-server = (done) ->
     ..listen 3000
 
 
-start-exorelay N ->
-  start-web-server N ->
-    console.log green 'all systems go'
+start-web-server N ->
+  console.log green 'all systems go'

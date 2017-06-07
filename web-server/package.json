@@ -17,6 +17,7 @@
     "merge": "1.2.0",
     "method-override": "2.3.7",
     "morgan": "1.7.0",
+    "nats": "^0.7.20",
     "nitroglycerin": "1.1.2",
     "rails-delegate": "0.6.2",
     "serve-favicon": "2.3.2",
