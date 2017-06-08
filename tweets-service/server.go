@@ -17,6 +17,7 @@ func handleCreate(request exoservice.Request) {
 			Name:    "tweets.not-created",
 			Payload: map[string]interface{}{"error": "Invalid payload: should be an object"},
 		})
+		return
 	}
 	if data["content"] == "" {
 		request.Reply(exorelay.MessageOptions{
@@ -45,6 +46,56 @@ func handleCreate(request exoservice.Request) {
 			"id":       string(id.Hex()),
 			"content":  newTweet["content"],
 			"owner_id": newTweet["owner_id"],
+		},
+	})
+}
+
+func handleDelete(request exoservice.Request) {
+	data, ok := request.Payload.(map[string]interface{})
+	if !ok {
+		fmt.Println("not okay")
+		request.Reply(exorelay.MessageOptions{
+			Name:    "tweets.not-found",
+			Payload: map[string]interface{}{"error": "Invalid payload: should be an object"},
+		})
+		return
+	}
+	if !bson.IsObjectIdHex(data["id"].(string)) {
+		fmt.Println("invalid id")
+		request.Reply(exorelay.MessageOptions{
+			Name:    "tweets.not-found",
+			Payload: map[string]interface{}{"error": "Invalid id"},
+		})
+		return
+	}
+	id := bson.ObjectIdHex(data["id"].(string))
+	fmt.Println(id)
+	var result map[string]interface{}
+	err := collection.FindId(id).One(result)
+	if err != nil {
+		fmt.Println("find failed")
+		request.Reply(exorelay.MessageOptions{
+			Name:    "tweets.not-found",
+			Payload: map[string]interface{}{"error": err.Error()},
+		})
+		return
+	}
+	err = collection.Remove(bson.M{"_id": id})
+	if err != nil {
+		fmt.Println("remove failed")
+		request.Reply(exorelay.MessageOptions{
+			Name:    "tweets.not-found",
+			Payload: map[string]interface{}{"error": err.Error()},
+		})
+		return
+	}
+	fmt.Println(result)
+	request.Reply(exorelay.MessageOptions{
+		Name: "tweets.deleted",
+		Payload: map[string]interface{}{
+			"id":       string(result["_id"].(bson.ObjectId).Hex()),
+			"content":  result["content"],
+			"owner_id": result["owner_id"],
 		},
 	})
 }
@@ -144,6 +195,7 @@ func main() {
 	messageHandlers := exoservice.MessageHandlerMapping{
 		"tweets.create-many": handleCreateMany,
 		"tweets.create":      handleCreate,
+		"tweets.delete":      handleDelete,
 		"tweets.get-details": handleGetDetails,
 	}
 	exoservice.Bootstrap(messageHandlers)

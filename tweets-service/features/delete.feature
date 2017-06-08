@@ -17,13 +17,13 @@ Feature: Deleting an entry
     When sending the message "tweets.delete" with the payload:
       """
       {
-        "id": "{{.IdOf( "Tuesday")}}"
+        "id": "{{idOf "Tuesday"}}"
       }
       """
     Then the service replies with "tweets.deleted" and the payload:
       """
       {
-        "id": "{{.IdOf(\"Tuesday\")}}",
+        "id": "{{idOf "Tuesday"}}",
         "content": "Tuesday",
         "owner_id": "1"
       }
