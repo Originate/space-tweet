@@ -31,7 +31,7 @@ messages:
 
 
 docker:
-  publish:
+  ports:
     - '3000:3000'
 
 
