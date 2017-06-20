@@ -19,7 +19,7 @@ module.exports =
       done!
 
 
-  'user.get-details': (query, {reply}) ->
+  'get users details': (query, {reply}) ->
     try
       mongo-query = id-to-mongo query
     catch
@@ -37,7 +37,7 @@ module.exports =
             reply 'user details', user
 
 
-  'user.update': (user-data, {reply}) ->
+  'update users': (user-data, {reply}) ->
     try
       id = new ObjectID user-data.id
     catch
@@ -57,7 +57,7 @@ module.exports =
               reply 'user updated', user
 
 
-  'user.delete': (query, {reply}) ->
+  'delete users': (query, {reply}) ->
     try
       id = new ObjectID query.id
     catch
@@ -77,7 +77,7 @@ module.exports =
         reply 'user deleted', user
 
 
-  'users.create': (user-data, {reply}) ->
+  'create users': (user-data, {reply}) ->
     | empty-name user-data  =>
         console.log 'Cannot create user: Name cannot be blank'
         return reply 'users not created', error: 'Name cannot be blank'
@@ -89,14 +89,14 @@ module.exports =
       reply 'users created', mongo-to-id(result.ops[0])
 
 
-  'users.create-many': (users, {reply}) ->
+  'create users-many': (users, {reply}) ->
     | any-empty-names users  =>  return reply 'users not created', error: 'Name cannot be blank'
     collection.insert users, (err, result) ->
       | err  =>  return reply 'users not created', error: err
       reply 'all users created', count: result.inserted-count
 
 
-  'users.list': (_, {reply}) ->
+  'list users': (_, {reply}) ->
     collection.find({}).to-array N (users) ->
       mongo-to-ids users
       console.log "listing users: #{users.length} found"

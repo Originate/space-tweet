@@ -9,7 +9,7 @@ class UsersController
 
 
   index: (req, res) ->
-    @send 'users.list', null, (users) ->
+    @send 'list users', null, (users) ->
       res.render 'users/index', users
 
 
@@ -18,27 +18,27 @@ class UsersController
 
 
   create: (req, res) ->
-    @send 'users.create', req.body, ->
+    @send 'create users', req.body, ->
       res.redirect '/users'
 
 
   show: (req, res) ->
-    @send 'user.get-details', id: req.params.id, (user) ->
+    @send 'get users details', id: req.params.id, (user) ->
       res.render 'users/show', {user}
 
 
   edit: (req, res) ->
-    @send 'user.get-details', id: req.params.id, (user) ->
+    @send 'get users details', id: req.params.id, (user) ->
       res.render 'users/edit', {user}
 
 
   update: (req, res) ->
-    @send 'user.update', merge(true, req.params, req.body), ->
+    @send 'update users', merge(true, req.params, req.body), ->
       res.redirect '/users'
 
 
   destroy: (req, res) ->
-    @send 'user.delete', req.params, ->
+    @send 'delete users', req.params, ->
       res.redirect '/users'
 
 

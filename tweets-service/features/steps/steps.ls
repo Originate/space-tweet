@@ -34,7 +34,7 @@ module.exports = ->
   @Given /^the service contains the entries:$/, (table, done) ->
     entries = table.hashes! |> map lowercase-keys
     @exocom
-      ..send service: 'tweets', name: 'tweets.create-many', payload: entries
+      ..send service: 'tweets', name: 'create tweets-many', payload: entries
       ..on-receive done
 
 
@@ -56,7 +56,7 @@ module.exports = ->
 
   @Then /^the service contains no entries/, (done) ->
     @exocom
-      ..send service: 'tweets', name: 'tweets.list', payload: { owner_id: '1' }
+      ..send service: 'tweets', name: 'list tweets', payload: { owner_id: '1' }
       ..on-receive ~>
         expect(@exocom.received-messages[0].payload.count).to.equal 0
         done!
@@ -64,7 +64,7 @@ module.exports = ->
 
   @Then /^the service now contains the entries:$/, (table, done) ->
     @exocom
-      ..send service: 'tweets', name: 'tweets.list', payload: { owner_id: '1' }
+      ..send service: 'tweets', name: 'list tweets', payload: { owner_id: '1' }
       ..on-receive ~>
         actual-entries = @remove-ids @exocom.received-messages[0].payload.entries
         expected-entries = table.hashes! |> map lowercase-keys

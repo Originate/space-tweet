@@ -1,7 +1,7 @@
 Feature: Updating an entry
 
   Rules:
-  - when receiving "tweets.update", updates the entry with the given id and returns "tweets.updated" with the new record
+  - when receiving "update tweets", updates the entry with the given id and returns "update tweetsd" with the new record
 
 
   Background:
@@ -15,12 +15,12 @@ Feature: Updating an entry
 
 
   Scenario: updating an existing entry
-    When sending the message "tweets.update" with the payload:
+    When sending the message "update tweets" with the payload:
       """
       id: '<%= @id_of 'Tuesday' %>'
       content: 'Dienstag'
       """
-    Then the service replies with "tweets.updated" and the payload:
+    Then the service replies with "update tweetsd" and the payload:
       """
       id: /.+/
       content: 'Dienstag'
@@ -34,12 +34,12 @@ Feature: Updating an entry
 
 
   Scenario: trying to update a non-existing entry
-    When sending the message "tweets.update" with the payload:
+    When sending the message "update tweets" with the payload:
       """
       id: 'zonk'
       content: 'feel the zonk'
       """
-    Then the service replies with "tweets.not-found" and the payload:
+    Then the service replies with "tweets not found" and the payload:
       """
       id: 'zonk'
       """

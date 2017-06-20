@@ -1,7 +1,7 @@
 Feature: Deleting a user
 
   Rules:
-  - when receiving "user.delete", removes the user with the given id and returns "user deleted"
+  - when receiving "delete users", removes the user with the given id and returns "user deleted"
 
 
   Background:
@@ -14,7 +14,7 @@ Feature: Deleting a user
 
 
   Scenario: deleting an existing user
-    When sending the message "user.delete" with the payload:
+    When sending the message "delete users" with the payload:
       """
       id: '<%= @id_of 'Jean-Luc Picard' %>'
       """
@@ -29,7 +29,7 @@ Feature: Deleting a user
 
 
   Scenario: trying to delete a non-existing user
-    When sending the message "user.delete" with the payload:
+    When sending the message "delete users" with the payload:
       """
       id: 'zonk'
       """
