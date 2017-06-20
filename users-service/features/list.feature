@@ -11,7 +11,7 @@ Feature: Listing all users
 
   Scenario: no users exist in the database
     When sending the message "users.list"
-    Then the service replies with "users.listed" and the payload:
+    Then the service replies with "users listed" and the payload:
       """
       count: 0
       users: []
@@ -24,7 +24,7 @@ Feature: Listing all users
       | Jean-Luc Picard |
       | Will Riker      |
     When sending the message "users.list"
-    Then the service replies with "users.listed" and the payload:
+    Then the service replies with "users listed" and the payload:
       """
       count: 2
       users: [

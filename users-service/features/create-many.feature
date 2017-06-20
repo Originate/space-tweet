@@ -7,9 +7,9 @@ Feature: Creating multiple users
   Rules:
   - send the message "users.create-many" to create several user accounts at once
   - payload is an array of user data
-  - when successful, the service replies with "users.created"
+  - when successful, the service replies with "users created"
     and the newly created account
-  - when there is an error, the service replies with "users.not-created"
+  - when there is an error, the service replies with "users not created"
     and a message describing the error
 
 
@@ -26,7 +26,7 @@ Feature: Creating multiple users
         * name: 'William Riker'
       ]
       """
-    Then the service replies with "users.created-many" and the payload:
+    Then the service replies with "all users created" and the payload:
       """
       count: 2
       """
@@ -44,7 +44,7 @@ Feature: Creating multiple users
         * name: ''
       ]
       """
-    Then the service replies with "users.not-created" and the payload:
+    Then the service replies with "users not created" and the payload:
       """
       error: 'Name cannot be blank'
       """

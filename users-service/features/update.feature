@@ -1,7 +1,7 @@
 Feature: Updating a user
 
   Rules:
-  - when receiving "user.update", updates the user with the given id and returns "user.updated" with the new record
+  - when receiving "user.update", updates the user with the given id and returns "user updated" with the new record
 
 
   Background:
@@ -19,7 +19,7 @@ Feature: Updating a user
       id: '<%= @id_of 'Jean-Luc Picard' %>'
       name: 'Cptn. Picard'
       """
-    Then the service replies with "user.updated" and the payload:
+    Then the service replies with "user updated" and the payload:
       """
       id: /.+/
       name: 'Cptn. Picard'
@@ -36,7 +36,7 @@ Feature: Updating a user
       id: 'zonk'
       name: 'Cptn. Zonk'
       """
-    Then the service replies with "user.not-found" and the payload:
+    Then the service replies with "user not found" and the payload:
       """
       id: 'zonk'
       """

@@ -1,7 +1,7 @@
 Feature: Get details for a user
 
   Rules:
-  - when receiving "user.details", returns "user.details" with details for the given user
+  - when receiving "user details", returns "user details" with details for the given user
 
 
   Background:
@@ -18,7 +18,7 @@ Feature: Get details for a user
       """
       id: '<%= @id_of 'Jean-Luc Picard' %>'
       """
-    Then the service replies with "user.details" and the payload:
+    Then the service replies with "user details" and the payload:
       """
       id: /.+/
       name: 'Jean-Luc Picard'
@@ -30,7 +30,7 @@ Feature: Get details for a user
       """
       name: 'Jean-Luc Picard'
       """
-    Then the service replies with "user.details" and the payload:
+    Then the service replies with "user details" and the payload:
       """
       id: /.+/
       name: 'Jean-Luc Picard'
@@ -42,7 +42,7 @@ Feature: Get details for a user
       """
       id: 'zonk'
       """
-    Then the service replies with "user.not-found" and the payload:
+    Then the service replies with "user not found" and the payload:
       """
       id: 'zonk'
       """
@@ -53,7 +53,7 @@ Feature: Get details for a user
       """
       name: 'zonk'
       """
-    Then the service replies with "user.not-found" and the payload:
+    Then the service replies with "user not found" and the payload:
       """
       name: 'zonk'
       """

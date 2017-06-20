@@ -17,13 +17,13 @@ messages:
     - user.update
     - user.delete
   sends:
-    - users.created
-    - users.listed
-    - user.details
-    - user.not-found
-    - user.updated
-    - user.deleted
-    - users.not-created
+    - users created
+    - users listed
+    - user details
+    - user not found
+    - user updated
+    - user deleted
+    - users not created
 
 
 dependencies:

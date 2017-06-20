@@ -24,17 +24,17 @@ module.exports =
       mongo-query = id-to-mongo query
     catch
       console.log "the given query (#{query}) contains an invalid id"
-      return reply 'user.not-found', query
+      return reply 'user not found', query
     collection.find(mongo-query).to-array N (users) ->
       switch users.length
         | 0  =>
             console.log "user '#{mongo-query}' not found"
-            reply 'user.not-found', query
+            reply 'user not found', query
         | _  =>
             user = users[0]
             mongo-to-id user
             console.log "reading user '#{user.name}' (#{user.id})"
-            reply 'user.details', user
+            reply 'user details', user
 
 
   'user.update': (user-data, {reply}) ->
@@ -42,19 +42,19 @@ module.exports =
       id = new ObjectID user-data.id
     catch
       console.log "the given query (#{user-data}) contains an invalid id"
-      return reply 'user.not-found', id: user-data.id
+      return reply 'user not found', id: user-data.id
     delete user-data.id
     collection.update-one {_id: id}, {$set: user-data}, N (result) ->
       switch result.modified-count
         | 0  =>
             console.log "user '#{id}' not updated because it doesn't exist"
-            return reply 'user.not-found'
+            return reply 'user not found'
         | _  =>
             collection.find(_id: id).to-array N (users) ->
               user = users[0]
               mongo-to-id user
               console.log "updating user '#{user.name}' (#{user.id})"
-              reply 'user.updated', user
+              reply 'user updated', user
 
 
   'user.delete': (query, {reply}) ->
@@ -62,45 +62,45 @@ module.exports =
       id = new ObjectID query.id
     catch
       console.log "the given query (#{query}) contains an invalid id"
-      return reply 'user.not-found', id: query.id
+      return reply 'user not found', id: query.id
     collection.find(_id: id).to-array N (users) ->
       | users.length is 0  =>
           console.log "user '#{id}' not deleted because it doesn't exist"
-          return reply 'user.not-found', query
+          return reply 'user not found', query
       user = users[0]
       mongo-to-id user
       collection.delete-one _id: id, N (result) ->
         if result.deleted-count is 0
           console.log "user '#{id}' not deleted because it doesn't exist"
-          return reply 'user.not-found', query
+          return reply 'user not found', query
         console.log "deleting user '#{user.name}' (#{user.id})"
-        reply 'user.deleted', user
+        reply 'user deleted', user
 
 
   'users.create': (user-data, {reply}) ->
     | empty-name user-data  =>
         console.log 'Cannot create user: Name cannot be blank'
-        return reply 'users.not-created', error: 'Name cannot be blank'
+        return reply 'users not created', error: 'Name cannot be blank'
     collection.insert-one user-data, (err, result) ->
       if err
         console.log "Error creating user: #{err}"
-        return reply 'users.not-created', error: err
+        return reply 'users not created', error: err
       console.log "creating user '#{user-data.name}'"
-      reply 'users.created', mongo-to-id(result.ops[0])
+      reply 'users created', mongo-to-id(result.ops[0])
 
 
   'users.create-many': (users, {reply}) ->
-    | any-empty-names users  =>  return reply 'users.not-created', error: 'Name cannot be blank'
+    | any-empty-names users  =>  return reply 'users not created', error: 'Name cannot be blank'
     collection.insert users, (err, result) ->
-      | err  =>  return reply 'users.not-created-many', error: err
-      reply 'users.created-many', count: result.inserted-count
+      | err  =>  return reply 'users not created', error: err
+      reply 'all users created', count: result.inserted-count
 
 
   'users.list': (_, {reply}) ->
     collection.find({}).to-array N (users) ->
       mongo-to-ids users
       console.log "listing users: #{users.length} found"
-      reply 'users.listed', {count: users.length, users}
+      reply 'users listed', {count: users.length, users}
 
 
 
