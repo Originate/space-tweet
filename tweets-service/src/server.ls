@@ -87,11 +87,11 @@ module.exports =
       reply 'tweet created', mongo-to-id(result.ops[0])
 
 
-  'create tweet-many': (entries, {reply}) ->
+  'create many tweets': (entries, {reply}) ->
     | any-empty-contents entries  =>  return reply 'tweet not created', error: 'Content cannot be blank'
     collection.insert entries, (err, result) ->
-      | err  =>  return reply 'tweet not created-many', error: err
-      reply 'tweet created-many', count: result.inserted-count
+      | err  =>  return reply 'tweets not created', error: err
+      reply 'tweets created', count: result.inserted-count
 
 
   'list tweets': (query, {reply}) ->
