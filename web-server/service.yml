@@ -10,24 +10,24 @@ startup:
 
 messages:
   sends:
-    - user.get-details
-    - user.delete
-    - user.update
-    - users.list
-    - users.create
-    - tweets.list
-    - tweets.create
-    - tweets.delete
+    - get user details
+    - delete user
+    - update user
+    - list users
+    - create user
+    - list tweets
+    - create tweet
+    - delete tweet
   receives:
-    - user.details
-    - user.not-found
-    - user.updated
-    - user.deleted
-    - users.listed
-    - users.created
-    - tweets.listed
-    - tweets.created
-    - tweets.deleted
+    - user details
+    - user not found
+    - user updated
+    - user deleted
+    - users listed
+    - user created
+    - tweets listed
+    - tweet created
+    - tweet deleted
 
 
 docker:

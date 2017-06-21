@@ -11,19 +11,19 @@ tests: node_modules/.bin/cucumber-js
 
 messages:
   receives:
-    - users.create
-    - users.list
-    - user.get-details
-    - user.update
-    - user.delete
+    - create user
+    - list users
+    - get user details
+    - update user
+    - delete user
   sends:
-    - users.created
-    - users.listed
-    - user.details
-    - user.not-found
-    - user.updated
-    - user.deleted
-    - users.not-created
+    - user created
+    - users listed
+    - user details
+    - user not found
+    - user updated
+    - user deleted
+    - user not created
 
 
 dependencies:

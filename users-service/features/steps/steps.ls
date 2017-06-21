@@ -33,7 +33,7 @@ module.exports = ->
   @Given /^the service contains the users:$/, (table, done) ->
     users = table.hashes! |> map lowercase-keys
     @exocom
-      ..send service: 'users', name: 'users.create-many', payload: users
+      ..send service: 'users', name: 'create many users', payload: users
       ..on-receive done
 
 
@@ -55,7 +55,7 @@ module.exports = ->
 
   @Then /^the service contains no users$/, (done) ->
     @exocom
-      ..send service: 'users', name: 'users.list'
+      ..send service: 'users', name: 'list users'
       ..on-receive ~>
         expect(@exocom.received-messages[0].payload.count).to.equal 0
         done!
@@ -63,7 +63,7 @@ module.exports = ->
 
   @Then /^the service now contains the users:$/, (table, done) ->
     @exocom
-      ..send service: 'users', name: 'users.list'
+      ..send service: 'users', name: 'list users'
       ..on-receive ~>
         actual-users = @remove-ids @exocom.received-messages[0].payload.users
         expected-users = table.hashes! |> map lowercase-keys

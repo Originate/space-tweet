@@ -4,7 +4,7 @@ class HomeController
 
 
   index: (req, res) ->
-    @send 'tweets.list', {}, (data) ->
+    @send 'list tweets', {}, (data) ->
       res.render 'index', count: data.count, tweets: data.entries
 
 

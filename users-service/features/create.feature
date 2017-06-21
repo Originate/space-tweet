@@ -2,9 +2,9 @@ Feature: Creating users
 
   Rules:
   - users must have a name
-  - when successful, the service replies with "users.created"
+  - when successful, the service replies with "user created"
     and the newly created account
-  - when there is an error, the service replies with "users.not-created"
+  - when there is an error, the service replies with "user not created"
     and a message describing the error
 
 
@@ -14,11 +14,11 @@ Feature: Creating users
 
 
   Scenario: creating a valid user account
-    When sending the message "users.create" with the payload:
+    When sending the message "create user" with the payload:
       """
       name: 'Jean-Luc Picard'
       """
-    Then the service replies with "users.created" and the payload:
+    Then the service replies with "user created" and the payload:
       """
       id: /\d+/
       name: 'Jean-Luc Picard'
@@ -29,11 +29,11 @@ Feature: Creating users
 
 
   Scenario: trying to create a user account with an empty name
-    When sending the message "users.create" with the payload:
+    When sending the message "create user" with the payload:
       """
       name: ''
       """
-    Then the service replies with "users.not-created" and the payload:
+    Then the service replies with "user not created" and the payload:
       """
       error: 'Name cannot be blank'
       """
