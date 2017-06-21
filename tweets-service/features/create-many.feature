@@ -7,9 +7,9 @@ Feature: Creating multiple entries
   Rules:
   - send the message "create many tweets" to create several entries at once
   - payload is an array of entry data
-  - when successful, the service replies with "tweet created"
+  - when successful, the service replies with "tweets created"
     and the newly created account
-  - when there is an error, the service replies with "tweet not created"
+  - when there is an error, the service replies with "tweets not created"
     and a message describing the error
 
 

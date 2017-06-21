@@ -89,11 +89,11 @@ module.exports =
       reply 'user created', mongo-to-id(result.ops[0])
 
 
-  'create user-many': (users, {reply}) ->
+  'create many users': (users, {reply}) ->
     | any-empty-names users  =>  return reply 'user not created', error: 'Name cannot be blank'
     collection.insert users, (err, result) ->
-      | err  =>  return reply 'user not created', error: err
-      reply 'all user created', count: result.inserted-count
+      | err  =>  return reply 'users not created', error: err
+      reply 'users created', count: result.inserted-count
 
 
   'list users': (_, {reply}) ->

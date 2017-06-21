@@ -5,7 +5,7 @@ Feature: Creating multiple users
   So that I don't have to send and receive so many messages and remain performant.
 
   Rules:
-  - send the message "create user-many" to create several user accounts at once
+  - send the message "create many users" to create several user accounts at once
   - payload is an array of user data
   - when successful, the service replies with "user created"
     and the newly created account
@@ -19,14 +19,14 @@ Feature: Creating multiple users
 
 
   Scenario: creating valid user accounts
-    When sending the message "create user-many" with the payload:
+    When sending the message "create many users" with the payload:
       """
       [
         * name: 'Jean-Luc Picard'
         * name: 'William Riker'
       ]
       """
-    Then the service replies with "all user created" and the payload:
+    Then the service replies with "users created" and the payload:
       """
       count: 2
       """
@@ -37,14 +37,14 @@ Feature: Creating multiple users
 
 
   Scenario: trying to create a user account with an empty name
-    When sending the message "create user-many" with the payload:
+    When sending the message "create many users" with the payload:
       """
       [
         * name: 'Jean-Luc Picard'
         * name: ''
       ]
       """
-    Then the service replies with "user not created" and the payload:
+    Then the service replies with "users not created" and the payload:
       """
       error: 'Name cannot be blank'
       """
