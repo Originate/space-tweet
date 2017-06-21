@@ -34,7 +34,7 @@ module.exports = ->
   @Given /^the service contains the entries:$/, (table, done) ->
     entries = table.hashes! |> map lowercase-keys
     @exocom
-      ..send service: 'tweets', name: 'create tweets-many', payload: entries
+      ..send service: 'tweets', name: 'create tweet-many', payload: entries
       ..on-receive done
 
 

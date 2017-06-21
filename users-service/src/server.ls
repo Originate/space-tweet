@@ -19,7 +19,7 @@ module.exports =
       done!
 
 
-  'get users details': (query, {reply}) ->
+  'get user details': (query, {reply}) ->
     try
       mongo-query = id-to-mongo query
     catch
@@ -37,7 +37,7 @@ module.exports =
             reply 'user details', user
 
 
-  'update users': (user-data, {reply}) ->
+  'update user': (user-data, {reply}) ->
     try
       id = new ObjectID user-data.id
     catch
@@ -57,7 +57,7 @@ module.exports =
               reply 'user updated', user
 
 
-  'delete users': (query, {reply}) ->
+  'delete user': (query, {reply}) ->
     try
       id = new ObjectID query.id
     catch
@@ -77,23 +77,23 @@ module.exports =
         reply 'user deleted', user
 
 
-  'create users': (user-data, {reply}) ->
+  'create user': (user-data, {reply}) ->
     | empty-name user-data  =>
         console.log 'Cannot create user: Name cannot be blank'
-        return reply 'users not created', error: 'Name cannot be blank'
+        return reply 'user not created', error: 'Name cannot be blank'
     collection.insert-one user-data, (err, result) ->
       if err
         console.log "Error creating user: #{err}"
-        return reply 'users not created', error: err
+        return reply 'user not created', error: err
       console.log "creating user '#{user-data.name}'"
-      reply 'users created', mongo-to-id(result.ops[0])
+      reply 'user created', mongo-to-id(result.ops[0])
 
 
-  'create users-many': (users, {reply}) ->
-    | any-empty-names users  =>  return reply 'users not created', error: 'Name cannot be blank'
+  'create user-many': (users, {reply}) ->
+    | any-empty-names users  =>  return reply 'user not created', error: 'Name cannot be blank'
     collection.insert users, (err, result) ->
-      | err  =>  return reply 'users not created', error: err
-      reply 'all users created', count: result.inserted-count
+      | err  =>  return reply 'user not created', error: err
+      reply 'all user created', count: result.inserted-count
 
 
   'list users': (_, {reply}) ->

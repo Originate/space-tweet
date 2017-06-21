@@ -1,7 +1,7 @@
 Feature: Updating a user
 
   Rules:
-  - when receiving "update users", updates the user with the given id and returns "user updated" with the new record
+  - when receiving "update user", updates the user with the given id and returns "user updated" with the new record
 
 
   Background:
@@ -14,7 +14,7 @@ Feature: Updating a user
 
 
   Scenario: updating an existing user
-    When sending the message "update users" with the payload:
+    When sending the message "update user" with the payload:
       """
       id: '<%= @id_of 'Jean-Luc Picard' %>'
       name: 'Cptn. Picard'
@@ -31,7 +31,7 @@ Feature: Updating a user
 
 
   Scenario: trying to update a non-existing user
-    When sending the message "update users" with the payload:
+    When sending the message "update user" with the payload:
       """
       id: 'zonk'
       name: 'Cptn. Zonk'

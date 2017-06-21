@@ -4,12 +4,12 @@ class TweetsController
 
 
   create: (req, res) ->
-    @send 'create tweets', content: req.body.content, owner_id: '1', ->
+    @send 'create tweet', content: req.body.content, owner_id: '1', ->
       res.redirect '/'
 
 
   destroy: (req, res) ->
-    @send 'delete tweets', req.params, ->
+    @send 'delete tweet', req.params, ->
       res.redirect '/'
 
 

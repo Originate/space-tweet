@@ -33,7 +33,7 @@ module.exports = ->
   @Given /^the service contains the users:$/, (table, done) ->
     users = table.hashes! |> map lowercase-keys
     @exocom
-      ..send service: 'users', name: 'create users-many', payload: users
+      ..send service: 'users', name: 'create user-many', payload: users
       ..on-receive done
 
 

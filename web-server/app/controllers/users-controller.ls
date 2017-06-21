@@ -18,27 +18,27 @@ class UsersController
 
 
   create: (req, res) ->
-    @send 'create users', req.body, ->
+    @send 'create user', req.body, ->
       res.redirect '/users'
 
 
   show: (req, res) ->
-    @send 'get users details', id: req.params.id, (user) ->
+    @send 'get user details', id: req.params.id, (user) ->
       res.render 'users/show', {user}
 
 
   edit: (req, res) ->
-    @send 'get users details', id: req.params.id, (user) ->
+    @send 'get user details', id: req.params.id, (user) ->
       res.render 'users/edit', {user}
 
 
   update: (req, res) ->
-    @send 'update users', merge(true, req.params, req.body), ->
+    @send 'update user', merge(true, req.params, req.body), ->
       res.redirect '/users'
 
 
   destroy: (req, res) ->
-    @send 'delete users', req.params, ->
+    @send 'delete user', req.params, ->
       res.redirect '/users'
 
 

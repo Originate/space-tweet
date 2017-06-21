@@ -2,9 +2,9 @@ Feature: Creating entries
 
   Rules:
   - entries must have a content
-  - when successful, the service replies with "tweets created"
+  - when successful, the service replies with "tweet created"
     and the newly created entry
-  - when there is an error, the service replies with "tweets not created"
+  - when there is an error, the service replies with "tweet not created"
     and a message describing the error
 
 
@@ -14,12 +14,12 @@ Feature: Creating entries
 
 
   Scenario: creating a valid entry
-    When sending the message "create tweets" with the payload:
+    When sending the message "create tweet" with the payload:
       """
       owner_id: '1'
       content: 'Hello world'
       """
-    Then the service replies with "tweets created" and the payload:
+    Then the service replies with "tweet created" and the payload:
       """
       id: /\d+/
       owner_id: '1'
@@ -31,12 +31,12 @@ Feature: Creating entries
 
 
   Scenario: trying to create an entry with empty content
-    When sending the message "create tweets" with the payload:
+    When sending the message "create tweet" with the payload:
       """
       owner_id: '1'
       content: ''
       """
-    Then the service replies with "tweets not created" and the payload:
+    Then the service replies with "tweet not created" and the payload:
       """
       error: 'Content cannot be blank'
       """

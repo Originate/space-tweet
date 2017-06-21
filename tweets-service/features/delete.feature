@@ -1,7 +1,7 @@
 Feature: Deleting an entry
 
   Rules:
-  - when receiving "delete tweets", removes the entry with the given id and returns "tweets deleted"
+  - when receiving "delete tweet", removes the entry with the given id and returns "tweet deleted"
 
 
   Background:
@@ -15,11 +15,11 @@ Feature: Deleting an entry
 
 
   Scenario: deleting an existing entry
-    When sending the message "delete tweets" with the payload:
+    When sending the message "delete tweet" with the payload:
       """
       id: '<%= @id_of 'Tuesday' %>'
       """
-    Then the service replies with "tweets deleted" and the payload:
+    Then the service replies with "tweet deleted" and the payload:
       """
       id: /.+/
       content: 'Tuesday'
@@ -32,11 +32,11 @@ Feature: Deleting an entry
 
 
   Scenario: trying to delete a non-existing entry
-    When sending the message "delete tweets" with the payload:
+    When sending the message "delete tweet" with the payload:
       """
       id: 'zonk'
       """
-    Then the service replies with "tweets not found" and the payload:
+    Then the service replies with "tweet not found" and the payload:
       """
       id: 'zonk'
       """

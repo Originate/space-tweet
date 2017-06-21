@@ -11,19 +11,19 @@ tests: node_modules/.bin/cucumber-js
 
 messages:
   receives:
-    - create tweets
+    - create tweet
     - list tweets
-    - get tweets details
-    - update tweets
-    - delete tweets
+    - get tweet details
+    - update tweet
+    - delete tweet
   sends:
-    - tweets created
+    - tweet created
     - tweets listed
-    - tweets details
-    - tweets not found
-    - update tweetsd
-    - tweets deleted
-    - tweets not created
+    - tweet details
+    - tweet not found
+    - tweet updated
+    - tweet deleted
+    - tweet not created
 
 dependencies:
   mongo:

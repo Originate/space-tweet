@@ -5,11 +5,11 @@ Feature: Creating multiple entries
   So that I don't have to send and receive so many messages and remain performant.
 
   Rules:
-  - send the message "create tweets-many" to create several entries at once
+  - send the message "create tweet-many" to create several entries at once
   - payload is an array of entry data
-  - when successful, the service replies with "tweets created"
+  - when successful, the service replies with "tweet created"
     and the newly created account
-  - when there is an error, the service replies with "tweets not created"
+  - when there is an error, the service replies with "tweet not created"
     and a message describing the error
 
 
@@ -19,14 +19,14 @@ Feature: Creating multiple entries
 
 
   Scenario: creating valid entries
-    When sending the message "create tweets-many" with the payload:
+    When sending the message "create tweet-many" with the payload:
       """
       [
         * content: 'Monday'
         * content: 'Tuesday'
       ]
       """
-    Then the service replies with "tweets created-many" and the payload:
+    Then the service replies with "tweet created-many" and the payload:
       """
       count: 2
       """
@@ -37,14 +37,14 @@ Feature: Creating multiple entries
 
 
   Scenario: trying to create entries with empty content
-    When sending the message "create tweets-many" with the payload:
+    When sending the message "create tweet-many" with the payload:
       """
       [
         * content: 'Monday'
         * content: ''
       ]
       """
-    Then the service replies with "tweets not created" and the payload:
+    Then the service replies with "tweet not created" and the payload:
       """
       error: 'Content cannot be blank'
       """
