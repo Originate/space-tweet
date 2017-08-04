@@ -2,7 +2,7 @@ type: exosphere-users-service
 description: Manages user accounts in Exosphere applications
 author: originate
 
-setup: yarn
+
 startup:
   command: node_modules/exoservice/bin/exo-js
   online-text: online at port
@@ -27,20 +27,12 @@ messages:
 
 
 dependencies:
-  mongo:
-    dev:
-      image: 'mongo'
-      version: '3.4.0'
-      volumes:
-        - '{{EXO_DATA_PATH}}:/data/db'
-      ports:
-        - '27017:27017'
-      online-text: 'waiting for connections'
-    prod: 'ds143588.mlab.com:43588'
+  - name: mongo
+    version: 3.4.0
 
 
-production:
-  aws:
-    cpu: 100
-    memory: 500
-    essential: true
+# production:
+#   aws:
+#     cpu: 100
+#     memory: 500
+#     essential: true

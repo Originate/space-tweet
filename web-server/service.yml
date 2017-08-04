@@ -2,7 +2,7 @@ type: space-tweet-web-service
 description: Serves the web UI of SpaceTweet
 author: originate
 
-setup: yarn
+
 startup:
   command: node_modules/.bin/lsc app
   online-text: all systems go
@@ -35,10 +35,10 @@ docker:
     - '3000:3000'
 
 
-production:
-  url: spacetweet.originate.com
-  aws:
-    cpu: 100
-    memory: 500
-    essential: true
-    public-port: 3000
+# production:
+#   url: spacetweet.originate.com
+#   aws:
+#     cpu: 100
+#     memory: 500
+#     essential: true
+#     public-port: 3000
