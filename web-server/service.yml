@@ -36,7 +36,9 @@ docker:
 
 
 # production:
+#   url: spacetweet.originate.com
 #   aws:
 #     cpu: 100
 #     memory: 500
 #     essential: true
+#     public-port: 3000
