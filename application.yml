@@ -4,7 +4,7 @@ version: 0.0.1
 
 dependencies:
   - name: exocom
-    version: 0.21.8
+    version: 0.23.0
   - name: mongo
     version: 3.4.0
     config:
@@ -38,11 +38,8 @@ services:
   public:
     space-tweet-web-service:
       location: ./web-server
-      docker_image: originate/space-tweet-web-service
   private:
     exosphere-users-service:
       location: ./users-service
-      docker_image: originate/exosphere-users-service
     exosphere-tweets-service:
       location: ./tweets-service
-      docker_image: originate/exosphere-tweets-service

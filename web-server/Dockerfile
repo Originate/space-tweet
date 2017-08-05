@@ -4,3 +4,4 @@ FROM nodesource/node
 COPY ./package.json .
 RUN npm install --production
 COPY . .
+ENV DEBUG "exorelay:*"
