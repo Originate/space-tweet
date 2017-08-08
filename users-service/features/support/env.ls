@@ -23,9 +23,9 @@ module.exports = ->
       db.collection('users')?.drop!
       done!
 
-  @After ->
-    @exocom?.close!
-    @process?.close!
+  @After (_scenario, done) ->
+    @exocom?.close ~>
+      @process?.close ~> done!
 
 
   @registerHandler 'AfterFeatures', (_event, done) ->
