@@ -25,22 +25,6 @@ messages:
     - user deleted
     - user not created
 
-
-dependencies:
-  mongo:
-    dev:
-      image: 'mongo'
-      version: '3.4.0'
-      volumes:
-        - '{{EXO_DATA_PATH}}:/data/db'
-      ports:
-        - '27017:27017'
-      online-text: 'waiting for connections'
-    prod: 'ds143588.mlab.com:43588'
-
-
 production:
-  aws:
-    cpu: 100
-    memory: 500
-    essential: true
+  cpu: 100
+  memory: 500
