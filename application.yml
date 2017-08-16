@@ -1,38 +1,26 @@
-name: SpaceTweet
+name: space-tweet
 description: an example for an ExoSphere application
 version: 0.0.1
 
 dependencies:
   - name: exocom
     version: 0.24.0
-  - name: mongo
-    version: 3.4.0
-    config:
-      ports:
-        - '4000:4000'
-      volumes:
-        - '{{EXO_DATA_PATH}}:/data/db'
-      online-text: 'waiting for connections'
-      dependency-environment:
-        DB_NAME: 'test-db'
-      service-environment:
-        COLLECTION_NAME: 'test-collection'
+  # - name: mongo
+  #   version: 3.4.0
+  #   config:
+  #     ports:
+  #       - '4000:4000'
+  #     volumes:
+  #       - '{{EXO_DATA_PATH}}:/data/db'
+  #     online-text: 'waiting for connections'
+  #     dependency-environment:
+  #       DB_NAME: 'test-db'
+  #     service-environment:
+  #       COLLECTION_NAME: 'test-collection'
 
 
-environments:
-  local:
-  production:
-    domain: spacetweet.originate.com
-    providers:
-      aws:
-        region: us-west-2
-        public-cluster-size: t2.medium
-        private-cluster-size: t2.nano
-        remote-state-store: terraform.state.prod
-  staging:
-    url: dev.megabyt.es
-    provider: aws
-    region: us-west-2
+production:
+  url: spacetweet.originate.com
 
 services:
   public:

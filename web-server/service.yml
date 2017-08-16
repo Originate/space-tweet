@@ -34,11 +34,9 @@ docker:
   ports:
     - '3000:3000'
 
-
-# production:
-#   url: spacetweet.originate.com
-#   aws:
-#     cpu: 100
-#     memory: 500
-#     essential: true
-#     public-port: 3000
+production:
+  url: spacetweet.originate.com
+  cpu: 128
+  memory: 128
+  public-port: 3000
+  health-check: '/'

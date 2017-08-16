@@ -26,13 +26,11 @@ messages:
     - user not created
 
 
-dependencies:
-  - name: mongo
-    version: 3.4.0
+# dependencies:
+#   - name: mongo
+#     version: 3.4.0
 
 
-# production:
-#   aws:
-#     cpu: 100
-#     memory: 500
-#     essential: true
+production:
+  cpu: 128
+  memory: 128
