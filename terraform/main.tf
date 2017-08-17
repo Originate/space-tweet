@@ -38,7 +38,8 @@ module "exosphere-tweets-service" {
   docker_image  = "518695917306.dkr.ecr.us-west-2.amazonaws.com/tmp_exosphere-tweets-service:0.0.1"
   env           = "production"
   environment_variables = {
-    ROLE = "exosphere-tweets-service"
+    ROLE         = "exosphere-tweets-service"
+    NODE_ENV     = "production"
     EXOCOM_HOST  = "${module.exocom_cluster.exocom_address}"
     EXOCOM_PORT  = "80"
     MONGODB_USER = "${var.mongodb_user}"
@@ -61,7 +62,8 @@ module "exosphere-users-service" {
   docker_image  = "518695917306.dkr.ecr.us-west-2.amazonaws.com/tmp_exosphere-users-service:0.0.1"
   env           = "production"
   environment_variables = {
-    ROLE = "exosphere-users-service"
+    ROLE         = "exosphere-users-service"
+    NODE_ENV     = "production"
     EXOCOM_HOST  = "${module.exocom_cluster.exocom_address}"
     EXOCOM_PORT  = "80"
     MONGODB_USER = "${var.mongodb_user}"
@@ -88,7 +90,8 @@ module "space-tweet-web-service" {
   ecs_role_arn          = "${module.aws.ecs_service_iam_role_arn}"
   env                   = "production"
   environment_variables = {
-    ROLE = "space-tweet-web-service"
+    ROLE        = "space-tweet-web-service"
+    NODE_ENV    = "production"
     EXOCOM_HOST = "${module.exocom_cluster.exocom_address}"
     EXOCOM_PORT = "80"
     DEBUG       = "exorelay,exorelay:message-manager"
@@ -130,7 +133,6 @@ module "exocom_service" {
   source = "./aws/custom/exocom/exocom-service"
 
   cluster_id            = "${module.exocom_cluster.cluster_id}"
-  command               = ["bin/exocom"]
   container_port        = "3100"
   cpu_units             = "128"
   docker_image          = "518695917306.dkr.ecr.us-west-2.amazonaws.com/originate/exocom:0.24.0"

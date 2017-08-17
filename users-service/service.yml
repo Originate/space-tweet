@@ -30,6 +30,10 @@ messages:
 #   - name: mongo
 #     version: 3.4.0
 
+user-data:
+  mongo:
+    production-endpoint: 'ds143588.mlab.com:43588'
+
 
 production:
   cpu: 128
