@@ -25,6 +25,17 @@ messages:
     - user deleted
     - user not created
 
+environment:
+  default:
+  development:
+  production:
+    ROLE: exosphere-users-service
+    EXOCOM_PORT: 80
+    EXOCOM_HOST: exocom.space-tweet.local
+  secrets:
+    - MONGODB_USER
+    - MONGODB_PW
+
 production:
   cpu: 100
   memory: 500
