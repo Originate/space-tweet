@@ -63,26 +63,6 @@ module "space-tweet-web-service" {
   vpc_id                = "${module.aws.vpc_id}"
 }
 
-variable "exosphere-tweets-service_env_vars" {
-  default = "[]"
-}
-
-module "exosphere-tweets-service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//worker-service?ref=48731e6"
-
-  name = "exosphere-tweets-service"
-
-  cluster_id            = "${module.aws.ecs_cluster_id}"
-  command               = ["node_modules/exoservice/bin/exo-js"]
-  cpu                   = "100"
-  desired_count         = 1
-  docker_image          = "518695917306.dkr.ecr.us-west-2.amazonaws.com/tmp_exosphere-tweets-service:0.0.1"
-  env                   = "production"
-  environment_variables = "${var.exosphere-tweets-service_env_vars}"
-  memory                = "500"
-  region                = "${var.region}"
-}
-
 variable "exosphere-users-service_env_vars" {
   default = "[]"
 }
@@ -99,6 +79,26 @@ module "exosphere-users-service" {
   docker_image          = "518695917306.dkr.ecr.us-west-2.amazonaws.com/tmp_exosphere-users-service:0.0.1"
   env                   = "production"
   environment_variables = "${var.exosphere-users-service_env_vars}"
+  memory                = "500"
+  region                = "${var.region}"
+}
+
+variable "exosphere-tweets-service_env_vars" {
+  default = "[]"
+}
+
+module "exosphere-tweets-service" {
+  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//worker-service?ref=48731e6"
+
+  name = "exosphere-tweets-service"
+
+  cluster_id            = "${module.aws.ecs_cluster_id}"
+  command               = ["node_modules/exoservice/bin/exo-js"]
+  cpu                   = "100"
+  desired_count         = 1
+  docker_image          = "518695917306.dkr.ecr.us-west-2.amazonaws.com/tmp_exosphere-tweets-service:0.0.1"
+  env                   = "production"
+  environment_variables = "${var.exosphere-tweets-service_env_vars}"
   memory                = "500"
   region                = "${var.region}"
 }
@@ -139,7 +139,7 @@ module "exocom_service" {
   environment_variables = {
     ROLE = "exocom"
     SERVICE_ROUTES = <<EOF
-[{"receives":["user details","user not found","user updated","user deleted","users listed","user created","tweets listed","tweet created","tweet deleted"],"role":"space-tweet-web-service","sends":["get user details","delete user","update user","list users","create user","list tweets","create tweet","delete tweet"]},{"receives":["create user","list users","get user details","update user","delete user"],"role":"exosphere-users-service","sends":["user created","users listed","user details","user not found","user updated","user deleted","user not created"]},{"receives":["create tweet","list tweets","get tweet details","update tweet","delete tweet"],"role":"exosphere-tweets-service","sends":["tweet created","tweets listed","tweet details","tweet not found","tweet updated","tweet deleted","tweet not created"]}]
+[{"receives":["create user","list users","get user details","update user","delete user"],"role":"exosphere-users-service","sends":["user created","users listed","user details","user not found","user updated","user deleted","user not created"]},{"receives":["create tweet","list tweets","get tweet details","update tweet","delete tweet"],"role":"exosphere-tweets-service","sends":["tweet created","tweets listed","tweet details","tweet not found","tweet updated","tweet deleted","tweet not created"]},{"receives":["user details","user not found","user updated","user deleted","users listed","user created","tweets listed","tweet created","tweet deleted"],"role":"space-tweet-web-service","sends":["get user details","delete user","update user","list users","create user","list tweets","create tweet","delete tweet"]}]
 EOF
   }
   memory_reservation    = "128"

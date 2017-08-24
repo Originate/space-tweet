@@ -1,3 +1,6 @@
 node_modules/
 npm-debug.log
 tmp/
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup

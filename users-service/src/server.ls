@@ -136,7 +136,6 @@ function get-mongo-prod
 
 
 function get-mongo-address
-  mongo-config = get-mongo-config!
   return "mongodb://#{process.env.MONGO}/space-tweet-users-dev" if process.env.MONGO
   switch env
     | \test => "mongodb://localhost:27017/space-tweet-users-test"
