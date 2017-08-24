@@ -13,7 +13,6 @@ collection = null
 module.exports =
 
   before-all: (done) ->
-    console.log "hey", get-mongo-address!
     MongoClient.connect get-mongo-address!, N (mongo-db) ->
       collection := mongo-db.collection 'users'
       console.log "MongoDB #{mongo-db.database-name} connected"
@@ -132,8 +131,8 @@ function mongo-to-ids entries
     mongo-to-id entry
 
 
-function get-mongo-config
-  require('../service.yml').dependencies.mongo
+function get-mongo-prod
+  require('../service.yml')['user-data'].mongo['production-endpoint']
 
 
 function get-mongo-address
@@ -144,4 +143,5 @@ function get-mongo-address
     | \prod =>
       process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
       process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
-      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config.prod}/space-tweet-users-prod"
+      mongo-config = get-mongo-prod!
+      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config}/space-tweet-tweets-prod"

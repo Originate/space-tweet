@@ -25,6 +25,10 @@ messages:
     - user deleted
     - user not created
 
+# dependencies:
+#   - name: mongo
+#     version: 3.4.0
+
 environment:
   default:
   development:
@@ -40,6 +44,6 @@ production:
   cpu: 100
   memory: 500
 
-# dependencies:
-#   - name: mongo
-#     version: 3.4.0
+user-data:
+  mongo:
+    production-endpoint: 'ds143608.mlab.com:43608'
