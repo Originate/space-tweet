@@ -131,7 +131,7 @@ function mongo-to-ids entries
     mongo-to-id entry
 
 
-function get-mongo-prod
+function get-mongo-production-endpoint
   require('../service.yml')['user-data'].mongo['production-endpoint']
 
 
@@ -142,5 +142,5 @@ function get-mongo-address
     | \prod =>
       process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
       process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
-      mongo-config = get-mongo-prod!
+      mongo-config = get-mongo-production-endpoint!
       "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config}/space-tweet-tweets-prod"
