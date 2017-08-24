@@ -25,9 +25,9 @@ messages:
     - user deleted
     - user not created
 
-# dependencies:
-#   - name: mongo
-#     version: 3.4.0
+dependencies: # comment out this dependency for deployment
+  - name: mongo
+    version: 3.4.0
 
 environment:
   default:
