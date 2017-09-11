@@ -5,7 +5,7 @@ version: 0.0.1
 dependencies:
   - name: exocom
     version: 0.24.0
-  - name: mongo # comment out this dependency for deployment
+  - name: mongo
     version: 3.4.0
     config:
       ports:
@@ -17,16 +17,20 @@ dependencies:
         DB_NAME: 'test-db'
       service-environment:
         COLLECTION_NAME: 'test-collection'
+      external-in-production: true
 
 production:
   url: spacetweet.originate.com
+  region: us-west-2
+  account-id: 518695917306
+  ssl-certificate-arn: arn:aws:acm:us-west-2:518695917306:certificate/c9a6be72-c6a3-4551-8e5b-53f5cfd89199
 
 services:
   public:
     space-tweet-web-service:
       location: ./web-server
       docker_image: originate/space-tweet-web-service
-  private:
+  worker:
     exosphere-users-service:
       location: ./users-service
       docker_image: originate/exosphere-users-service

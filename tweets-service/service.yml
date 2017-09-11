@@ -25,7 +25,7 @@ messages:
     - tweet deleted
     - tweet not created
 
-dependencies: # comment out this dependency for deployment
+dependencies:
   - name: mongo
     version: 3.4.0
 
