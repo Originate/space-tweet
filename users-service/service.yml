@@ -4,7 +4,6 @@ author: originate
 
 
 startup:
-  command: node_modules/exoservice/bin/exo-js
   online-text: online at port
 tests: node_modules/.bin/cucumber-js
 
@@ -25,9 +24,12 @@ messages:
     - user deleted
     - user not created
 
-dependencies:
-  - name: mongo
-    version: 3.4.0
+development:
+  scripts:
+    run: lsc src/server.ls
+  dependencies:
+    - name: mongo
+      version: 3.4.0
 
 environment:
   default:

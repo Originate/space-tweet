@@ -3,12 +3,14 @@ require! {
   'nitroglycerin' : N
   'prelude-ls' : {any}
   'require-yaml'
+  'exoservice': {bootstrap}
   'util'
 }
 env = require('get-env')('test')
 
 
 collection = null
+
 
 module.exports =
 
@@ -146,3 +148,5 @@ function get-mongo-address
       process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
       mongo-config = get-mongo-production-endpoint!
       "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config}/space-tweet-tweets-prod"
+
+bootstrap module.exports

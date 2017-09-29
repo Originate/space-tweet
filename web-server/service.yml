@@ -4,7 +4,6 @@ author: originate
 
 
 startup:
-  command: node_modules/.bin/lsc app
   online-text: all systems go
 
 
@@ -39,6 +38,10 @@ environment:
   development:
   production:
   secrets:
+
+development:
+  scripts:
+    run: node_modules/.bin/lsc app
 
 production:
   url: spacetweet.originate.com
