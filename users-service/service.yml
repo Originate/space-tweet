@@ -5,7 +5,6 @@ author: originate
 
 startup:
   online-text: online at port
-tests: node_modules/.bin/cucumber-js
 
 
 messages:
@@ -27,6 +26,7 @@ messages:
 development:
   scripts:
     run: lsc src/server.ls
+    test: /node_modules/.bin/cucumber-js
   dependencies:
     - name: mongo
       version: 3.4.0

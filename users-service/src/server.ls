@@ -140,7 +140,6 @@ function get-mongo-production-endpoint
 function get-mongo-address
   return "mongodb://#{process.env.MONGO}/space-tweet-users-dev" if process.env.MONGO
   switch env
-    | \test => "mongodb://localhost:27017/space-tweet-users-test"
     | \prod =>
       process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
       process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"

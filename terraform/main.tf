@@ -6,8 +6,8 @@ terraform {
   required_version = ">= 0.10.0"
 
   backend "s3" {
-    bucket         = "space-tweet-terraform"
-    key            = "dev/terraform.tfstate"
+    bucket         = "518695917306-space-tweet-terraform"
+    key            = "terraform.tfstate"
     region         = "us-west-2"
     dynamodb_table = "TerraformLocks"
   }
@@ -26,7 +26,7 @@ variable "key_name" {
 }
 
 module "aws" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws?ref=1bb2c93b"
+  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws?ref=3d6472cd"
 
   name              = "space-tweet"
   env               = "production"
@@ -41,7 +41,7 @@ variable "exosphere-tweets-service_env_vars" {
 variable "exosphere-tweets-service_docker_image" {}
 
 module "exosphere-tweets-service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//worker-service?ref=1bb2c93b"
+  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//worker-service?ref=3d6472cd"
 
   name = "exosphere-tweets-service"
 
@@ -62,7 +62,7 @@ variable "exosphere-users-service_env_vars" {
 variable "exosphere-users-service_docker_image" {}
 
 module "exosphere-users-service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//worker-service?ref=1bb2c93b"
+  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//worker-service?ref=3d6472cd"
 
   name = "exosphere-users-service"
 
@@ -83,7 +83,7 @@ variable "space-tweet-web-service_env_vars" {
 variable "space-tweet-web-service_docker_image" {}
 
 module "space-tweet-web-service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//public-service?ref=1bb2c93b"
+  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//public-service?ref=3d6472cd"
 
   name = "space-tweet-web-service"
 
@@ -110,7 +110,7 @@ module "space-tweet-web-service" {
 }
 
 module "exocom_cluster" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//dependencies//exocom//exocom-cluster?ref=1bb2c93b"
+  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//dependencies//exocom//exocom-cluster?ref=3d6472cd"
 
   availability_zones          = "${module.aws.availability_zones}"
   env                         = "production"
@@ -130,19 +130,18 @@ module "exocom_cluster" {
   vpc_id                      = "${module.aws.vpc_id}"
 }
 
+variable "exocom_env_vars" {
+  default = ""
+}
+
 module "exocom_service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//dependencies//exocom//exocom-service?ref=1bb2c93b"
+  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//dependencies//exocom//exocom-service?ref=3d6472cd"
 
   cluster_id            = "${module.exocom_cluster.cluster_id}"
   cpu_units             = "128"
   docker_image          = "518695917306.dkr.ecr.us-west-2.amazonaws.com/originate/exocom:0.26.3"
   env                   = "production"
-  environment_variables = {
-    ROLE = "exocom"
-    SERVICE_ROUTES = <<EOF
-[{"receives":["create tweet","list tweets","get tweet details","update tweet","delete tweet"],"role":"exosphere-tweets-service","sends":["tweet created","tweets listed","tweet details","tweet not found","tweet updated","tweet deleted","tweet not created"]},{"receives":["create user","list users","get user details","update user","delete user"],"role":"exosphere-users-service","sends":["user created","users listed","user details","user not found","user updated","user deleted","user not created"]},{"receives":["user details","user not found","user updated","user deleted","users listed","user created","tweets listed","tweet created","tweet deleted"],"role":"space-tweet-web-service","sends":["get user details","delete user","update user","list users","create user","list tweets","create tweet","delete tweet"]}]
-EOF
-  }
+  environment_variables = "${var.exocom_env_vars}"
   memory_reservation    = "128"
   name                  = "exocom"
   region                = "${module.aws.region}"
