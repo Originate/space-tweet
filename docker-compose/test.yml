@@ -65,15 +65,13 @@ services:
       MONGODB_USER: ""
       ROLE: users-service
     depends_on:
-    - mongo3.4.0
     - exocom0.26.3
+    - mongo3.4.0
   web-server:
     build:
       context: /Users/hugoho/Documents/space-tweet/web-server
       dockerfile: Dockerfile.dev
     container_name: web-server
-    ports:
-    - 3000:3000
     volumes:
     - /Users/hugoho/Documents/space-tweet/web-server:/mnt
     environment:

@@ -29,10 +29,6 @@ messages:
     - tweet deleted
 
 
-docker:
-  ports:
-    - '3000:3000'
-
 environment:
   default:
   development:
@@ -40,6 +36,7 @@ environment:
   secrets:
 
 development:
+  port: 3000
   scripts:
     run: node_modules/.bin/lsc app
 
@@ -47,5 +44,5 @@ production:
   url: spacetweet.originate.com
   cpu: 128
   memory: 128
-  public-port: 3000
+  port: 3000
   health-check: '/'
