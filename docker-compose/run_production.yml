@@ -1,0 +1,16 @@
+version: "3"
+services:
+  exocom0.26.3:
+    image: originate/exocom:0.26.3
+  exosphere-tweets-service:
+    build:
+      context: /Users/hugoho/Documents/space-tweet/tweets-service
+      dockerfile: Dockerfile.prod
+  exosphere-users-service:
+    build:
+      context: /Users/hugoho/Documents/space-tweet/users-service
+      dockerfile: Dockerfile.prod
+  space-tweet-web-service:
+    build:
+      context: /Users/hugoho/Documents/space-tweet/web-server
+      dockerfile: Dockerfile.prod

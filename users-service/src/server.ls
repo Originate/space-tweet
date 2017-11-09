@@ -18,14 +18,6 @@ module.exports =
     MongoClient.connect get-mongo-address!, N (mongo-db) ->
       collection := mongo-db.collection 'users'
       console.log "MongoDB #{mongo-db.database-name} connected"
-      console.log "MongoDB #{mongo-db.database-name} connected"
-      console.log "MongoDB #{mongo-db.database-name} connected"
-      console.log "MongoDB #{mongo-db.database-name} connected"
-      console.log "MongoDB #{mongo-db.database-name} connected"
-      console.log "MongoDB #{mongo-db.database-name} connected"
-      console.log "MongoDB #{mongo-db.database-name} connected"
-      console.log "MongoDB #{mongo-db.database-name} connected"
-      console.log "MongoDB #{mongo-db.database-name} connected"
       done!
 
 

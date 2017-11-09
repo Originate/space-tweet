@@ -16,14 +16,6 @@ module.exports =
 
   before-all: (done) ->
     MongoClient.connect get-mongo-address!, N (mongo-db) ->
-      console.log 'yey'
-      console.log 'yey'
-      console.log 'yey'
-      console.log 'yey'
-      console.log 'yey'
-      console.log 'yey'
-      console.log 'yey'
-      console.log 'yey'
       collection := mongo-db.collection 'tweets'
       console.log "MongoDB '#{mongo-db.database-name}' connected"
       done!
