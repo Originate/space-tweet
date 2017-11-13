@@ -19,46 +19,38 @@ services:
     restart: on-failure
   exosphere-tweets-service:
     build:
-      context: /Users/hugoho/Documents/space-tweet/tweets-service
+      context: ${APP_PATH}/tweets-service
       dockerfile: Dockerfile.dev
     command: lsc src/server.ls
     container_name: exosphere-tweets-service
-    volumes:
-    - /Users/hugoho/Documents/space-tweet/tweets-service:/mnt
-    links:
-    - mongo3.4.0:mongo
     environment:
       COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom0.26.3
-      MONGO: mongo
+      MONGO: mongo3.4.0
       MONGODB_PW: ""
       MONGODB_USER: ""
       ROLE: exosphere-tweets-service
-      SERVICE_SPACE-TWEET-WEB-SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
     depends_on:
     - exocom0.26.3
+    - mongo3.4.0
     - mongo3.4.0
     restart: on-failure
   exosphere-users-service:
     build:
-      context: /Users/hugoho/Documents/space-tweet/users-service
+      context: ${APP_PATH}/users-service
       dockerfile: Dockerfile.dev
     command: lsc src/server.ls
     container_name: exosphere-users-service
-    volumes:
-    - /Users/hugoho/Documents/space-tweet/users-service:/mnt
-    links:
-    - mongo3.4.0:mongo
     environment:
       COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom0.26.3
-      MONGO: mongo
+      MONGO: mongo3.4.0
       MONGODB_PW: ""
       MONGODB_USER: ""
       ROLE: exosphere-users-service
-      SERVICE_SPACE-TWEET-WEB-SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
     depends_on:
     - exocom0.26.3
+    - mongo3.4.0
     - mongo3.4.0
     restart: on-failure
   mongo3.4.0:
@@ -67,23 +59,22 @@ services:
     ports:
     - 4000:4000
     volumes:
-    - /Users/hugoho/.exosphere/space-tweet/mongo/data:/data/db
+    - ${APP_PATH}/.exosphere/data/mongo:/data/db
     environment:
       DB_NAME: test-db
     restart: on-failure
   space-tweet-web-service:
     build:
-      context: /Users/hugoho/Documents/space-tweet/web-server
+      context: ${APP_PATH}/web-server
       dockerfile: Dockerfile.dev
     command: node_modules/.bin/lsc app
     container_name: space-tweet-web-service
     ports:
     - 3000:3000
-    volumes:
-    - /Users/hugoho/Documents/space-tweet/web-server:/mnt
     environment:
       COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom0.26.3
+      MONGO: mongo3.4.0
       ROLE: space-tweet-web-service
     depends_on:
     - exocom0.26.3
