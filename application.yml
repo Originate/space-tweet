@@ -29,14 +29,12 @@ production:
       version: 0.26.3
 
 services:
-  public:
-    space-tweet-web-service:
-      location: ./web-server
-      docker_image: originate/space-tweet-web-service
-  worker:
-    exosphere-users-service:
-      location: ./users-service
-      docker_image: originate/exosphere-users-service
-    exosphere-tweets-service:
-      location: ./tweets-service
-      docker_image: originate/exosphere-tweets-service
+  space-tweet-web-service:
+    location: ./web-server
+    docker_image: originate/space-tweet-web-service
+  exosphere-users-service:
+    location: ./users-service
+    docker_image: originate/exosphere-users-service
+  exosphere-tweets-service:
+    location: ./tweets-service
+    docker_image: originate/exosphere-tweets-service

@@ -1,4 +1,4 @@
-type: exosphere-tweets-service
+type: worker
 description: Generic MongoDB storage service
 author: originate
 

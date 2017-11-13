@@ -1,4 +1,4 @@
-type: exosphere-users-service
+type: worker
 description: Manages user accounts in Exosphere applications
 author: originate
 

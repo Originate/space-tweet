@@ -34,6 +34,7 @@ services:
       MONGODB_PW: ""
       MONGODB_USER: ""
       ROLE: exosphere-tweets-service
+      SERVICE_SPACE-TWEET-WEB-SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
     depends_on:
     - exocom0.26.3
     - mongo3.4.0
@@ -55,6 +56,7 @@ services:
       MONGODB_PW: ""
       MONGODB_USER: ""
       ROLE: exosphere-users-service
+      SERVICE_SPACE-TWEET-WEB-SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
     depends_on:
     - exocom0.26.3
     - mongo3.4.0
