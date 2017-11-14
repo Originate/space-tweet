@@ -34,7 +34,6 @@ services:
     depends_on:
     - exocom0.26.3
     - mongo3.4.0
-    - mongo3.4.0
     restart: on-failure
   exosphere-users-service:
     build:
@@ -52,7 +51,6 @@ services:
       SPACE-TWEET-WEB-SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
     depends_on:
     - exocom0.26.3
-    - mongo3.4.0
     - mongo3.4.0
     restart: on-failure
   mongo3.4.0:

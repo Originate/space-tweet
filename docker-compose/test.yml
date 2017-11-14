@@ -43,7 +43,6 @@ services:
     depends_on:
     - exocom0.26.3
     - mongo3.4.0
-    - mongo3.4.0
   users-service:
     build:
       context: ${APP_PATH}/users-service
@@ -59,7 +58,6 @@ services:
       ROLE: users-service
     depends_on:
     - exocom0.26.3
-    - mongo3.4.0
     - mongo3.4.0
   web-server:
     build:
