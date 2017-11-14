@@ -26,7 +26,7 @@ variable "key_name" {
 }
 
 module "aws" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws?ref=f456f3f4"
+  source = "git@github.com:Originate/exosphere.git//terraform//aws?ref=1bf0375f"
 
   name              = "space-tweet"
   env               = "production"
@@ -41,7 +41,7 @@ variable "exosphere-tweets-service_env_vars" {
 variable "exosphere-tweets-service_docker_image" {}
 
 module "exosphere-tweets-service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//worker-service?ref=f456f3f4"
+  source = "git@github.com:Originate/exosphere.git//terraform//aws//worker-service?ref=1bf0375f"
 
   name = "exosphere-tweets-service"
 
@@ -62,7 +62,7 @@ variable "exosphere-users-service_env_vars" {
 variable "exosphere-users-service_docker_image" {}
 
 module "exosphere-users-service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//worker-service?ref=f456f3f4"
+  source = "git@github.com:Originate/exosphere.git//terraform//aws//worker-service?ref=1bf0375f"
 
   name = "exosphere-users-service"
 
@@ -83,7 +83,7 @@ variable "space-tweet-web-service_env_vars" {
 variable "space-tweet-web-service_docker_image" {}
 
 module "space-tweet-web-service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//public-service?ref=f456f3f4"
+  source = "git@github.com:Originate/exosphere.git//terraform//aws//public-service?ref=1bf0375f"
 
   name = "space-tweet-web-service"
 
@@ -110,36 +110,38 @@ module "space-tweet-web-service" {
 }
 
 module "exocom_cluster" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//dependencies//exocom//exocom-cluster?ref=f456f3f4"
+  source = "git@github.com:Originate/exosphere.git//terraform//aws//dependencies//exocom//exocom-cluster?ref=1bf0375f"
 
-  availability_zones          = "${module.aws.availability_zones}"
-  env                         = "production"
-  internal_hosted_zone_id     = "${module.aws.internal_zone_id}"
-  instance_type               = "t2.micro"
-  key_name                    = "${var.key_name}"
-  name                        = "exocom"
-  region                      = "${module.aws.region}"
+  availability_zones      = "${module.aws.availability_zones}"
+  env                     = "production"
+  internal_hosted_zone_id = "${module.aws.internal_zone_id}"
+  instance_type           = "t2.micro"
+  key_name                = "${var.key_name}"
+  name                    = "exocom"
+  region                  = "${module.aws.region}"
 
-  bastion_security_group      = ["${module.aws.bastion_security_group}"]
+  bastion_security_group = ["${module.aws.bastion_security_group}"]
 
-  ecs_cluster_security_groups = [ "${module.aws.ecs_cluster_security_group}",
+  ecs_cluster_security_groups = ["${module.aws.ecs_cluster_security_group}",
     "${module.aws.external_alb_security_group}",
   ]
 
-  subnet_ids                  = "${module.aws.private_subnet_ids}"
-  vpc_id                      = "${module.aws.vpc_id}"
+  subnet_ids = "${module.aws.private_subnet_ids}"
+  vpc_id     = "${module.aws.vpc_id}"
 }
 
 variable "exocom_env_vars" {
   default = ""
 }
 
+variable "exocom_docker_image" {}
+
 module "exocom_service" {
-  source = "git@github.com:Originate/exosphere.git//src//terraform//modules//aws//dependencies//exocom//exocom-service?ref=f456f3f4"
+  source = "git@github.com:Originate/exosphere.git//terraform//aws//dependencies//exocom//exocom-service?ref=1bf0375f"
 
   cluster_id            = "${module.exocom_cluster.cluster_id}"
   cpu_units             = "128"
-  docker_image          = "518695917306.dkr.ecr.us-west-2.amazonaws.com/originate/exocom:0.26.3"
+  docker_image          = "${var.exocom_docker_image}"
   env                   = "production"
   environment_variables = "${var.exocom_env_vars}"
   memory_reservation    = "128"
