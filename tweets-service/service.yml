@@ -28,9 +28,6 @@ development:
   scripts:
     run: lsc src/server.ls
     test: /node_modules/.bin/cucumber-js
-  dependencies:
-    - name: mongo
-      version: 3.4.0
 
 environment:
   default:
