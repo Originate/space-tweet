@@ -8,38 +8,37 @@ startup:
 tests: node_modules/.bin/cucumber-js
 
 
-messages:
-  receives:
-    - create tweet
-    - list tweets
-    - get tweet details
-    - update tweet
-    - delete tweet
-  sends:
-    - tweet created
-    - tweets listed
-    - tweet details
-    - tweet not found
-    - tweet updated
-    - tweet deleted
-    - tweet not created
+dependency-data:
+  exocom:
+    receives:
+      - create tweet
+      - list tweets
+      - get tweet details
+      - update tweet
+      - delete tweet
+    sends:
+      - tweet created
+      - tweets listed
+      - tweet details
+      - tweet not found
+      - tweet updated
+      - tweet deleted
+      - tweet not created
 
-development:
+local:
   scripts:
     run: lsc src/server.ls
     test: /node_modules/.bin/cucumber-js
-
-environment:
-  default:
-  development:
-  production:
   secrets:
     - MONGODB_USER
     - MONGODB_PW
 
-production:
+remote:
   cpu: 100
   memory: 500
+  secrets:
+    - MONGODB_USER
+    - MONGODB_PW
 
 user-data:
   mongo:

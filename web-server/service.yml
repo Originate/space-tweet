@@ -7,42 +7,38 @@ startup:
   online-text: all systems go
 
 
-messages:
-  sends:
-    - get user details
-    - delete user
-    - update user
-    - list users
-    - create user
-    - list tweets
-    - create tweet
-    - delete tweet
-  receives:
-    - user details
-    - user not found
-    - user updated
-    - user deleted
-    - users listed
-    - user created
-    - tweets listed
-    - tweet created
-    - tweet deleted
+dependency-data:
+  exocom:
+    sends:
+      - get user details
+      - delete user
+      - update user
+      - list users
+      - create user
+      - list tweets
+      - create tweet
+      - delete tweet
+    receives:
+      - user details
+      - user not found
+      - user updated
+      - user deleted
+      - users listed
+      - user created
+      - tweets listed
+      - tweet created
+      - tweet deleted
 
-
-environment:
-  default:
-  development:
-  production:
-  secrets:
-
-development:
+local:
   port: 3000
   scripts:
     run: node_modules/.bin/lsc app
 
 production:
+  port: 3000
+  health-check: '/'
+
+remote:
   url: spacetweet.originate.com
   cpu: 128
   memory: 128
-  port: 3000
-  health-check: '/'

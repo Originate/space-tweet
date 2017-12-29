@@ -2,15 +2,13 @@ name: space-tweet
 description: an example for an ExoSphere application
 version: 0.0.1
 
-development:
+local:
   dependencies:
-    - name: exocom
-      version: 0.26.3
-    - name: mongo
-      version: 3.4.0
+    exocom:
+      image: originate/exocom:0.27.0
+    mongo:
+      image: mongo:3.4.0
       config:
-        ports:
-          - '4000:4000'
         volumes:
           - '{{EXO_DATA_PATH}}:/data/db'
         online-text: 'waiting for connections'
@@ -19,14 +17,18 @@ development:
         service-environment:
           COLLECTION_NAME: 'test-collection'
 
-production:
+remote:
   url: spacetweet.originate.com
   region: us-west-2
   account-id: 518695917306
   ssl-certificate-arn: arn:aws:acm:us-west-2:518695917306:certificate/c9a6be72-c6a3-4551-8e5b-53f5cfd89199
+  environment:
+    EXOCOM_HOST: exocom.space-tweet.local
   dependencies:
-    - name: exocom
-      version: 0.26.3
+    exocom:
+      type: exocom
+      template-config:
+        version: 0.27.0
 
 services:
   space-tweet-web-service:
