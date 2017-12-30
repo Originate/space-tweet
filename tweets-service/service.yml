@@ -2,12 +2,6 @@ type: worker
 description: Generic MongoDB storage service
 author: originate
 
-
-startup:
-  online-text: online at port
-tests: node_modules/.bin/cucumber-js
-
-
 dependency-data:
   exocom:
     receives:
@@ -25,10 +19,12 @@ dependency-data:
       - tweet deleted
       - tweet not created
 
-local:
+development:
   scripts:
     run: lsc src/server.ls
     test: /node_modules/.bin/cucumber-js
+
+local:
   secrets:
     - MONGODB_USER
     - MONGODB_PW
@@ -39,7 +35,3 @@ remote:
   secrets:
     - MONGODB_USER
     - MONGODB_PW
-
-user-data:
-  mongo:
-    production-endpoint: 'ds143608.mlab.com:43608'

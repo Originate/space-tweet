@@ -10,6 +10,7 @@ env = require('get-env')('test')
 
 
 collection = null
+mlabs-endpoint = 'ds143608.mlab.com:43608'
 
 
 module.exports =
@@ -133,17 +134,12 @@ function mongo-to-ids entries
     mongo-to-id entry
 
 
-function get-mongo-production-endpoint
-  require('../service.yml')['user-data'].mongo['production-endpoint']
-
-
 function get-mongo-address
   return "mongodb://#{process.env.MONGO}/space-tweet-users-dev" if process.env.MONGO
   switch env
     | \prod =>
       process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
       process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
-      mongo-config = get-mongo-production-endpoint!
-      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config}/space-tweet-tweets-prod"
+      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mlabs-endpoint}/space-tweet-tweets-prod"
 
 bootstrap module.exports

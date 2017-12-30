@@ -9,9 +9,8 @@ local:
     mongo:
       image: mongo:3.4.0
       config:
-        volumes:
-          - '{{EXO_DATA_PATH}}:/data/db'
-        online-text: 'waiting for connections'
+        persist:
+          - '/data/db'
         dependency-environment:
           DB_NAME: 'test-db'
         service-environment:
@@ -35,10 +34,7 @@ remote:
 services:
   space-tweet-web-service:
     location: ./web-server
-    docker_image: originate/space-tweet-web-service
   exosphere-users-service:
     location: ./users-service
-    docker_image: originate/exosphere-users-service
   exosphere-tweets-service:
     location: ./tweets-service
-    docker_image: originate/exosphere-tweets-service
