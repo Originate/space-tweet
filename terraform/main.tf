@@ -2,13 +2,21 @@ variable "aws_profile" {
   default = "default"
 }
 
+variable "aws_region" {}
+
+variable "aws_account_id" {}
+
+variable "aws_ssl_certificate_arn" {}
+
+variable "application_url" {}
+
+variable "env" {}
+
 terraform {
   required_version = "= 0.11.0"
 
   backend "s3" {
-    bucket         = "518695917306-space-tweet-terraform"
     key            = "terraform.tfstate"
-    region         = "us-west-2"
     dynamodb_table = "TerraformLocks"
   }
 }
@@ -16,9 +24,9 @@ terraform {
 provider "aws" {
   version = "0.1.4"
 
-  region              = "us-west-2"
+  region              = "${var.aws_region}"
   profile             = "${var.aws_profile}"
-  allowed_account_ids = ["518695917306"]
+  allowed_account_ids = ["${var.aws_account_id}"]
 }
 
 variable "key_name" {
@@ -26,12 +34,13 @@ variable "key_name" {
 }
 
 module "aws" {
-  source = "github.com/Originate/exosphere.git//terraform//aws?ref=272193d7"
+  source = "github.com/Originate/exosphere.git//terraform//aws?ref=30894145"
 
   name              = "space-tweet"
-  env               = "production"
-  external_dns_name = "spacetweet.originate.com"
+  env               = "${var.env}"
+  external_dns_name = "${var.application_url}"
   key_name          = "${var.key_name}"
+  log_bucket_prefix = "${var.aws_account_id}-space-tweet-${var.env}"
 }
 
 variable "exosphere-tweets-service_env_vars" {
@@ -41,7 +50,7 @@ variable "exosphere-tweets-service_env_vars" {
 variable "exosphere-tweets-service_docker_image" {}
 
 module "exosphere-tweets-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=272193d7"
+  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=30894145"
 
   name = "exosphere-tweets-service"
 
@@ -49,7 +58,7 @@ module "exosphere-tweets-service" {
   cpu                   = "100"
   desired_count         = 1
   docker_image          = "${var.exosphere-tweets-service_docker_image}"
-  env                   = "production"
+  env                   = "${var.env}"
   environment_variables = "${var.exosphere-tweets-service_env_vars}"
   memory_reservation    = "500"
   region                = "${module.aws.region}"
@@ -62,7 +71,7 @@ variable "exosphere-users-service_env_vars" {
 variable "exosphere-users-service_docker_image" {}
 
 module "exosphere-users-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=272193d7"
+  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=30894145"
 
   name = "exosphere-users-service"
 
@@ -70,7 +79,7 @@ module "exosphere-users-service" {
   cpu                   = "100"
   desired_count         = 1
   docker_image          = "${var.exosphere-users-service_docker_image}"
-  env                   = "production"
+  env                   = "${var.env}"
   environment_variables = "${var.exosphere-users-service_env_vars}"
   memory_reservation    = "500"
   region                = "${module.aws.region}"
@@ -82,8 +91,10 @@ variable "space-tweet-web-service_env_vars" {
 
 variable "space-tweet-web-service_docker_image" {}
 
+variable "space-tweet-web-service_url" {}
+
 module "space-tweet-web-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//public-service?ref=272193d7"
+  source = "github.com/Originate/exosphere.git//terraform//aws//public-service?ref=30894145"
 
   name = "space-tweet-web-service"
 
@@ -95,9 +106,9 @@ module "space-tweet-web-service" {
   desired_count         = 1
   docker_image          = "${var.space-tweet-web-service_docker_image}"
   ecs_role_arn          = "${module.aws.ecs_service_iam_role_arn}"
-  env                   = "production"
+  env                   = "${var.env}"
   environment_variables = "${var.space-tweet-web-service_env_vars}"
-  external_dns_name     = "spacetweet.originate.com"
+  external_dns_name     = "${var.space-tweet-web-service_url}"
   external_zone_id      = "${module.aws.external_zone_id}"
   health_check_endpoint = "/"
   internal_dns_name     = "space-tweet-web-service"
@@ -105,44 +116,7 @@ module "space-tweet-web-service" {
   log_bucket            = "${module.aws.log_bucket_id}"
   memory_reservation    = "128"
   region                = "${module.aws.region}"
-  ssl_certificate_arn   = "arn:aws:acm:us-west-2:518695917306:certificate/c9a6be72-c6a3-4551-8e5b-53f5cfd89199"
+  ssl_certificate_arn   = "${var.aws_ssl_certificate_arn}"
   vpc_id                = "${module.aws.vpc_id}"
 }
 
-module "exocom_cluster" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//dependencies//exocom//exocom-cluster?ref=272193d7"
-
-  availability_zones      = "${module.aws.availability_zones}"
-  env                     = "production"
-  internal_hosted_zone_id = "${module.aws.internal_zone_id}"
-  instance_type           = "t2.micro"
-  key_name                = "${var.key_name}"
-  name                    = "exocom"
-  region                  = "${module.aws.region}"
-
-  bastion_security_group = ["${module.aws.bastion_security_group}"]
-
-  ecs_cluster_security_groups = ["${module.aws.ecs_cluster_security_group}",
-    "${module.aws.external_alb_security_group}",
-  ]
-
-  subnet_ids = "${module.aws.private_subnet_ids}"
-  vpc_id     = "${module.aws.vpc_id}"
-}
-
-variable "exocom_env_vars" {
-  default = ""
-}
-
-module "exocom_service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//dependencies//exocom//exocom-service?ref=272193d7"
-
-  cluster_id            = "${module.exocom_cluster.cluster_id}"
-  cpu_units             = "128"
-  docker_image          = "originate/exocom:0.27.0"
-  env                   = "production"
-  environment_variables = "${var.exocom_env_vars}"
-  memory_reservation    = "128"
-  name                  = "exocom"
-  region                = "${module.aws.region}"
-}

@@ -39,6 +39,8 @@ production:
   health-check: '/'
 
 remote:
-  url: spacetweet.originate.com
   cpu: 128
   memory: 128
+  environments:
+    production:
+      url: spacetweet.originate.com
