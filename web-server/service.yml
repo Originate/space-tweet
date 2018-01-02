@@ -29,7 +29,7 @@ dependency-data:
       - tweet created
       - tweet deleted
 
-local:
+development:
   port: 3000
   scripts:
     run: node_modules/.bin/lsc app

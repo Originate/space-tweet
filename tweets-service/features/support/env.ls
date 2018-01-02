@@ -1,35 +1,28 @@
 process.env.NODE_ENV = 'test'
+
 require! {
   'mongodb' : {MongoClient}
   'nitroglycerin' : N
+  'cucumber': {After, Before}
 }
 
 
 db = null
 get-db = (done) ->
   return done db if db
-  MongoClient.connect "mongodb://#{process.env.MONGO}:27017/space-tweet-tweets-test", N (mongo-db) ->
+  MongoClient.connect "mongodb://#{process.env.MONGO_HOST}/space-tweet-tweets-test", N (mongo-db) ->
     db := mongo-db
     done db
 
 
-module.exports = ->
+Before (_scenario, done) ->
+  get-db (db) ->
+    db.dropCollection 'tweets', (err) ->
+      if err and err.message == 'ns not found'
+        done!
+      else
+        done err
 
-  @set-default-timeout 1000
-
-
-  @Before (_scenario, done) ->
-    get-db (db) ->
-      db.collection('tweets')?.drop!
-      done!
-
-  @After ->
-    @exocom?.close!
-    @process?.close!
-
-
-  @registerHandler 'AfterFeatures', (_event, done) ->
-    get-db (db) ->
-      db.collection('tweets')?.drop!
-      db.close!
-      done!
+After ->
+  @exocom?.close!
+  @process?.kill!

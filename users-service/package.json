@@ -14,18 +14,15 @@
   "devDependencies": {
     "chai": "4.1.2",
     "cucumber": "3.1.0",
-    "cucumber-snippets-livescript": "1.0.1",
     "dependency-lint": "5.0.1",
-    "dim-console": "0.4.4",
+    "dev-null": "^0.1.1",
     "eco": "1.0.3",
     "exocom-mock": "0.26.4",
-    "jsdiff-console": "2.2.1",
+    "js-yaml": "^3.10.0",
     "livescript": "1.5.0",
     "lowercase-keys": "1.0.0",
-    "o-tools": "0.8.47",
-    "o-tools-livescript": "1.2.3",
+    "observable-process": "^4.0.0",
     "port-reservation": "0.3.2",
-    "request": "2.83.0",
     "wait": "0.1.0"
   },
   "engines": {

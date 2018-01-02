@@ -24,11 +24,6 @@ development:
     run: lsc src/server.ls
     test: /node_modules/.bin/cucumber-js
 
-local:
-  secrets:
-    - MONGODB_USER
-    - MONGODB_PW
-
 remote:
   cpu: 100
   memory: 500

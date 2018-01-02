@@ -19,12 +19,11 @@ services:
     build:
       context: ${APP_PATH}/tweets-service
       dockerfile: Dockerfile.dev
+    command: /node_modules/.bin/cucumber-js
     environment:
       COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
-      MONGODB_PW: ${MONGODB_PW}
-      MONGODB_USER: ${MONGODB_USER}
       ROLE: exosphere-tweets-service
     depends_on:
     - exocom
@@ -33,18 +32,19 @@ services:
     build:
       context: ${APP_PATH}/users-service
       dockerfile: Dockerfile.dev
+    command: /node_modules/.bin/cucumber-js
     environment:
       COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
-      MONGODB_PW: ${MONGODB_PW}
-      MONGODB_USER: ${MONGODB_USER}
       ROLE: exosphere-users-service
     depends_on:
     - exocom
     - mongo
   mongo:
     image: mongo:3.4.0
+    volumes:
+    - mongo__data_db:/data/db
     environment:
       DB_NAME: test-db
       SERVICE_DATA: '{"exosphere-tweets-service":{},"exosphere-users-service":{},"space-tweet-web-service":{}}'
@@ -61,4 +61,5 @@ services:
     depends_on:
     - exocom
     - mongo
-volumes: {}
+volumes:
+  mongo__data_db: null
