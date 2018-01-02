@@ -9,7 +9,7 @@ class UsersController
 
 
   index: (req, res) ->
-    @send 'list users', null, (users) ->
+    @send 'list users', null, (message-name, users) ->
       res.render 'users/index', users
 
 
@@ -23,12 +23,12 @@ class UsersController
 
 
   show: (req, res) ->
-    @send 'get user details', id: req.params.id, (user) ->
+    @send 'get user details', id: req.params.id, (message-name, user) ->
       res.render 'users/show', {user}
 
 
   edit: (req, res) ->
-    @send 'get user details', id: req.params.id, (user) ->
+    @send 'get user details', id: req.params.id, (message-name, user) ->
       res.render 'users/edit', {user}
 
 

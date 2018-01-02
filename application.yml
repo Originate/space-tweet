@@ -1,48 +1,40 @@
-name: SpaceTweet
+name: space-tweet
 description: an example for an ExoSphere application
 version: 0.0.1
 
-dependencies:
-  - name: exocom
-    version: 0.21.8
-  - name: mongo
-    version: 3.4.0
-    config:
-      ports:
-        - '4000:4000'
-      volumes:
-        - '{{EXO_DATA_PATH}}:/data/db'
-      online-text: 'waiting for connections'
-      dependency-environment:
-        DB_NAME: 'test-db'
-      service-environment:
-        COLLECTION_NAME: 'test-collection'
+local:
+  dependencies:
+    exocom:
+      image: originate/exocom:0.27.0
+    mongo:
+      image: mongo:3.4.0
+      config:
+        persist:
+          - '/data/db'
+        dependency-environment:
+          DB_NAME: 'test-db'
+        service-environment:
+          COLLECTION_NAME: 'test-collection'
 
-
-environments:
-  local:
-  production:
-    domain: spacetweet.originate.com
-    providers:
-      aws:
-        region: us-west-2
-        public-cluster-size: t2.medium
-        private-cluster-size: t2.nano
-        remote-state-store: terraform.state.prod
-  staging:
-    url: dev.megabyt.es
-    provider: aws
-    region: us-west-2
+remote:
+  environments:
+   production:
+     url: spacetweet.originate.com
+     region: us-west-2
+     account-id: 518695917306
+     ssl-certificate-arn: arn:aws:acm:us-west-2:518695917306:certificate/c9a6be72-c6a3-4551-8e5b-53f5cfd89199
+     environment:
+       EXOCOM_HOST: exocom.space-tweet.local
+     dependencies:
+       exocom:
+         type: exocom
+         template-config:
+           version: 0.27.0
 
 services:
-  public:
-    space-tweet-web-service:
-      location: ./web-server
-      docker_image: originate/space-tweet-web-service
-  private:
-    exosphere-users-service:
-      location: ./users-service
-      docker_image: originate/exosphere-users-service
-    exosphere-tweets-service:
-      location: ./tweets-service
-      docker_image: originate/exosphere-tweets-service
+  space-tweet-web-service:
+    location: ./web-server
+  exosphere-users-service:
+    location: ./users-service
+  exosphere-tweets-service:
+    location: ./tweets-service

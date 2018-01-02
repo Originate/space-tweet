@@ -4,3 +4,5 @@ FROM nodesource/node
 COPY ./package.json .
 RUN npm install --production
 COPY . .
+
+CMD node_modules/.bin/lsc app

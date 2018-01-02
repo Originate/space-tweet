@@ -27,7 +27,7 @@ module.exports = ->
   @Given /^an instance of this service$/, (done) ->
     @process = new ExoService exocom-host: 'localhost', role: 'users', exocom-port: @exocom-port
       ..connect!
-    wait-until (~> @exocom.knows-service 'users'), 10, done
+    wait-until (~> @exocom.knows-service 'users'), 50, done
 
 
   @Given /^the service contains the users:$/, (table, done) ->

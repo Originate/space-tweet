@@ -3,12 +3,15 @@ require! {
   'nitroglycerin' : N
   'prelude-ls' : {any}
   'require-yaml'
+  'exoservice': {bootstrap}
   'util'
 }
 env = require('get-env')('test')
 
 
 collection = null
+mlabs-endpoint = 'ds143608.mlab.com:43608'
+
 
 module.exports =
 
@@ -131,16 +134,12 @@ function mongo-to-ids entries
     mongo-to-id entry
 
 
-function get-mongo-config
-  require('../service.yml').dependencies.mongo
-
-
 function get-mongo-address
-  mongo-config = get-mongo-config!
   return "mongodb://#{process.env.MONGO}/space-tweet-users-dev" if process.env.MONGO
   switch env
-    | \test => "mongodb://localhost:27017/space-tweet-users-test"
     | \prod =>
       process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
       process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
-      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mongo-config.prod}/space-tweet-users-prod"
+      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mlabs-endpoint}/space-tweet-tweets-prod"
+
+bootstrap module.exports

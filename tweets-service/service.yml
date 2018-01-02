@@ -1,38 +1,37 @@
-type: exosphere-tweets-service
+type: worker
 description: Generic MongoDB storage service
 author: originate
 
+dependency-data:
+  exocom:
+    receives:
+      - create tweet
+      - list tweets
+      - get tweet details
+      - update tweet
+      - delete tweet
+    sends:
+      - tweet created
+      - tweets listed
+      - tweet details
+      - tweet not found
+      - tweet updated
+      - tweet deleted
+      - tweet not created
 
-startup:
-  command: node_modules/exoservice/bin/exo-js
-  online-text: online at port
-tests: node_modules/.bin/cucumber-js
+development:
+  scripts:
+    run: lsc src/server.ls
+    test: /node_modules/.bin/cucumber-js
 
+local:
+  secrets:
+    - MONGODB_USER
+    - MONGODB_PW
 
-messages:
-  receives:
-    - create tweet
-    - list tweets
-    - get tweet details
-    - update tweet
-    - delete tweet
-  sends:
-    - tweet created
-    - tweets listed
-    - tweet details
-    - tweet not found
-    - tweet updated
-    - tweet deleted
-    - tweet not created
-
-
-dependencies:
-  - name: mongo
-    version: 3.4.0
-
-
-# production:
-#   aws:
-#     cpu: 100
-#     memory: 500
-#     essential: true
+remote:
+  cpu: 100
+  memory: 500
+  secrets:
+    - MONGODB_USER
+    - MONGODB_PW

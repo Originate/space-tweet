@@ -1,0 +1,73 @@
+version: "3"
+services:
+  exocom:
+    image: originate/exocom:0.27.0
+    environment:
+      SERVICE_DATA: '{"exosphere-tweets-service":{"receives":["create tweet","list
+        tweets","get tweet details","update tweet","delete tweet"],"sends":["tweet
+        created","tweets listed","tweet details","tweet not found","tweet updated","tweet
+        deleted","tweet not created"]},"exosphere-users-service":{"receives":["create
+        user","list users","get user details","update user","delete user"],"sends":["user
+        created","users listed","user details","user not found","user updated","user
+        deleted","user not created"]},"space-tweet-web-service":{"receives":["user
+        details","user not found","user updated","user deleted","users listed","user
+        created","tweets listed","tweet created","tweet deleted"],"sends":["get user
+        details","delete user","update user","list users","create user","list tweets","create
+        tweet","delete tweet"]}}'
+    restart: on-failure
+  exosphere-tweets-service:
+    build:
+      context: ${APP_PATH}/tweets-service
+      dockerfile: Dockerfile.dev
+    volumes:
+    - ${APP_PATH}/tweets-service:/mnt
+    environment:
+      COLLECTION_NAME: test-collection
+      EXOCOM_HOST: exocom
+      MONGO_HOST: mongo
+      MONGODB_PW: ${MONGODB_PW}
+      MONGODB_USER: ${MONGODB_USER}
+      ROLE: exosphere-tweets-service
+    depends_on:
+    - exocom
+    - mongo
+    restart: on-failure
+  exosphere-users-service:
+    build:
+      context: ${APP_PATH}/users-service
+      dockerfile: Dockerfile.dev
+    volumes:
+    - ${APP_PATH}/users-service:/mnt
+    environment:
+      COLLECTION_NAME: test-collection
+      EXOCOM_HOST: exocom
+      MONGO_HOST: mongo
+      MONGODB_PW: ${MONGODB_PW}
+      MONGODB_USER: ${MONGODB_USER}
+      ROLE: exosphere-users-service
+    depends_on:
+    - exocom
+    - mongo
+    restart: on-failure
+  mongo:
+    image: mongo:3.4.0
+    environment:
+      DB_NAME: test-db
+      SERVICE_DATA: '{"exosphere-tweets-service":{},"exosphere-users-service":{},"space-tweet-web-service":{}}'
+    restart: on-failure
+  space-tweet-web-service:
+    build:
+      context: ${APP_PATH}/web-server
+      dockerfile: Dockerfile.dev
+    volumes:
+    - ${APP_PATH}/web-server:/mnt
+    environment:
+      COLLECTION_NAME: test-collection
+      EXOCOM_HOST: exocom
+      MONGO_HOST: mongo
+      ROLE: space-tweet-web-service
+    depends_on:
+    - exocom
+    - mongo
+    restart: on-failure
+volumes: {}
