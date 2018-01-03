@@ -10,7 +10,7 @@ SHARED:
 version: 2
 jobs:
   test:
-    working_directory: ~/edx
+    working_directory: ~/space-tweet
     docker:
       - image: circleci/buildpack-deps
     steps:
@@ -21,7 +21,7 @@ jobs:
           name: run tests
           command: exo test
   deploy:
-    working_directory: ~/edx
+    working_directory: ~/space-tweet
     docker:
       - image: circleci/buildpack-deps
     steps:
@@ -49,4 +49,4 @@ workflows:
           filters:
             branches:
               only:
-                - cr-tests2
+                - master
