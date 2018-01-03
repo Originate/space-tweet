@@ -22,13 +22,13 @@ Feature: Creating multiple entries
     When sending the message "create many tweets" with the payload:
       """
       [
-        * content: 'Monday'
-        * content: 'Tuesday'
+        {"content": "Monday"},
+        {"content": "Tuesday"}
       ]
       """
     Then the service replies with "tweets created" and the payload:
       """
-      count: 2
+      {"count": 2}
       """
     And the service contains the entries:
       | CONTENT |
@@ -40,12 +40,12 @@ Feature: Creating multiple entries
     When sending the message "create many tweets" with the payload:
       """
       [
-        * content: 'Monday'
-        * content: ''
+        {"content": "Monday"},
+        {"content": ""}
       ]
       """
     Then the service replies with "tweets not created" and the payload:
       """
-      error: 'Content cannot be blank'
+      {"error": "Content cannot be blank"}
       """
     And the service contains no entries

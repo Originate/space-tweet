@@ -25,7 +25,6 @@
     "eslint-plugin-prettier": "^2.4.0",
     "exocom-mock": "0.26.4",
     "js-yaml": "^3.10.0",
-    "livescript": "1.5.0",
     "lowercase-keys": "1.0.0",
     "observable-process": "^4.0.0",
     "port-reservation": "0.3.2",

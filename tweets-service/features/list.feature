@@ -16,12 +16,14 @@ Feature: Listing all entries
   Scenario: no entries exist in the database
     When sending the message "list tweets" with the payload:
       """
-      owner_id: 1
+      {"owner_id": 1}
       """
     Then the service replies with "tweets listed" and the payload:
       """
-      count: 0
-      entries: []
+      {
+        "count": 0,
+        "entries": []
+      }
       """
 
 
@@ -33,19 +35,24 @@ Feature: Listing all entries
       | 2        | Entry from another user |
     When sending the message "list tweets" with the payload:
       """
-      owner_id: 1
+      {"owner_id": 1}
       """
     Then the service replies with "tweets listed" and the payload:
       """
-      count: 2
-      entries: [
-        * content: 'Hello world!'
-          id: /\d+/
-          owner_id: "1"
-        * content: 'Hello again!'
-          id: /\d+/
-          owner_id: "1"
-      ]
+      {
+        "count": 2,
+        "entries": [
+          {
+            "content": "Hello world!",
+            "id": "<generated>",
+            "owner_id": "1"
+          }, {
+            "content": "Hello again!",
+            "id": "<generated>",
+            "owner_id": "1"
+          }
+        ]
+      }
       """
 
 
@@ -58,16 +65,22 @@ Feature: Listing all entries
     When sending the message "list tweets"
     Then the service replies with "tweets listed" and the payload:
       """
-      count: 3
-      entries: [
-        * content: 'Hello world!'
-          id: /\d+/
-          owner_id: '1'
-        * content: 'Hello again!'
-          id: /\d+/
-          owner_id: '1'
-        * content: 'Entry from another user'
-          id: /\d+/
-          owner_id: '2'
-      ]
+      {
+        "count": 3,
+        "entries": [
+          {
+            "content": "Hello world!",
+            "id": "<generated>",
+            "owner_id": "1"
+          }, {
+            "content": "Hello again!",
+            "id": "<generated>",
+            "owner_id": "1"
+          }, {
+            "content": "Entry from another user",
+            "id": "<generated>",
+            "owner_id": "2"
+          }
+        ]
+      }
       """
