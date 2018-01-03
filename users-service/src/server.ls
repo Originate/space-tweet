@@ -135,11 +135,10 @@ function mongo-to-ids entries
 
 
 function get-mongo-address
-  return "mongodb://#{process.env.MONGO}/space-tweet-users-dev" if process.env.MONGO
-  switch env
-    | \prod =>
-      process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
-      process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
-      "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mlabs-endpoint}/space-tweet-tweets-prod"
+  return "mongodb://#{process.env.MONGO_HOST}/space-tweet-users-#{process.env.NODE_ENV || 'dev'}" if process.env.MONGO_HOST
+  process.env.MONGODB_USER ? throw new Error "MONGODB_USER not provided"
+  process.env.MONGODB_PW ? throw new Error "MONGODB_PW not provided"
+  "mongodb://#{process.env.MONGODB_USER}:#{process.env.MONGODB_PW}@#{mlabs-endpoint}/space-tweet-users-prod"
+
 
 bootstrap module.exports

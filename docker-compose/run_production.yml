@@ -23,8 +23,6 @@ services:
       COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
-      MONGODB_PW: ${MONGODB_PW}
-      MONGODB_USER: ${MONGODB_USER}
       ROLE: exosphere-tweets-service
       SPACE_TWEET_WEB_SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
       SPACE_TWEET_WEB_SERVICE_INTERNAL_ORIGIN: http://space-tweet-web-service:3000
@@ -40,8 +38,6 @@ services:
       COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
-      MONGODB_PW: ${MONGODB_PW}
-      MONGODB_USER: ${MONGODB_USER}
       ROLE: exosphere-users-service
       SPACE_TWEET_WEB_SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
       SPACE_TWEET_WEB_SERVICE_INTERNAL_ORIGIN: http://space-tweet-web-service:3000
@@ -51,6 +47,8 @@ services:
     restart: on-failure
   mongo:
     image: mongo:3.4.0
+    volumes:
+    - mongo__data_db:/data/db
     environment:
       DB_NAME: test-db
       SERVICE_DATA: '{"exosphere-tweets-service":{},"exosphere-users-service":{},"space-tweet-web-service":{}}'
@@ -70,4 +68,5 @@ services:
     - exocom
     - mongo
     restart: on-failure
-volumes: {}
+volumes:
+  mongo__data_db: null

@@ -1,5 +1,6 @@
 require! {
   'eco'
+  'cucumber': {setWorldConstructor}
 }
 
 
@@ -29,5 +30,4 @@ World = !->
 
 
 
-module.exports = ->
-  @World = World
+setWorldConstructor World

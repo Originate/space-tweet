@@ -1,8 +1,10 @@
-FROM nodesource/node
+FROM node:8.6.0
 
-# These steps ensure that npm install is only run when package.json changes
-COPY ./package.json .
-RUN npm install --production
+COPY package.json .
+COPY yarn.lock .
+RUN yarn --production
+ENV PATH="/node_modules/.bin:${PATH}"
+
 COPY . .
 
-CMD node_modules/.bin/lsc app
+CMD ["lsc", "app"]
