@@ -19,7 +19,7 @@ services:
     build:
       context: ${APP_PATH}/tweets-service
       dockerfile: Dockerfile.dev
-    command: lsc src/server.ls
+    command: node src/server.js
     volumes:
     - ${APP_PATH}/tweets-service:/mnt
     environment:

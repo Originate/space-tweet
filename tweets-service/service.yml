@@ -21,7 +21,7 @@ dependency-data:
 
 development:
   scripts:
-    run: lsc src/server.ls
+    run: node src/server.js
     test: /node_modules/.bin/cucumber-js
 
 remote:

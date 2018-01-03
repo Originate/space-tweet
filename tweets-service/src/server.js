@@ -25,7 +25,7 @@ const mongoToId = function(entry) {
   const result = { ...entry }
   result.id = result._id
   delete result._id
-  return entry
+  return result
 }
 
 const mongoToIds = function(entries) {
