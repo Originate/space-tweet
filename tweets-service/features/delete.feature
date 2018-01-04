@@ -38,10 +38,7 @@ Feature: Deleting an entry
       """
       {"id": "zonk"}
       """
-    Then the service replies with "tweet not found" and the payload:
-      """
-      {"id": "zonk"}
-      """
+    Then the service replies with "tweet not found"
     And the service now contains the entries:
       | CONTENT   | OWNER_ID |
       | Monday    | 1        |

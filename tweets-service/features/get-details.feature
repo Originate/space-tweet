@@ -47,10 +47,7 @@ Feature: Get details for an entry
       """
       {"id": "zonk"}
       """
-    Then the service replies with "tweet not found" and the payload:
-      """
-      {"id": "zonk"}
-      """
+    Then the service replies with "tweet not found"
 
 
   Scenario: locating a non-existing entry by content
@@ -58,7 +55,4 @@ Feature: Get details for an entry
       """
       {"content": "zonk"}
       """
-    Then the service replies with "tweet not found" and the payload:
-      """
-      {"content": "zonk"}
-      """
+    Then the service replies with "tweet not found"
