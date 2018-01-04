@@ -28,6 +28,10 @@ development:
 remote:
   cpu: 100
   memory: 500
-  secrets:
-    - MONGODB_USER
-    - MONGODB_PW
+  environments:
+    production:
+      environment-variables:
+        INTERNAL_HOSTED_ZONE_NAME: space-tweet.local
+      secrets:
+        - MONGODB_USER
+        - MONGODB_PW

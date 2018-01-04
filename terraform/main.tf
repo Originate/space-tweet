@@ -34,7 +34,7 @@ variable "key_name" {
 }
 
 module "aws" {
-  source = "github.com/Originate/exosphere.git//terraform//aws?ref=30894145"
+  source = "github.com/Originate/exosphere.git//terraform//aws?ref=dbfc5308"
 
   name              = "space-tweet"
   env               = "${var.env}"
@@ -50,7 +50,7 @@ variable "exosphere-tweets-service_env_vars" {
 variable "exosphere-tweets-service_docker_image" {}
 
 module "exosphere-tweets-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=30894145"
+  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=dbfc5308"
 
   name = "exosphere-tweets-service"
 
@@ -71,7 +71,7 @@ variable "exosphere-users-service_env_vars" {
 variable "exosphere-users-service_docker_image" {}
 
 module "exosphere-users-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=30894145"
+  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=dbfc5308"
 
   name = "exosphere-users-service"
 
@@ -94,7 +94,7 @@ variable "space-tweet-web-service_docker_image" {}
 variable "space-tweet-web-service_url" {}
 
 module "space-tweet-web-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//public-service?ref=30894145"
+  source = "github.com/Originate/exosphere.git//terraform//aws//public-service?ref=dbfc5308"
 
   name = "space-tweet-web-service"
 
@@ -121,7 +121,7 @@ module "space-tweet-web-service" {
 }
 
 module "exocom_cluster" {
-  source = "github.com/Originate/exosphere.git//remote-dependency-templates//exocom//modules//exocom-cluster?ref=30894145"
+  source = "github.com/Originate/exosphere.git//remote-dependency-templates//exocom//modules//exocom-cluster?ref=dbfc5308"
 
   availability_zones      = "${module.aws.availability_zones}"
   env                     = "${var.env}"
@@ -146,7 +146,7 @@ variable "exocom_env_vars" {
 }
 
 module "exocom_service" {
-  source = "github.com/Originate/exosphere.git//remote-dependency-templates//exocom//modules//exocom-service?ref=30894145"
+  source = "github.com/Originate/exosphere.git//remote-dependency-templates//exocom//modules//exocom-service?ref=dbfc5308"
 
   cluster_id            = "${module.exocom_cluster.cluster_id}"
   cpu_units             = "128"
