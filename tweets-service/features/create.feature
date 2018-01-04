@@ -16,14 +16,18 @@ Feature: Creating entries
   Scenario: creating a valid entry
     When sending the message "create tweet" with the payload:
       """
-      owner_id: '1'
-      content: 'Hello world'
+      {
+        "owner_id": "1",
+        "content": "Hello world"
+      }
       """
     Then the service replies with "tweet created" and the payload:
       """
-      id: /\d+/
-      owner_id: '1'
-      content: 'Hello world'
+      {
+        "id": "<generated>",
+        "owner_id": "1",
+        "content": "Hello world"
+      }
       """
     And the service now contains the entries:
       | CONTENT     | OWNER_ID |
@@ -33,11 +37,13 @@ Feature: Creating entries
   Scenario: trying to create an entry with empty content
     When sending the message "create tweet" with the payload:
       """
-      owner_id: '1'
-      content: ''
+      {
+        "owner_id": "1",
+        "content": ""
+      }
       """
     Then the service replies with "tweet not created" and the payload:
       """
-      error: 'Content cannot be blank'
+      {"error": "Content cannot be blank"}
       """
     And the service contains no entries

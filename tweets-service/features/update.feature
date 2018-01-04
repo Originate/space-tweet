@@ -17,14 +17,18 @@ Feature: Updating an entry
   Scenario: updating an existing entry
     When sending the message "update tweet" with the payload:
       """
-      id: '<%= @id_of 'Tuesday' %>'
-      content: 'Dienstag'
+      {
+        "id": "<%= @id_of 'Tuesday' %>",
+        "content": "Dienstag"
+      }
       """
     Then the service replies with "tweet updated" and the payload:
       """
-      id: /.+/
-      content: 'Dienstag'
-      owner_id: '1'
+      {
+        "id": "<generated>",
+        "content": "Dienstag",
+        "owner_id": "1"
+      }
       """
     And the service now contains the entries:
       | CONTENT   | OWNER_ID |
@@ -36,12 +40,16 @@ Feature: Updating an entry
   Scenario: trying to update a non-existing entry
     When sending the message "update tweet" with the payload:
       """
-      id: 'zonk'
-      content: 'feel the zonk'
+      {
+        "id": "zonk",
+        "content": "feel the zonk"
+      }
       """
     Then the service replies with "tweet not found" and the payload:
       """
-      id: 'zonk'
+      {
+        "id": "zonk"
+      }
       """
     And the service now contains the entries:
       | CONTENT   | OWNER_ID |

@@ -17,13 +17,15 @@ Feature: Deleting an entry
   Scenario: deleting an existing entry
     When sending the message "delete tweet" with the payload:
       """
-      id: '<%= @id_of 'Tuesday' %>'
+      {"id": "<%= @id_of 'Tuesday' %>"}
       """
     Then the service replies with "tweet deleted" and the payload:
       """
-      id: /.+/
-      content: 'Tuesday'
-      owner_id: '1'
+      {
+        "id": "<generated>",
+        "owner_id": "1",
+        "content": "Tuesday"
+      }
       """
     And the service now contains the entries:
       | CONTENT   | OWNER_ID |
@@ -34,11 +36,11 @@ Feature: Deleting an entry
   Scenario: trying to delete a non-existing entry
     When sending the message "delete tweet" with the payload:
       """
-      id: 'zonk'
+      {"id": "zonk"}
       """
     Then the service replies with "tweet not found" and the payload:
       """
-      id: 'zonk'
+      {"id": "zonk"}
       """
     And the service now contains the entries:
       | CONTENT   | OWNER_ID |
