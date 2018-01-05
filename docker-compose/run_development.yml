@@ -3,53 +3,16 @@ services:
   exocom:
     image: originate/exocom:0.27.0
     environment:
-      SERVICE_DATA: '{"exosphere-tweets-service":{"receives":["create tweet","list
-        tweets","get tweet details","update tweet","delete tweet"],"sends":["tweet
-        created","tweets listed","tweet details","tweet not found","tweet updated","tweet
-        deleted","tweet not created"]},"exosphere-users-service":{"receives":["create
-        user","list users","get user details","update user","delete user"],"sends":["user
-        created","users listed","user details","user not found","user updated","user
-        deleted","user not created"]},"space-tweet-web-service":{"receives":["user
-        details","user not found","user updated","user deleted","users listed","user
-        created","tweets listed","tweet created","tweet deleted"],"sends":["get user
-        details","delete user","update user","list users","create user","list tweets","create
-        tweet","delete tweet"]}}'
-    restart: on-failure
-  exosphere-tweets-service:
-    build:
-      context: ${APP_PATH}/tweets-service
-      dockerfile: Dockerfile.dev
-    command: node src/server.js
-    volumes:
-    - ${APP_PATH}/tweets-service:/mnt
-    environment:
-      COLLECTION_NAME: test-collection
-      EXOCOM_HOST: exocom
-      MONGO_HOST: mongo
-      ROLE: exosphere-tweets-service
-      SPACE_TWEET_WEB_SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
-      SPACE_TWEET_WEB_SERVICE_INTERNAL_ORIGIN: http://space-tweet-web-service:3000
-    depends_on:
-    - exocom
-    - mongo
-    restart: on-failure
-  exosphere-users-service:
-    build:
-      context: ${APP_PATH}/users-service
-      dockerfile: Dockerfile.dev
-    command: lsc src/server.ls
-    volumes:
-    - ${APP_PATH}/users-service:/mnt
-    environment:
-      COLLECTION_NAME: test-collection
-      EXOCOM_HOST: exocom
-      MONGO_HOST: mongo
-      ROLE: exosphere-users-service
-      SPACE_TWEET_WEB_SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
-      SPACE_TWEET_WEB_SERVICE_INTERNAL_ORIGIN: http://space-tweet-web-service:3000
-    depends_on:
-    - exocom
-    - mongo
+      SERVICE_DATA: '{"space-tweet-web-service":{"receives":["user details","user
+        not found","user updated","user deleted","users listed","user created","tweets
+        listed","tweet created","tweet deleted"],"sends":["get user details","delete
+        user","update user","list users","create user","list tweets","create tweet","delete
+        tweet"]},"storage-service":{"receives":["create tweet","create user","delete
+        tweet","delete user","get tweet details","get user details","list tweets","list
+        users","update tweet","update user"],"sends":["tweet created","tweet deleted","tweet
+        details","tweet not created","tweet not found","tweet updated","tweets listed","user
+        created","user deleted","user details","user not created","user not found","user
+        updated","users listed"]}}'
     restart: on-failure
   mongo:
     image: mongo:3.4.0
@@ -57,7 +20,7 @@ services:
     - mongo__data_db:/data/db
     environment:
       DB_NAME: test-db
-      SERVICE_DATA: '{"exosphere-tweets-service":{},"exosphere-users-service":{},"space-tweet-web-service":{}}'
+      SERVICE_DATA: '{"space-tweet-web-service":{},"storage-service":{}}'
     restart: on-failure
   space-tweet-web-service:
     build:
@@ -73,6 +36,24 @@ services:
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: space-tweet-web-service
+    depends_on:
+    - exocom
+    - mongo
+    restart: on-failure
+  storage-service:
+    build:
+      context: ${APP_PATH}/storage-service
+      dockerfile: Dockerfile.dev
+    command: node src/server.js
+    volumes:
+    - ${APP_PATH}/storage-service:/mnt
+    environment:
+      COLLECTION_NAME: test-collection
+      EXOCOM_HOST: exocom
+      MONGO_HOST: mongo
+      ROLE: storage-service
+      SPACE_TWEET_WEB_SERVICE_EXTERNAL_ORIGIN: http://localhost:3000
+      SPACE_TWEET_WEB_SERVICE_INTERNAL_ORIGIN: http://space-tweet-web-service:3000
     depends_on:
     - exocom
     - mongo

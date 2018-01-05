@@ -43,48 +43,6 @@ module "aws" {
   log_bucket_prefix = "${var.aws_account_id}-space-tweet-${var.env}"
 }
 
-variable "exosphere-tweets-service_env_vars" {
-  default = "[]"
-}
-
-variable "exosphere-tweets-service_docker_image" {}
-
-module "exosphere-tweets-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=30894145"
-
-  name = "exosphere-tweets-service"
-
-  cluster_id            = "${module.aws.ecs_cluster_id}"
-  cpu                   = "100"
-  desired_count         = 1
-  docker_image          = "${var.exosphere-tweets-service_docker_image}"
-  env                   = "${var.env}"
-  environment_variables = "${var.exosphere-tweets-service_env_vars}"
-  memory_reservation    = "500"
-  region                = "${module.aws.region}"
-}
-
-variable "exosphere-users-service_env_vars" {
-  default = "[]"
-}
-
-variable "exosphere-users-service_docker_image" {}
-
-module "exosphere-users-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=30894145"
-
-  name = "exosphere-users-service"
-
-  cluster_id            = "${module.aws.ecs_cluster_id}"
-  cpu                   = "100"
-  desired_count         = 1
-  docker_image          = "${var.exosphere-users-service_docker_image}"
-  env                   = "${var.env}"
-  environment_variables = "${var.exosphere-users-service_env_vars}"
-  memory_reservation    = "500"
-  region                = "${module.aws.region}"
-}
-
 variable "space-tweet-web-service_env_vars" {
   default = "[]"
 }
@@ -118,6 +76,27 @@ module "space-tweet-web-service" {
   region                = "${module.aws.region}"
   ssl_certificate_arn   = "${var.aws_ssl_certificate_arn}"
   vpc_id                = "${module.aws.vpc_id}"
+}
+
+variable "storage-service_env_vars" {
+  default = "[]"
+}
+
+variable "storage-service_docker_image" {}
+
+module "storage-service" {
+  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=30894145"
+
+  name = "storage-service"
+
+  cluster_id            = "${module.aws.ecs_cluster_id}"
+  cpu                   = "100"
+  desired_count         = 1
+  docker_image          = "${var.storage-service_docker_image}"
+  env                   = "${var.env}"
+  environment_variables = "${var.storage-service_env_vars}"
+  memory_reservation    = "500"
+  region                = "${module.aws.region}"
 }
 
 module "exocom_cluster" {
