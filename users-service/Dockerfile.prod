@@ -1,0 +1,10 @@
+FROM node:8.6.0
+
+COPY package.json .
+COPY yarn.lock .
+RUN yarn --production
+ENV PATH="/node_modules/.bin:${PATH}"
+
+COPY . .
+
+CMD ["lsc", "src/server.ls"]

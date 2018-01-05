@@ -34,5 +34,7 @@ remote:
 services:
   space-tweet-web-service:
     location: ./web-server
-  storage-service:
-    location: ./storage-service
+  exosphere-users-service:
+    location: ./users-service
+  exosphere-tweets-service:
+    location: ./tweets-service
