@@ -21,7 +21,6 @@ services:
       dockerfile: Dockerfile.dev
     command: /node_modules/.bin/cucumber-js
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: exosphere-tweets-service
@@ -34,7 +33,6 @@ services:
       dockerfile: Dockerfile.dev
     command: /node_modules/.bin/cucumber-js
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: exosphere-users-service
@@ -43,10 +41,7 @@ services:
     - mongo
   mongo:
     image: mongo:3.4.0
-    volumes:
-    - mongo__data_db:/data/db
     environment:
-      DB_NAME: test-db
       SERVICE_DATA: '{"exosphere-tweets-service":{},"exosphere-users-service":{},"space-tweet-web-service":{}}'
     restart: on-failure
   space-tweet-web-service:
@@ -54,12 +49,10 @@ services:
       context: ${APP_PATH}/web-server
       dockerfile: Dockerfile.dev
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: space-tweet-web-service
     depends_on:
     - exocom
     - mongo
-volumes:
-  mongo__data_db: null
+volumes: {}

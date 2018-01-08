@@ -23,7 +23,6 @@ services:
     volumes:
     - ${APP_PATH}/tweets-service:/mnt
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: exosphere-tweets-service
@@ -41,7 +40,6 @@ services:
     volumes:
     - ${APP_PATH}/users-service:/mnt
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: exosphere-users-service
@@ -53,10 +51,7 @@ services:
     restart: on-failure
   mongo:
     image: mongo:3.4.0
-    volumes:
-    - mongo__data_db:/data/db
     environment:
-      DB_NAME: test-db
       SERVICE_DATA: '{"exosphere-tweets-service":{},"exosphere-users-service":{},"space-tweet-web-service":{}}'
     restart: on-failure
   space-tweet-web-service:
@@ -69,7 +64,6 @@ services:
     volumes:
     - ${APP_PATH}/web-server:/mnt
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: space-tweet-web-service
@@ -77,5 +71,4 @@ services:
     - exocom
     - mongo
     restart: on-failure
-volumes:
-  mongo__data_db: null
+volumes: {}

@@ -31,7 +31,7 @@ remote:
   environments:
     production:
       environment-variables:
-        INTERNAL_HOSTED_ZONE_NAME: space-tweet.local
+        INTERNAL_HOSTED_ZONE_NAME: production-space-tweet.local
       secrets:
         - MONGODB_USER
         - MONGODB_PW
