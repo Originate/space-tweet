@@ -7,4 +7,4 @@ ENV PATH="/node_modules/.bin:${PATH}"
 
 COPY . .
 
-CMD ["lsc", "src/server.ls"]
+CMD ["bin/start"]

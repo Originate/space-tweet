@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+
+update-route53 $ROLE $INTERNAL_HOSTED_ZONE_NAME
+lsc src/server.ls
