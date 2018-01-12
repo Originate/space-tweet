@@ -9,8 +9,8 @@ class UsersController
 
 
   index: (req, res) ->
-    @send 'list users', null, (message-name, users) ->
-      res.render 'users/index', users
+    @send 'list users', null, (message-name, data) ->
+      res.render 'users/index', users: data.entries
 
 
   new: (req, res) ->
