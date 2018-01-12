@@ -44,8 +44,5 @@ Feature: Creating multiple entries
         {"content": ""}
       ]
       """
-    Then the service replies with "tweets not created" and the payload:
-      """
-      {"error": "Content cannot be blank"}
-      """
+    Then the service replies with "tweets not created"
     And the service contains no entries

@@ -92,6 +92,14 @@ Then(/^the service now contains the entries:$/, function(table, done) {
   })
 })
 
+Then(/^the service replies with "([^"]*)"$/, function(message, done) {
+  this.exocom.onReceive(() => {
+    const actualName = this.exocom.receivedMessages[0].name
+    expect(actualName).to.eql(message)
+    done()
+  })
+})
+
 Then(/^the service replies with "([^"]*)" and the payload:$/, function(
   message,
   payloadStr,
@@ -99,8 +107,9 @@ Then(/^the service replies with "([^"]*)" and the payload:$/, function(
 ) {
   const expectedPayload = JSON.parse(payloadStr)
   this.exocom.onReceive(() => {
-    const actualPayload = this.exocom.receivedMessages[0].payload
-    expect(this.removeIds(actualPayload)).to.eql(
+    const receivedMessage = this.exocom.receivedMessages[0]
+    expect(receivedMessage.name).to.eql(message)
+    expect(this.removeIds(receivedMessage.payload)).to.eql(
       this.removeIds(expectedPayload)
     )
     done()
