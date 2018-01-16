@@ -1,5 +1,0 @@
-before-all: ""
-after-all: ""
-always: ""
-never: "documentation"
-color: true
