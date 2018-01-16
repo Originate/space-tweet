@@ -1,6 +1,4 @@
 name: space-tweet
-description: an example for an ExoSphere application
-version: 0.0.1
 
 local:
   dependencies:
@@ -8,13 +6,10 @@ local:
       image: originate/exocom:0.27.0
     mongo:
       image: mongo:3.4.0
-      config:
-        persist:
-          - '/data/db'
-        dependency-environment:
-          DB_NAME: 'test-db'
-        service-environment:
-          COLLECTION_NAME: 'test-collection'
+      persist:
+        - '/data/db'
+      environment-variables:
+        DB_NAME: 'test-db'
 
 remote:
   dependencies:
@@ -28,7 +23,7 @@ remote:
       region: us-west-2
       account-id: 518695917306
       ssl-certificate-arn: arn:aws:acm:us-west-2:518695917306:certificate/c9a6be72-c6a3-4551-8e5b-53f5cfd89199
-      environment:
+      environment-variables:
         EXOCOM_HOST: exocom.space-tweet.local
 
 services:

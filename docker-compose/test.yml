@@ -27,7 +27,6 @@ services:
       context: ${APP_PATH}/web-server
       dockerfile: Dockerfile.dev
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: space-tweet-web-service
@@ -40,7 +39,6 @@ services:
       dockerfile: Dockerfile.dev
     command: /node_modules/.bin/cucumber-js --fail-fast
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: storage-service

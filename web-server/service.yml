@@ -1,11 +1,4 @@
 type: public
-description: Serves the web UI of SpaceTweet
-author: originate
-
-
-startup:
-  online-text: all systems go
-
 
 dependency-data:
   exocom:
@@ -32,7 +25,7 @@ dependency-data:
 development:
   port: 3000
   scripts:
-    run: node_modules/.bin/lsc app
+    run: lsc app
 
 production:
   port: 3000

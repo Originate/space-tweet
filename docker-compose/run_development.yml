@@ -26,13 +26,12 @@ services:
     build:
       context: ${APP_PATH}/web-server
       dockerfile: Dockerfile.dev
-    command: node_modules/.bin/lsc app
+    command: lsc app
     ports:
     - 3000:3000
     volumes:
     - ${APP_PATH}/web-server:/mnt
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: space-tweet-web-service
@@ -48,7 +47,6 @@ services:
     volumes:
     - ${APP_PATH}/storage-service:/mnt
     environment:
-      COLLECTION_NAME: test-collection
       EXOCOM_HOST: exocom
       MONGO_HOST: mongo
       ROLE: storage-service
