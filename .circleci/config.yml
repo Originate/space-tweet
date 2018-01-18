@@ -3,7 +3,7 @@ SHARED:
   run:
     name: install exosphere
     command: |
-      curl --output exo --location --fail https://github.com/Originate/exosphere/releases/download/v0.36.0/exo-linux-amd64
+      curl --output exo --location --fail https://github.com/Originate/exosphere/releases/download/v0.36.1/exo-linux-amd64
       chmod +x exo
       sudo mv exo /usr/local/bin/
 
