@@ -48,7 +48,7 @@ variable "space-tweet-web-service_docker_image" {}
 variable "space-tweet-web-service_url" {}
 
 module "space-tweet-web-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//public-service?ref=89c45cc0"
+  source = "github.com/Originate/exosphere.git//terraform//aws//public-service?ref=fc9af4a1"
 
   name = "space-tweet-web-service"
 
@@ -81,7 +81,7 @@ variable "storage-service_env_vars" {
 variable "storage-service_docker_image" {}
 
 module "storage-service" {
-  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=89c45cc0"
+  source = "github.com/Originate/exosphere.git//terraform//aws//worker-service?ref=fc9af4a1"
 
   name = "storage-service"
 

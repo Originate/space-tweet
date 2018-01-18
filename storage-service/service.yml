@@ -37,6 +37,8 @@ development:
 remote:
   cpu: 100
   memory: 500
-  secrets:
-    - MONGODB_USER
-    - MONGODB_PW
+  environments:
+    production:
+      secrets:
+        - MONGODB_USER
+        - MONGODB_PW`

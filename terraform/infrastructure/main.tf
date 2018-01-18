@@ -34,7 +34,7 @@ variable "key_name" {
 }
 
 module "aws" {
-  source = "github.com/Originate/exosphere.git//terraform//aws?ref=89c45cc0"
+  source = "github.com/Originate/exosphere.git//terraform//aws?ref=fc9af4a1"
 
   name              = "space-tweet"
   env               = "${var.env}"
@@ -113,7 +113,7 @@ output "vpc_id" {
 }
 
 module "exocom_cluster" {
-  source = "github.com/Originate/exosphere.git//remote-dependency-templates//exocom//modules//exocom-cluster?ref=89c45cc0"
+  source = "github.com/Originate/exosphere.git//remote-dependency-templates//exocom//modules//exocom-cluster?ref=fc9af4a1"
 
   availability_zones      = "${module.aws.availability_zones}"
   env                     = "${var.env}"
@@ -138,7 +138,7 @@ variable "exocom_env_vars" {
 }
 
 module "exocom_service" {
-  source = "github.com/Originate/exosphere.git//remote-dependency-templates//exocom//modules//exocom-service?ref=89c45cc0"
+  source = "github.com/Originate/exosphere.git//remote-dependency-templates//exocom//modules//exocom-service?ref=fc9af4a1"
 
   cluster_id            = "${module.exocom_cluster.cluster_id}"
   cpu_units             = "128"
