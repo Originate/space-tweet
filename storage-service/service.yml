@@ -41,4 +41,4 @@ remote:
     production:
       secrets:
         - MONGODB_USER
-        - MONGODB_PW`
+        - MONGODB_PW
