@@ -24,7 +24,7 @@ remote:
       account-id: 518695917306
       ssl-certificate-arn: arn:aws:acm:us-west-2:518695917306:certificate/c9a6be72-c6a3-4551-8e5b-53f5cfd89199
       environment-variables:
-        EXOCOM_HOST: exocom.space-tweet.local
+        EXOCOM_HOST: exocom.production-space-tweet.local
 
 services:
   space-tweet-web-service:
