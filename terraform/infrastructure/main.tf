@@ -16,7 +16,7 @@ terraform {
   required_version = "= 0.11.0"
 
   backend "s3" {
-    key            = "infrastructure.tfstate"
+    key            = "${var.aws_account_id}-spacetweet-${var.env}/infrastructure.tfstate"
     dynamodb_table = "TerraformLocks"
   }
 }
@@ -36,11 +36,11 @@ variable "key_name" {
 module "aws" {
   source = "github.com/Originate/exosphere.git//terraform//aws?ref=fc9af4a1"
 
-  name              = "space-tweet"
+  name              = "spacetweet"
   env               = "${var.env}"
   external_dns_name = "${var.application_url}"
   key_name          = "${var.key_name}"
-  log_bucket_prefix = "${var.aws_account_id}-space-tweet-${var.env}"
+  log_bucket_prefix = "${var.aws_account_id}-spacetweet-${var.env}"
 }
 
 output "availability_zones" {

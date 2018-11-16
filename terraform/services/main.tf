@@ -16,7 +16,7 @@ terraform {
   required_version = "= 0.11.0"
 
   backend "s3" {
-    key            = "services.tfstate"
+    key            = "${var.aws_account_id}-spacetweet-${var.env}/services.tfstate"
     dynamodb_table = "TerraformLocks"
   }
 }
@@ -32,7 +32,7 @@ provider "aws" {
 data "terraform_remote_state" "main_infrastructure" {
   backend = "s3"
   config {
-    key            = "${var.aws_account_id}-space-tweet-${var.env}-terraform/infrastructure.tfstate"
+    key            = "${var.aws_account_id}-spacetweet-${var.env}-terraform/infrastructure.tfstate"
     dynamodb_table = "TerraformLocks"
     region         = "${var.aws_region}"
     profile        = "${var.aws_profile}"
