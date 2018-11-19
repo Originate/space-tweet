@@ -16,7 +16,7 @@ terraform {
   required_version = "= 0.11.10"
 
   backend "s3" {
-    key            = "${var.aws_account_id}-space-tweet-${var.env}/services.tfstate"
+    key            = "services.tfstate"
     dynamodb_table = "TerraformLocks"
   }
 }
