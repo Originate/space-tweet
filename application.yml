@@ -22,7 +22,7 @@ remote:
       url: spacetweet.originate.com
       region: us-west-2
       account-id: 653673351586
-      ssl-certificate-arn: 	arn:aws:acm:us-west-2:653673351586:certificate/744b5913-9a40-4bc4-94b6-cc9adf8f7e96
+      ssl-certificate-arn: arn:aws:acm:us-west-2:653673351586:certificate/744b5913-9a40-4bc4-94b6-cc9adf8f7e96
       environment-variables:
         EXOCOM_HOST: exocom.production-space-tweet.local
 
