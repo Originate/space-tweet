@@ -1,4 +1,4 @@
-name: spacetweet
+name: space-tweet
 
 local:
   dependencies:
@@ -21,8 +21,8 @@ remote:
     production:
       url: spacetweet.originate.com
       region: us-west-2
-      account-id: 518695917306
-      ssl-certificate-arn: 	arn:aws:acm:us-east-2:518695917306:certificate/b613b539-e673-41bc-9c4c-bb27cfcc2195
+      account-id: 653673351586
+      ssl-certificate-arn: 	arn:aws:acm:us-west-2:653673351586:certificate/744b5913-9a40-4bc4-94b6-cc9adf8f7e96
       environment-variables:
         EXOCOM_HOST: exocom.production-space-tweet.local
 
